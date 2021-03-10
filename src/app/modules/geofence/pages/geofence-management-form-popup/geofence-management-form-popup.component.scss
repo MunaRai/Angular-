@@ -1,0 +1,28 @@
+$size: calc(100vh - 226px);
+.geofence-form {
+  height: $size;
+  ::ng-deep .map{
+    height: $size;
+    .gm-style {
+      > div {
+        cursor: crosshair !important;
+      }
+    }
+  }
+}
+
+.map-section {
+  position: relative;
+  z-index: 1052;
+  &__input-container {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    input {
+      box-shadow: 0px 0px 6px 1px rgba(black, .2);
+    }
+    button {
+      box-shadow: 0px 0px 6px 1px rgba(black, .2);
+    }
+  }
+}

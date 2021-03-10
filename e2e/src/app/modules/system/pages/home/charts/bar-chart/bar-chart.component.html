@@ -1,0 +1,46 @@
+<ngb-accordion activeIds="tracker-chart"
+               class="p2s-accordion card-stretch col-12 p-0 align-items-stretch"
+               (panelChange)="isPanelOpen = !isPanelOpen"
+               [class.d-flex]="isPanelOpen">
+  <ngb-panel id="tracker-chart">
+
+    <!-- title -->
+    <ng-template ngbPanelTitle>
+      <div class="d-flex align-items-center">
+        Tracker Chart
+        <div class="ml-auto">
+          <i class="fa fa-chevron-right"></i>
+        </div>
+      </div>
+    </ng-template>
+    <!-- / title -->
+
+    <!-- content -->
+    <ng-template ngbPanelContent>
+      <div class="tracker-chart__content pos-r">
+        <div class="row">
+          <div class="col-10">
+            <google-chart [data]="chartData"></google-chart>
+            <!-- <div class="tracker-chart__no-data d-flex align-items-center justify-content-center"
+                  *ngIf="noData">No Data Available</div> -->
+          </div>
+
+          <div class="col-1">
+            <select 
+                name="currentYear" 
+                id="currentYear" 
+                [(ngModel)]="currentYear" 
+                (change)="fetchChartData(currentYear)">
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+            </select>
+          </div>
+          <div class="tracker-chart__no-data d-flex align-items-center justify-content-center"
+                  *ngIf="noData">No Data Available</div>
+        </div>
+        
+      </div>
+    </ng-template>
+    <!-- / content -->
+  </ngb-panel>
+</ngb-accordion>

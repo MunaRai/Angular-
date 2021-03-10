@@ -1,0 +1,22 @@
+<p2s-user-form-popup 
+    [title]="'UnAssign Tracker'"
+    (save)="save()"
+    (cancel)="dismiss()">
+  
+  <div [formGroup]="distributorForm">
+    <div
+      class="my-3 text-center"
+      *ngIf="!trackers">
+    <p2s-spinner></p2s-spinner>
+    </div>
+
+    <p2s-list-selector
+      *ngIf="trackers"
+      codeProp="trackerImeiNumber"
+      [collection]="trackers"
+      [selection]="tempTrackerIds"
+      (change)="distributor.trackerId = $event"
+      label="Select Trackers">
+    </p2s-list-selector>  
+  </div>
+</p2s-user-form-popup>    

@@ -1,0 +1,205 @@
+<!-- search section -->
+<div class="row d-flex align-items-end">
+  <div class="col-3">
+    <p2s-form-group
+        [label]="'Search ' + label"
+        [for]="'cmSearch' + label">
+      <div class="d-flex align-items-start">
+        <div class="col pl-0">
+          <input
+              class="form-control col"
+              [id]="'cmSearch' + label"
+              [(ngModel)]="searchTerm"
+              [disabled]="selectedClientMaster">
+        </div>
+        <!-- search button -->
+        <button
+            class="btn btn-primary"
+            (click)="searchClientMasters()"
+            [disabled]="!searchTerm"
+            *ngIf="!selectedClientMaster">
+          <i class="fas fa-search"></i>
+        </button>
+        <!-- / search button -->
+
+        <!-- cancel button -->
+        <button
+            class="btn btn-danger"
+            (click)="onCancel()"
+            *ngIf="selectedClientMaster">
+          <i class="fas fa-times"></i>
+        </button>
+        <!-- / cancel button -->
+      </div>
+    </p2s-form-group>
+  </div>
+  <div class="col-6 pl-0">
+    <div class="text-muted mb-3">
+      <span *ngIf="!selectedClientMaster; else selectedLabel">Search for {{label}} by ID, name or address</span>
+    </div>
+    <ng-template #selectedLabel>
+      click the <i class="fas fa-times-circle text-danger"></i>  to cancel the selection and search again.
+    </ng-template>
+  </div>
+</div>
+<!-- / search section -->
+
+<!-- client master search result -->
+<div
+    class="row"
+    *ngIf="isSearching">
+  <div
+      class="col-6 my-4 d-flex justify-content-center"
+      *ngIf="isClientMasterLoading; else cmSelection">
+    <p2s-spinner></p2s-spinner>
+  </div>
+  <ng-template #cmSelection>
+    <div class="my-3 col-12">
+      <p2s-tip [message]="'Double click to select the ' + label"></p2s-tip>
+    </div>
+    <div class="col-12">
+      <table class="table m-0 table-hover table-bordered">
+        <thead>
+          <tr class="bg-gray-7 text-white">
+            <th>ID</th>
+
+            <th class="text-center">Name</th>
+
+            <th class="text-center">Phone</th>
+
+            <th class="text-center">Email</th>
+
+            <th class="text-center">Debtor</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <ng-container *ngFor="let cm of clientMasters">
+            <tr class="pointer"
+                (click)="cm['expanded'] = !cm['expanded']"
+                (dblclick)="selectClientMaster(cm)">
+              <td>
+                <i class="fas mr-1"
+                    [class.fa-chevron-right]="!cm['expanded']"
+                    [class.fa-chevron-down]="cm['expanded']"></i>
+                {{cm.id}}
+              </td>
+              <td class="text-center">{{cm.name}}</td>
+              <td class="text-center">{{cm.phone}}</td>
+              <td class="text-center">{{cm.email}}</td>
+
+              <td class="text-center">
+                <i class="fas mr-1"
+                    [class.fa-check]="cm.debtor"
+                    [class.fa-times]="!cm.debtor"></i>
+                {{cm.debtor? 'Yes': 'No'}}
+              </td>
+            </tr>
+
+            <tr class="expandable-row" *ngIf="cm['expanded']">
+              <td colspan="5">
+                <div class="px-3">
+                  <h4>Address</h4>
+                  <div class="row d-flex flex-wrap">
+                    <div class="col-3">
+                      <strong>Address Line 1:</strong> <span>{{cm.address.line1}}</span>
+                    </div>
+
+                    <div class="col-3"
+                          *ngIf="cm?.address?.line2">
+                      <strong>Address Line 2:</strong> <span>{{cm.address.line2}}</span>
+                    </div>
+
+                    <div class="col-3">
+                      <strong>State:</strong> <span>{{cm.address.state}}</span>
+                    </div>
+
+                    <div class="col-3">
+                      <strong>Country:</strong> <span>{{cm.address.country}}</span>
+                    </div>
+
+                    <div class="col-3">
+                      <strong>zip:</strong> <span>{{cm.address.zip}}</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+
+      </table>
+    </div>
+  </ng-template>
+</div>
+<!-- / client master search result -->
+
+<!-- client master selected -->
+<div
+    class="my-3 col-12 p-0"
+    *ngIf="selectedClientMaster">
+  <div class="row">
+
+    <div class="col-2">
+      <div class="row mb-1">
+        <div class="col-md-3 font-weight-bold">Name:</div>
+        <div class="col-md">{{selectedClientMaster?.name}}</div>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <div class="row mb-1">
+        <div class="col-md-3 font-weight-bold">Email:</div>
+        <div class="col-md">{{selectedClientMaster?.email}}</div>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <div class="row mb-1">
+        <div class="col-md-3 font-weight-bold">Phone:</div>
+        <div class="col-md">{{selectedClientMaster?.phone}}</div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="row mb-1">
+        <div class="col-md-5 font-weight-bold">Address Line 1:</div>
+        <div class="col-md">{{selectedClientMaster?.address.line1}}</div>
+      </div>
+    </div>
+
+    <div class="col-2" *ngIf="selectedClientMaster.address.line2">
+      <div class="row mb-1">
+        <div class="col-md-5 font-weight-bold">Address Line 2:</div>
+        <div class="col-md">{{selectedClientMaster.address.line2}}</div>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="row mb-1">
+        <div class="col-md-3 font-weight-bold">City:</div>
+        <div class="col-md">{{selectedClientMaster.address.city}}</div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="row mb-1">
+        <div class="col-md-3 font-weight-bold">Country:</div>
+        <div class="col-md">{{selectedClientMaster.address.country}}</div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="row mb-1">
+        <div class="col-md-5 font-weight-bold">Zip Code:</div>
+        <div class="col-md">{{selectedClientMaster.address.zip}}</div>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <div class="row mb-1">
+        <div class="col-md-5 font-weight-bold">Debtor:</div>
+        <div class="col-md">{{selectedClientMaster.debtor ? 'Yes' : 'No'}}</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- / client master selected -->

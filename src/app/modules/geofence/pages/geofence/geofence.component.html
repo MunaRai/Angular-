@@ -1,0 +1,97 @@
+<p2s-list-page-template
+    heading="Geofence Management"
+    [editDisabled]="!selectedGeofence"
+    [deleteDisabled]="!selectedGeofence"
+    (add)="showGeofencePopup()"
+    (edit)="showGeofencePopup('edit')"
+    (delete)="showDeleteGeofenceConfirmation()">
+  <div class="table-responsive my-3">
+    <table class="table m-0 table-hover table-bordered">
+      <thead>
+        <tr class="bg-gray-7 text-white">
+          <th class="row-expander"></th>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Speed</th>
+          <th>No. of Trackers Assigned</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <ng-container *ngFor="let gf of geofences">
+          <tr
+              class="pointer"
+              [class.table-secondary]="gf == selectedGeofence"
+              (click)="onRowClick(gf)">
+            <td class="text-center">
+              <i
+                  class="fas"
+                  [class.fa-chevron-right]="!gf.expanded"
+                  [class.fa-chevron-down]="gf.expanded">
+              </i>
+            </td>
+            <td>{{gf.geofenceName}}</td>
+            <td>{{gf.geofenceType}}</td>
+            <td>{{gf.geofenceSpeed}}</td>
+            <td>{{gf.trackerIds?.length}}</td>
+          </tr>
+          <tr *ngIf="gf.expanded" class="bg-white">
+            <td colspan="5">
+              <div class="p-3">
+                <div class="row preview-container align-items-stretch">
+                  <div class="col-sm-5 col-md-4 col-lg-3 d-fex flex-column y-auto">
+                    <h5 class="d-flex align-items-center">
+                      Assigned Trackers
+                      <span class="ml-auto d-flex">
+                        <button
+                            class="btn btn-sm btn-success mr-2"
+                            ngbTooltip="Save Changes"
+                            container="body">
+                          <i class="fas fa-save"></i>
+                        </button>
+                        <button
+                            class="btn btn-sm btn-primary"
+                            ngbTooltip="Assign trackers for this geofence"
+                            container="body"
+                            (click)="showGeofenceAssignmentPopup()">
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </span>
+                    </h5>
+                    <div class="y-auto assigned-trackers">
+                      <ul class="list-group">
+                        <li
+                            *ngFor="let tracker of gf?.trackerId"
+                            class="list-group-item px-2 py-1 d-flex align-items-center">
+                          {{tracker.trackerName}}
+                          <span class="ml-auto">
+                            <button
+                                class="btn btn-sm btn-clear btn-clear-danger"
+                                ngbTooltip="Remove from geofence"
+                                container="body">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </span>
+                        </li>
+                        <p2s-no-record
+                            message="No tracker assigned."
+                            *ngIf="!gf?.trackerId?.length">
+                        </p2s-no-record>
+                      </ul>
+
+                    </div>
+                  </div>
+
+                  <div class="col-md">
+                    <p2s-geofence-map [geofence]="gf"></p2s-geofence-map>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <p2s-no-record *ngIf="!geofences.length"></p2s-no-record>
+  </div>
+</p2s-list-page-template>

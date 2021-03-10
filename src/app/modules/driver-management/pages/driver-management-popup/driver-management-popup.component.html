@@ -1,0 +1,482 @@
+<p2s-user-form-popup
+    [title]="mode + ' Driver'"
+    (save)="save()"
+    (cancel)="cancel()"
+    [disableSave]="driverForm.invalid">
+  <form [formGroup] = "driverForm">
+      <div class="row">
+          <div class="col-6">
+            <!-- orderMngDriverTagId -->
+            <p2s-form-group label="Tag Id *"
+                            for="orderMngDriverTagId">
+              <input
+                  type="text"
+                  class="form-control"
+                  formControlName="orderMngDriverTagId"
+                  [class.is-invalid]="driverForm.controls['orderMngDriverTagId'].errors &&
+                  (formSubmitted || driverForm.controls['orderMngDriverTagId'].touched ||
+                  driverForm.controls['orderMngDriverTagId'].dirty)"
+                  id="orderMngDriverTagId">
+              <div
+                  class="invalid-feedback"
+                  *ngIf="orderMngDriverTagId.errors && (formSubmitted || orderMngDriverTagId.touched ||
+                  orderMngDriverTagId.dirty)">
+                <div *ngIf="orderMngDriverTagId.errors.required">
+                   Tag Id is required
+                </div>
+    
+                <div *ngIf="orderMngDriverTagId.errors.minlength">
+                  Minimum length is 3
+                </div>
+    
+                <div *ngIf="orderMngDriverTagId.errors.maxlength">
+                  Maximum length is 40
+                </div>
+              </div>
+            </p2s-form-group>
+            <!-- / orderMngDriverTagId -->
+          </div>
+          <div class="col-6">
+            <!-- orderMngDriverLicenseId -->
+            <p2s-form-group label="License Id *"
+                            for="orderMngDriverLicenseId">
+              <input
+                  type="text"
+                  class="form-control"
+                  formControlName="orderMngDriverLicenseId"
+                  [class.is-invalid]="driverForm.controls['orderMngDriverLicenseId'].errors &&
+                  (formSubmitted || driverForm.controls['orderMngDriverLicenseId'].touched ||
+                  driverForm.controls['orderMngDriverLicenseId'].dirty)"
+                  id="orderMngDriverLicenseId">
+              <div
+                  class="invalid-feedback"
+                  *ngIf="orderMngDriverLicenseId.errors && (formSubmitted || orderMngDriverLicenseId.touched ||
+                  orderMngDriverLicenseId.dirty)">
+                <div *ngIf="orderMngDriverLicenseId.errors.required">
+                   License Id is required
+                </div>
+    
+                <div *ngIf="orderMngDriverLicenseId.errors.minlength">
+                  Minimum length is 3
+                </div>
+    
+                <div *ngIf="orderMngDriverLicenseId.errors.maxlength">
+                  Maximum length is 40
+                </div>
+              </div>
+            </p2s-form-group>
+            <!-- / orderMngDriverLicenseId -->
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+              <!-- orderMngDriverLicenseValid -->
+              <p2s-form-group label="License Valid *"
+                              for="orderMngDriverLicenseValid">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="orderMngDriverLicenseValid"
+                    ngbDatepicker
+                    #licenseValidDatePicker="ngbDatepicker"
+                    readOnly
+                    (click)="licenseValidDatePicker.toggle()"
+                    formControlName="orderMngDriverLicenseValid"
+                    [class.is-invalid]="driverForm.controls['orderMngDriverLicenseValid'].errors &&
+                    (formSubmitted || driverForm.controls['orderMngDriverLicenseValid'].touched ||
+                   driverForm.controls['orderMngDriverLicenseValid'].dirty)">
+                <div
+                   class="invalid-feedback"
+                   *ngIf="orderMngDriverLicenseValid.errors && (formSubmitted || orderMngDriverLicenseValid.touched ||
+                   orderMngDriverLicenseValid.dirty)">
+                 <div *ngIf="orderMngDriverLicenseValid.errors.required">
+                    License Valid Date is required
+                 </div>
+     
+                 <div *ngIf="orderMngDriverLicenseValid.errors.minlength">
+                   Minimum length is 3
+                 </div>
+     
+                 <div *ngIf="orderMngDriverLicenseValid.errors.maxlength">
+                   Maximum length is 40
+                 </div>
+                </div>
+              </p2s-form-group>
+              <!-- / orderMngDriverLicenseValid -->
+            </div>
+            <div class="col-6">
+              <!-- orderMngDriverDateOfJoining -->
+              <p2s-form-group label="Date of Joining *"
+                              for="orderMngDriverDateOfJoining">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="orderMngDriverDateOfJoining"
+                    ngbDatepicker
+                    #joiningDatePicker="ngbDatepicker"
+                    readOnly
+                    (click)="joiningDatePicker.toggle()"
+                    formControlName="orderMngDriverDateOfJoining"
+                    [class.is-invalid]="driverForm.controls['orderMngDriverDateOfJoining'].errors &&
+                    (formSubmitted || driverForm.controls['orderMngDriverDateOfJoining'].touched ||
+                    driverForm.controls['orderMngDriverDateOfJoining'].dirty)">
+                <div
+                    class="invalid-feedback"
+                    *ngIf="orderMngDriverDateOfJoining.errors && (formSubmitted || orderMngDriverDateOfJoining.touched ||
+                    orderMngDriverDateOfJoining.dirty)">
+                  <div *ngIf="orderMngDriverDateOfJoining.errors.required">
+                    Date of joining is required
+                  </div>
+      
+                  <div *ngIf="orderMngDriverDateOfJoining.errors.minlength">
+                    Minimum length is 3
+                  </div>
+      
+                  <div *ngIf="orderMngDriverDateOfJoining.errors.maxlength">
+                    Maximum length is 40
+                  </div>
+                </div>
+              </p2s-form-group>
+              <!-- / orderMngDriverDateOfJoining -->
+            </div>
+          </div>
+          <div [formGroup]="userForm">
+              <div class="row">
+                <div class="col-6">
+                  <!-- Username -->
+                  <p2s-form-group label="Username *"
+                                  for="username">
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="username"
+                        [class.is-invalid]="username.errors && (formSubmitted || username.touched || username.dirty)"
+                        id="username">
+                    <div
+                        class="invalid-feedback"
+                        *ngIf="username.errors && (formSubmitted || username.touched || username.dirty)">
+                      <div *ngIf="username.errors.required">
+                        Username is required
+                      </div>
+          
+                      <div *ngIf="username.errors.minlength">
+                        Minimum length is 3
+                      </div>
+          
+                      <div *ngIf="username.errors.maxlength">
+                        Maximum length is 20
+                      </div>
+                    </div>
+                  </p2s-form-group>
+                  <!-- / Username -->
+                </div>
+        
+                <div
+                    class="col-6"
+                    *ngIf="mode == 'add'">
+                  <!-- Password -->
+                  <p2s-form-group
+                      label="Password *"
+                      for="password">
+                    <input [type]="showPassword ? 'text' : 'password'"
+                        class="form-control"
+                        formControlName="userPassword"
+                        [class.is-invalid]="userForm.controls['userPassword'].errors && (formSubmitted || userForm.controls['userPassword'].touched || userForm.controls['userPassword'].dirty)"
+                        id="password">
+                    <div class="custom-control custom-checkbox">
+                      <input class="custom-control-input"
+                          type="checkbox"
+                          (change)="showPassword = !showPassword"
+                          id="showPassword">
+                      <label class="custom-control-label text-muted"
+                              for="showPassword">
+                          Show Password
+                      </label>
+                    </div>
+                    <div class="invalid-feedback"
+                        *ngIf="userForm.controls['userPassword'].errors && (formSubmitted || userForm.controls['userPassword'].touched || userForm.controls['userPassword'].dirty)">
+                      <div *ngIf="userPassword.errors.required">
+                        Password is required
+                      </div>
+                      <div *ngIf="userPassword.errors.minlength">
+                        Minimum length is 6
+                      </div>
+                      <div *ngIf="userPassword.errors.maxlength">
+                        Maximum length is 20
+                      </div>
+                    </div>
+                  </p2s-form-group>
+                  <!-- / Password -->
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                    <!-- First Name -->
+                    <p2s-form-group label="First Name *"
+                                    for="userFirstName">
+                      <input type="text"
+                             class="form-control"
+                              formControlName="userFirstName"
+                              [class.is-invalid]="userForm.controls['userFirstName'].errors && (formSubmitted ||
+                              userForm.controls['userFirstName'].touched || userForm.controls['userFirstName'].dirty)"
+                              id="userFirstName">
+                      <div
+                          class="invalid-feedback"
+                          *ngIf="userFirstName.errors && (formSubmitted || userFirstName.touched || userFirstName.dirty)">
+                        <div *ngIf="userFirstName.errors.required">
+                          First name is required
+                        </div>
+                
+                        <div *ngIf="userFirstName.errors.minlength">
+                          Minimum length is 3
+                        </div>
+                
+                        <div *ngIf="userFirstName.errors.maxlength">
+                          Maximum length is 20
+                        </div>
+                      </div>
+                    </p2s-form-group>
+                    <!-- / First Name -->
+                  </div>
+                
+                  <div class="col-6">
+                    <!-- Middle Name -->
+                    <p2s-form-group label="Middle Name"
+                                    for="middleName">
+                      <input type="text"
+                            class="form-control"
+                            formControlName="userMiddleName"
+                            id="middleName">
+                    </p2s-form-group>
+                    <!-- / Middle Name -->
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                      <!-- last name -->
+                      <p2s-form-group label="Last Name *"
+                                      for="userLastName">
+                        <input type="text"
+                                class="form-control"
+                                formControlName="userLastName"
+                                [class.is-invalid]="userForm.controls['userLastName'].errors && (formSubmitted ||
+                                                    userForm.controls['userLastName'].touched || userForm.controls['userLastName'].dirty)"
+                                                    id="userLastName">
+                        <div
+                            class="invalid-feedback"
+                            *ngIf="userLastName.errors && (formSubmitted || userLastName.touched || userLastName.dirty)">
+                          <div *ngIf="userLastName.errors.required">
+                            Last name is required
+                          </div>
+                                      
+                          <div *ngIf="userLastName.errors.minlength">
+                            Minimum length is 3
+                          </div>
+                                      
+                          <div *ngIf="userLastName.errors.maxlength">
+                            Maximum length is 20
+                          </div>
+                        </div>
+                      </p2s-form-group>
+                      <!-- / last name -->
+                    </div>
+                    
+                    <div class="col-6">
+                      <!-- email -->
+                      <p2s-form-group label="Email *"
+                                      for="email">
+                        <input type="email"
+                               class="form-control"
+                                id="userEmail"
+                                formControlName="userEmail"
+                                [class.is-invalid]="userForm.controls['userEmail'].errors && (formSubmitted ||
+                                                    userForm.controls['userEmail'].touched || userForm.controls['userEmail'].dirty)">
+                        <div
+                            class="invalid-feedback"
+                            *ngIf="userEmail.errors && (formSubmitted || userEmail.touched || userEmail.dirty)">
+                          <div *ngIf="userEmail.errors.required">
+                            User Email is required
+                          </div>
+                                      
+                          <div *ngIf="userEmail.errors.minlength">
+                            Minimum length is 10
+                          </div>
+                          <div *ngIf="userEmail.errors.maxlength">
+                            Maximum length is 20
+                          </div>
+                        </div>
+                      </p2s-form-group>
+                      <!-- / email -->
+                    </div>
+                  </div><div class="row">
+                      <!-- phone -->
+                      <!-- TODO: add multiple phone fields -->
+                      <div class="col-6">
+                        <p2s-form-group label="Phone *"
+                                        for="userPhone">
+                          <input type="text"
+                                class="form-control"
+                                formControlName="userPhone" 
+                                [class.is-invalid]="userPhone.errors && (formSubmitted || userPhone.touched || userPhone.dirty)"
+                                id="userPhone">
+                          <div
+                              class="invalid-feedback"
+                              *ngIf="userPhone.errors && (formSubmitted || username.touched || username.dirty)">
+                            <div *ngIf="userPhone.errors.required">
+                              Phone is required
+                            </div>
+                  
+                            <div *ngIf="userPhone.errors.minlength">
+                              Minimum length is 7
+                            </div>
+                  
+                            <div *ngIf="userPhone.errors.maxlength">
+                               Maximum length is 20
+                            </div>
+                          </div>
+                        </p2s-form-group>
+                      </div>
+                      <!-- / phone -->
+                      
+                      <div class="col-6">
+                        <!-- gender -->
+                        <p2s-form-group label="Gender">
+                          <div class="mt-2 d-flex">
+                            <div class="custom-control custom-radio mr-3">
+                              <input type="radio"
+                                    class="custom-control-input"
+                                    id="male"
+                                    value="MALE"
+                                    formControlName="userGender">
+                              <label class="custom-control-label"
+                                    for="male">Male
+                              </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                              <input type="radio"
+                                    class="custom-control-input"
+                                    id="female"
+                                    value="FEMALE"
+                                    formControlName="userGender">
+                              <label class="custom-control-label"
+                                      for="female">Female
+                              </label>
+                            </div>
+                          </div>
+                        </p2s-form-group>
+                        <!-- / gender -->
+                      </div>
+                    </div>
+                      <!-- address section -->
+
+      <div [formGroup]="addressForm">
+          <div class="row">
+            <div class="col-6">
+              <!-- address line 1 -->
+              <p2s-form-group label="Address Line 1"
+                              for="addressLine1">
+                <input type="text"
+                       id="addressLine1"
+                       class="form-control"
+                       formControlName="street1">
+              </p2s-form-group>
+              <!-- / address line 1 -->
+            </div>
+    
+            <div class="col-6">
+              <!-- address line 2 -->
+              <p2s-form-group label="Address Line 2"
+                              for="addressLine2">
+                <input type="text"
+                       id="addressLine2"
+                       class="form-control"
+                       formControlName="street2">
+              </p2s-form-group>
+              <!-- / address line 2 -->
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-6">
+              <!-- City -->
+              <p2s-form-group label="City *"
+                              for="city">
+                <input type="text"
+                       id="city"
+                       class="form-control"
+                       [class.is-invalid]="addressForm.controls['city'].errors && (formSubmitted || addressForm.controls['city'].touched || addressForm.controls['city'].dirty)"
+                      formControlName="city">
+                <div
+                    class="invalid-feedback"
+                    *ngIf="addressForm.controls['city'].errors && (formSubmitted ||
+                    addressForm.controls['city'].touched || addressForm.controls['city'].dirty)">
+                  <div *ngIf="addressForm.controls['city'].errors.required">
+                     City is required
+                  </div>
+      
+                  <div *ngIf="addressForm.controls['city'].errors.minlength">
+                     Minimum length is 3
+                  </div>
+      
+                  <div *ngIf="addressForm.controls['city'].errors.maxlength">
+                       Maximum length is 20
+                  </div>
+                </div>
+               
+              </p2s-form-group>
+              <!-- / City -->
+            </div>
+    
+            <div class="col-6">
+               <!-- State -->
+              <p2s-form-group label="State"
+                              for="state">
+                <input type="text"
+                       id="state"
+                       class="form-control"
+                       formControlName="state">
+              </p2s-form-group>
+              <!-- / State -->
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-6">
+              <!-- Country -->
+              <p2s-form-group label="Country *"
+                              for="country">
+                <select id="country"
+                        class="form-control"
+                        [class.is-invalid]="addressForm.controls['country'].errors && (formSubmitted || addressForm.controls['country'].touched || addressForm.controls['country'].dirty)"
+                        formControlName="country">
+                  <option value="USA">USA</option>
+                  <option value="Canada">Canada</option>
+                  <option value="China">China</option>
+                  <option value="India">India</option>
+                  <option value="Nepal">Nepal</option>
+                </select>
+                <div class="invalid-feedback"
+                  *ngIf="addressForm.controls['country'].errors && (formSubmitted || addressForm.controls['country'].touched || addressForm.controls['country'].dirty)">
+                  Country is required
+                </div>
+              </p2s-form-group>
+              <!-- / Country -->
+            </div>
+    
+            <div class="col-6">
+               <!-- Zip -->
+              <p2s-form-group label="Zip"
+                              for="zip">
+                <input type="number"
+                       id="zip"
+                       class="form-control"
+                       formControlName="zipCode">
+              </p2s-form-group>
+              <!-- / Zip -->
+            </div>
+          </div>
+        </div>
+        <!-- / address section --> 
+</div>
+  </form>
+</p2s-user-form-popup>

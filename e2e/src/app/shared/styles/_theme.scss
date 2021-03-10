@@ -1,0 +1,214 @@
+// import bootstrap variables and mixins
+@import '~bootstrap/scss/mixins';
+
+
+@mixin themeBackground() {
+  &.primary {
+    background: $blue;
+  }
+
+  &.warning {
+    background: $yellow;
+  }
+
+  &.success {
+    background: $green;
+  }
+
+  &.danger {
+    background: $red;
+  }
+
+  &.dark {
+    background: $gray-800;
+  }
+}
+
+// bootstrap class modifications
+.badge {
+  &.badge-warning {
+    color: white;
+  }
+}
+
+// @import 'variables';
+// Cosmo 4.0.0
+// Bootswatch
+
+
+// Variables ===================================================================
+
+$web-font-path: "https://fonts.googleapis.com/css?family=Roboto:300,400,700" !default;
+@import url($web-font-path);
+
+// Navbar ======================================================================
+
+// Buttons =====================================================================
+
+// Typography ==================================================================
+
+body {
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Roboto', sans-serif;
+  background-color: $gray-100;
+}
+
+// Tables ======================================================================
+
+// Forms =======================================================================
+
+// Navs ========================================================================
+
+// Indicators ==================================================================
+
+// Progress bars ===============================================================
+
+.progress {
+  // @include box-shadow(none);
+  box-shadow: none;
+  .progress-bar {
+    font-size: 8px;
+    line-height: 8px;
+  }
+}
+
+// Containers ==================================================================
+
+
+// ngb accordion
+.p2s-accordion {
+  .card {
+    border-radius: 0;
+  }
+  .card-header {
+    background: $gray-900;
+    i.fa-chevron-right {
+      transition: transform .3s ease-out;
+    }
+    &.active {
+      i.fa-chevron-right {
+        transform: rotate(90deg);
+      }
+    }
+    a{
+      font-weight: 500;
+      color: white;
+    }
+    a:hover, a:focus{
+      text-decoration: none;
+    }
+  }
+}
+
+// popover
+.popover {
+  min-width: 200px;
+}
+
+// modal
+.modal {
+  &-header {
+    background: $gray-800;
+    color: white;
+    * {
+      color: white;
+    }
+    @include themeBackground();
+  }
+
+  &-footer {
+    @include themeBackground();
+  }
+
+  &-body {
+    max-height: calc(100vh - 194px);
+    overflow-y: auto;
+  }
+
+  &.xl {
+    .modal-dialog {
+      max-width: 80%;
+    }
+  }
+}
+
+// tabs
+.nav-tabs {
+  background: $gray-900;
+  min-height: 42px;
+  border-bottom: 0;
+  .nav-item {
+    margin: 0;
+  }
+
+  .nav-link {
+    border-radius: 0;
+    border: none;
+    color: white;
+    height: 42px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      background: $blue;
+      bottom: 0;
+      left: 0;
+      transform: scaleX(0);
+      // transform-origin: left;
+      transition: transform .3s ease-out;
+    }
+
+    &.active {
+      position: relative;
+      // background: $gray-800;
+      background: $blue;
+      color: #fff;
+      &:after {
+        width: 100%;
+        height: 4px;
+        transform: scaleX(1);
+      }
+    }
+  }
+}
+
+.tab-bg-800 {
+  .nav-tabs {
+    background: $gray-800;
+  }
+}
+
+
+// scrollbar style
+body {
+  // Simple
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: rgba(0,0,0,0.1);
+  }
+  ::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background: rgba(0,0,0,0.2);
+  }
+  ::-webkit-scrollbar-thumb:hover{
+  	background: rgba(0,0,0,0.4);
+  }
+  ::-webkit-scrollbar-thumb:active{
+  	background: rgba(0,0,0,.9);
+  }
+}
+
+// text status
+.status {
+  min-width: 90px;
+  text-align: center;
+  padding: 1px 10px;
+  border-radius: 20px;
+  color: white;
+  display: inline-block;
+  @include themeBackground();
+}

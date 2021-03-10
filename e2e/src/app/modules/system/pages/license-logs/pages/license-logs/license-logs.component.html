@@ -1,0 +1,47 @@
+<div class="col p-0 y-auto">
+  <p2s-list-page-template
+      heading="license logs"
+      [enableAdd]='false'
+      [enableEdit]='false'
+      [enableDelete]='false'
+      [enableSearch]='false'
+      [totalPages]=1>
+    <div class="table-responsive my-3 bg-white">
+      <table class="table m-0 table-hover table-bordered table-fixed">
+        <thead>
+          <tr class="bg-gray-7 text-white">
+            <th class="text-center">License Type</th>
+            <th class="text-center">Log Token</th>
+            <th class="text-center">User</th>
+            <th class="text-center">Date Created</th>
+            <th class="text-center">No.Of License</th>
+            <th class="text-center">Transaction Type</th>
+            <th class="text-center"  *ngIf="user.userRole != 'ROLE_SYSTEM'">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+              *ngFor="let licenseLog of licenseLogs;index as i"
+              class="pointer">
+            <td class="text-center">{{licenseLog.licenseId}}</td>
+            <td class="text-center">{{licenseLog.licenseLogToken}}</td>
+            <td class="text-center">{{licenseLog.userId}}</td>
+            <td class="text-center">{{licenseLog.licenseLogDateCreated | date : 'MM/dd/yyyy'}}</td>
+            <td class="text-center">{{licenseLog.numberOfLicense}}</td>
+            <td class="text-center">{{licenseLog.txnType}}</td>
+            <td class="text-center" *ngIf="user.userRole != 'ROLE_SYSTEM'">
+              <button
+                class="btn btn-sm btn-link"
+                (click)="viewTrackerImeiNumber(licenseLog)"
+                [ngbTooltip]="'View Tracker Imei'">
+              View Detail
+            </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p2s-no-record *ngIf="!licenseLogs.length"></p2s-no-record>
+    </div>
+  </p2s-list-page-template>
+</div>

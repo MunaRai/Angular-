@@ -1,0 +1,76 @@
+:host {
+  position: relative;
+}
+
+@mixin connector() {
+  content: '';
+  position: absolute;
+  width: calc(50% - 20px);
+  height: 4px;
+  background: var(--gray);
+}
+
+.wizard-step {
+  $size: 40px;
+  --color: var(--gray);
+  &__container {
+    &--active {
+      --color: var(--blue);
+      .wizard-step__icon {
+        border-color: var(--color);
+        color: var(--color);
+        &:before {
+          background: var(--green);
+        }
+      }
+    }
+  }
+
+  &__container {
+    &--success {
+      --color: var(--green);
+      .wizard-step__icon {
+        border-color: var(--color);
+        color: var(--color);
+        &:before {
+          background: var(--color);
+        }
+        &:after {
+          background: var(--color);
+        }
+      }
+    }
+  }
+  &__icon {
+    height: $size;
+    width: $size;
+    border: 3px solid var(--gray);
+    color: var(--gray);
+    border-radius: 50%;
+    &:after {
+      @include connector();
+      right: 0;
+    }
+    &:before {
+      @include connector();
+      left: 0;
+    }
+    &--first-item {
+      &:before {
+        display: none;
+      }
+    }
+    &--last-item {
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  &__heading {
+    color: var(--color);
+    &__icon {
+      font-size: .7em;
+    }
+  }
+}

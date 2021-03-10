@@ -1,0 +1,45 @@
+.tracker-overview {
+  ::ng-deep {
+    .odometer.odometer-auto-theme, .odometer.odometer-theme-car {
+      font-size: .8em !important;
+    }
+  }
+}
+
+$map-height: 350px;
+.map {
+  height: $map-height;
+  position: relative;
+  overflow: hidden;
+  .address {
+    background: rgba(black, .5);
+    color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    // transition: transform .3s ease-in;
+  }
+
+  ngui-map {
+    height: $map-height;
+  }
+
+  agm-map {
+    height: $map-height;
+  }
+
+  // &:hover {
+  //   .address {
+  //     transform: translateY(100%);
+  //   }
+  // }
+
+  ::ng-deep .gmnoprint {
+    img {
+      width: 20px;
+    }
+  }
+
+
+}

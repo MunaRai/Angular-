@@ -1,0 +1,21 @@
+<div class="user-profile__container">
+  <div class="btn-group" ngbDropdown role="group" placement="bottom-right">
+    <button class="btn btn-clear btn-dark" ngbDropdownToggle>
+      <i class="fas fa-user-circle user-icon mr-1"></i>
+    </button>
+    <div
+        class="dropdown-menu"
+        ngbDropdownMenu>
+      <button
+          class="dropdown-item"
+          routerLink="profile-settings">
+        <i class="fas fa-cog mr-1"></i> Profile
+      </button>
+      <button
+          class="dropdown-item"
+          (click)="logout()">
+        <i class="fas fa-sign-out-alt mr-1"></i> Log Out
+      </button>
+    </div>
+  </div>
+</div>

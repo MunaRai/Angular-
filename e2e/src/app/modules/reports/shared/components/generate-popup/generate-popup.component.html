@@ -1,0 +1,147 @@
+<p2s-user-form-popup [title]="'Generate Report '"
+      (cancel)="dismiss()">
+  <div class="p-3">
+    <div [ngSwitch]="type">
+      <div *ngSwitchCase="'expense'">
+        <div class="col-6">
+          <!-- From Date -->
+          <p2s-form-group label="From Date"
+              for="speedLimit">
+            <input type="date"
+                class="form-control"
+                id="fromDate"
+                ngbDatepicker
+                 #simValidDatePicker="ngbDatepicker"
+                 readOnly
+                 (click)="simValidDatePicker.toggle()">
+          </p2s-form-group>
+          <!-- / From Date -->
+        </div>
+        <div class="col-6">
+          <!-- To Date -->
+          <p2s-form-group label="To Date"
+              for="timeFilter">
+            <input type="date"
+                class="form-control"
+                id="toDate"
+                ngbDatepicker
+                 #simValidDatePicker="ngbDatepicker"
+                 readOnly
+                 [minDate]="today"
+                 (click)="simValidDatePicker.toggle()">
+          </p2s-form-group>
+          <!-- / To Date -->
+        </div>
+        <div class="col-6">
+            <!-- Format -->
+            <p2s-form-group label="Format"
+                for="timeFilter">
+                <select
+                id="format"
+                class="form-control"
+                formControlName="format">
+              <option value="html">HTML</option>
+              <option value="pdf">PDF</option>
+            </select>
+            </p2s-form-group>
+            <!-- / Format -->
+          </div>
+      </div>
+      <div *ngSwitchCase="'event'">
+        <div class="col-4">
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input"
+                type="checkbox"
+                id="unblockEngine"
+                value="option1">
+            <label class="custom-control-label text-muted"
+                for="unblockEngine">Fuel supply resume success(Unblock Engine)
+            </label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input"
+                type="checkbox"
+                id="fuelCutOff"
+                checked
+                value="option2">
+            <label class="custom-control-label text-muted"
+                  for="fuelCutOff">Fuel supply cut off
+            </label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input"
+                type="checkbox"
+                id="ignitionOn"
+                checked
+                value="option3">
+            <label class="custom-control-label text-muted"
+                for="ignitionOn">Ignition on
+            </label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input"
+                type="checkbox"
+                id="ignitionOff"
+                checked
+                value="option4">
+            <label class="custom-control-label text-muted"
+                for="ignitionOff">Ignition off
+            </label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input"
+                type="checkbox"
+                id="overspeed"
+                checked
+                value="option5">
+            <label class="custom-control-label text-muted"
+                for="overspeed">Overspeed</label>
+          </div>
+        </div>
+      </div>
+      <div *ngSwitchCase="'quickOverview'">
+        <div class="col-6">
+          <!-- method -->
+          <p2s-form-group
+              label="Select Method"
+              for="selectMethod"
+              class="ml-3">
+            <select
+                id="selectMethod"
+                class="form-control"
+                formControlName="format">
+              <option value="Daily">Daily</option>
+              <option value="Weekly">Weekly</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Next 7 days">Next 7 days</option>
+            </select>
+          </p2s-form-group>
+          <!-- / method -->
+        </div>
+      </div>
+
+      <div *ngSwitchCase="'overspeed'">
+        <div class="col-6">
+          <!-- Speed Limit -->
+          <p2s-form-group label="Speed Limit(m/s)"
+              for="speedLimit">
+            <input type="number"
+                class="form-control"
+                id="speedLimit">
+          </p2s-form-group>
+          <!-- / Speed Limit -->
+        </div>
+        <div class="col-6">
+          <!-- Time to filter -->
+          <p2s-form-group label="Time to filter(mins)"
+              for="timeFilter">
+            <input type="text"
+                class="form-control"
+                id="timeFilter">
+          </p2s-form-group>
+          <!-- / Time to filter -->
+        </div>
+      </div>
+    </div>
+  </div>
+</p2s-user-form-popup>

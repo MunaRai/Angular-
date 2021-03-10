@@ -1,0 +1,34 @@
+<div class="d-flex flex-column col p-0">
+
+
+  <div class="d-md-flex align-items-stretch col-md p-0">
+    <!-- trackers list -->
+    <div class="col-md-3 p-0 border-right border-left d-md-flex flex-column">
+      <p2s-trackers-list class="col-md p-0 d-md-flex flex-column" mode="live" (select)="onTrackerSelect($event)"
+        (tabChange)="tabChange($event)">
+      </p2s-trackers-list>
+    </div>
+    <!-- / trackers list -->
+
+    <!-- map -->
+    <div class="col-md pl-2 pr-0 d-flex flex-column align-items-stretch map-container mt-3 mt-md-0" *ngIf="selectedTracker">
+      <!-- <p2s-page-header heading="Live"></p2s-page-header> -->
+      <!-- live map -->
+      <p2s-live-map class="col p-0" [lat]="lat" [lng]="lng" [icon]="markerIcon" *ngIf="mode === 'live'">
+      </p2s-live-map>
+      <!-- / live map -->
+
+      <!-- history map -->
+      <p2s-history-map class="col p-0" *ngIf="mode === 'history'">
+      </p2s-history-map>
+      <!-- / history map -->
+
+      <!-- route map -->
+      <p2s-route-map class="col p-0" [lat]="lat" [lng]="lng" [icon]="markerIcon" *ngIf="mode === 'route'">
+        route map is on
+      </p2s-route-map>
+      <!-- /route map -->
+    </div>
+    <!-- / map -->
+  </div>
+</div>

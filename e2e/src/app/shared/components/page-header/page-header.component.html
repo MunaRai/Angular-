@@ -1,0 +1,9 @@
+<header
+    class="bg-gray-9 text-capitalize text-white"
+    [ngClass]="{
+      'p-3 font-size-2' : size === 'lg',
+      'p-2 font-size-1' : size === 'md',
+      'p-1' : size === 'sm'
+    }">
+  {{heading}}
+</header>

@@ -1,0 +1,25 @@
+<header class="modal-header">
+  <h5 class="modal-title text-capitalize">Tracker Details</h5>
+  <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</header>
+  
+  
+<section>
+  <table class="table">
+    <tr>
+      <th>Tracker Imei Number</th>
+    </tr>
+
+    <tr>
+      <td>{{licenseLog.trackerId}}</td>
+    </tr>
+
+    <div
+        class="mt-2 text-center text-muted"
+        *ngIf="!licenseLog.trackerId.length">
+      No data available
+    </div>
+  </table>
+</section>

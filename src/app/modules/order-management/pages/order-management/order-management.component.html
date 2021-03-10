@@ -1,0 +1,180 @@
+<div class="col p-0 y-auto">
+  <p2s-list-page-template 
+                          heading="Order Management" 
+                          [editDisabled]=" !selectedOrder"
+                          [enableEdit]='false'
+                          [enableDelete]='false'
+                          [deleteDisabled]="!selectedOrder" 
+                          addTooltip="Create Order Book" 
+                          editTooltip="Edit selected order" 
+                          (add)="showOrderPopup('add')"
+                          (edit)="showOrderPopup('edit')"
+                          (delete)="delete()"
+                          (search)="onSearch($event)" 
+                          (pageChange)="gotoPage($event)"
+                          (next)="next()"
+                          (prev)="previous()"
+                          (limitChange)="changeLimit($event)"
+                          [page]="pagingSorting.page"
+                          [totalPages]="pagingSorting.totalPages" 
+                          >
+    <div class="my-3 table-responsive bg-white">
+      <div class="my-3 table-responsive bg-white">
+        <table class="table m-0 table-hover table-bordered">
+          <thead>
+            <tr class="bg-gray-7 text-white">
+              <th></th>
+              <th>Order ID</th>
+              <th>Shipper Name</th>
+              <th>Consigny Name</th>
+              <th>From City</th>
+              <th>To City</th>
+              <th>Bill To</th>
+              <th>Status</th>
+              <!-- <th>Action</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let orders of orders">
+              <tr class="pointer" [class.table-primary]="orders.orderManagementStatus == 'AVAILABLE'"
+              [class.table-success]="orders.orderManagementStatus == 'DELIVERED'" [class.table-warning]="orders.orderManagementStatus == 'INTRANSIT'"
+              [class.table-danger]="orders.orderManagementStatus == 'CANCELLED'" (click)="orders['expanded'] = !orders['expanded']">
+                <td>
+                  <i class="fas" [class.fa-chevron-right]="!orders['expanded']" [class.fa-chevron-down]="orders['expanded']"></i>
+                </td>
+                <td  (click)="selectedOrder = orders">{{orders.orderId}}</td>
+                <td>{{orders.orderManagementShipper.clientMasterFirstName}}</td>
+                <td>{{orders.orderManagementConsigny.clientMasterFirstName}}</td>
+                <td>{{orders.orderManagementShipper.clientMasterAddress.city}}</td>
+                <td>{{orders.orderManagementConsigny.clientMasterAddress.city}}</td>
+                <td>{{orders.orderManagementBill.orderManagementBillTo}}</td>
+                <td>
+                  <i class="fas mr-1" [class.fa-tasks]="orders.orderManagementStatus == 'AVAILABLE'"
+                    [class.fa-check]="orders.orderManagementStatus == 'DELIVERED'" [class.fa-truck]="orders.orderManagementStatus == 'INTRANSIT'"
+                    [class.fa-times]="orders.orderManagementStatus == 'CANCELLED'">
+                  </i>
+                  <span class="text-capitalize">{{orders.orderManagementStatus}}</span>
+                </td>
+                <!-- <td> 
+                  <button 
+                      (click)="onCancel()" 
+                      class="btn btn-link"
+                      ngbTooltip="Cancel Order"> 
+                    <i class="far fa-times-circle fa-2x"></i>
+                  </button>
+                 </td> -->
+                <div class="expandable-content"></div>
+              </tr>
+
+              <tr class="expandable-row" *ngIf="orders['expanded']">
+                <td colspan="9">
+                  <div class="d-flex align-items-stretch mb-3">
+                    <div class="col-md">
+                      <h4>Shipper Address</h4>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Address Line 1:</div>
+                        <div class="col-md">{{orders.orderManagementShipper.clientMasterAddress.street1}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Address Line 2:</div>
+                        <div class="col-md">{{orders.orderManagementShipper.clientMasterAddress.street2}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">City</div>
+                        <div class="col-md">{{orders.orderManagementShipper.clientMasterAddress.city}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Country</div>
+                        <div class="col-md">{{orders.orderManagementShipper.clientMasterAddress.country}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Zip Code</div>
+                        <div class="col-md">{{orders.orderManagementShipper.clientMasterAddress.zipCode}}</div>
+                      </div>
+                    </div>
+
+                    <div class="border-left"></div>
+
+                    <div class="col-md">
+                      <h4>Consigny Address</h4>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Address Line 1:</div>
+                        <div class="col-md">{{orders.orderManagementConsigny.clientMasterAddress.street1}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Address Line 2:</div>
+                        <div class="col-md">{{orders.orderManagementConsigny.clientMasterAddress.street2}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">City:</div>
+                        <div class="col-md">{{orders.orderManagementConsigny.clientMasterAddress.city}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Country:</div>
+                        <div class="col-md">{{orders.orderManagementConsigny.clientMasterAddress.country}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Zip Code:</div>
+                        <div class="col-md">{{orders.orderManagementConsigny.clientMasterAddress.country}}</div>
+                      </div>
+                    </div>
+
+                    <div class="border-left"></div>
+                    <div class="col-md">
+                      <h4>Order Details</h4>
+                      <!-- <div class="row mb-1">
+                          <div class="col-md-5 font-weight-bold">Pickup:</div>
+                          <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtPickupDate}}</div>
+                        </div>
+                        <div class="row mb-1">
+                          <div class="col-md-5 font-weight-bold">Delivery:</div>
+                          <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtDeliveryDate}}</div>
+                        </div> -->
+                      <hr>
+                      <div class="row mb-1">
+                        <div class="col-md-3 font-weight-bold">Weight:</div>
+                        <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtWeight}}
+                        </div>
+                      </div>
+
+                      <div class="row mb-1">
+                        <div class="col-md-3 font-weight-bold">Pieces:</div>
+                        <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtPieces}}</div>
+                      </div>
+
+                      <div class="row mb-1">
+                        <div class="col-md-3 font-weight-bold">Width:</div>
+                        <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtWidth}}</div>
+                      </div>
+
+                      <div class="row mb-1">
+                        <div class="col-md-3 font-weight-bold">Length:</div>
+                        <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtlenght}}</div>
+                      </div>
+
+                      
+                      <div class="row mb-1">
+                        <div class="col-md-3 font-weight-bold">Cube:</div>
+                        <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtCube}}</div>
+                      </div>
+
+                      
+                      <div class="row mb-1">
+                        <div class="col-md-3 font-weight-bold">Rate:</div>
+                        <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtRate}}</div>
+                      </div>
+                      <div class="orderimg" *ngIf="orders.orderManagementStatus == 'DELIVERED'"> 
+                        <img class="proimg" [src]="'data:image/png;base64,'+orders.orderManagementProfileImg">  
+                        <img class="sigimg" [src]="'data:image/png;base64,'+orders.orderManagementSignatureImg">
+                    </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </p2s-list-page-template>
+</div>

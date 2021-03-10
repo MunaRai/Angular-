@@ -1,0 +1,108 @@
+<div class="col d-flex align-items-center justify-content-center login-page bokeh-bg">
+    <div class="row w-100 d-flex justify-content-center z-2">
+      <div class="col-xs-12 col-sm-8 col-md-5">
+        <div class="card mb-3">
+          <div class="p-3 border-bottom text-center">
+            <h1 class="m-0">
+            <!-- <span>Company Logo</span> -->
+            <img src="assets/img/logo.png" width="230" alt="Promise 2 Secure">
+          </h1>
+        </div>
+        <!-- <div class="card-header">
+          <h2>Truck Management System</h2>
+        </div> -->
+        <div class="px-3 mt-3">
+          <h2 class="m-0">Fleet Management System .....<i class="fas fa-truck truck"></i></h2>
+        </div>
+        <div class="card-body">
+          <form role="form"
+                novalidate
+                [formGroup]="loginForm">
+            <fieldset>
+              <h5>Login</h5>
+
+              <div class="alert alert-danger"
+                   *ngIf="loginError">
+                {{loginError}}
+              </div>
+
+              <hr class="colorgraph">
+              <div class="form-group">
+                <input type="text"
+                       class="form-control input-lg"
+                       placeholder="Username / Email"
+                       formControlName="username">
+              </div>
+              <div class="form-group">
+                <input  [type]="showPassword ? 'text' : 'password'"
+                       class="form-control input-lg fa-eye"
+                       placeholder="Password"
+                       formControlName="password">
+
+                    <div class="custom-control custom-checkbox mt-2">
+                      <input 
+                          class="custom-control-input"
+                          type="checkbox"
+                          (change)="showPassword = !showPassword"
+                          id="showPassword">
+                        <label 
+                            class="custom-control-label text-muted"
+                            for="showPassword">
+                          Show Password
+                        </label>
+                    </div>
+              </div>
+              <!-- <div class="form-group row d-flex align-items-center">
+                <div class="col-12 col-md-6">
+                  <select class="custom-select">
+                    <option value="1">English</option>
+                    <option value="2">Chinese</option>
+                    <option value="3">Hindi</option>
+                  </select>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  Nepal
+                </div>
+              </div> -->
+
+
+              <hr class="colorgraph">
+              <div class="row d-flex align-items-center">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <button type="submit"
+                          class="btn btn-lg btn-success btn-block"
+                          [disabled]="loginForm.invalid || submitting"
+                          (click)="login()">
+                    <span class="d-flex justify-content-center align-items-center">
+                      <span *ngIf="!submitting; else signingIn">Sign In</span>
+                      <ng-template #signingIn>Signing In</ng-template>
+                      <span class="ml-3"
+                            *ngIf="submitting">
+                        <p2s-spinner color="white" size="xs"></p2s-spinner>
+                      </span>
+                    </span>
+                  </button>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                  <a href="reset-password">Forgot Password?</a>
+                </div>
+                <!-- <div class="col-xs-6 col-sm-6 col-md-6">
+                  <a href="" class="btn btn-lg btn-primary btn-block">Register</a>
+                </div> -->
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-white text-center text-md-right my-2 px-3">
+  <!-- © Copyright Promise 2 Secure. -->
+  © Copyright Sastra Creations.
+  <br>
+ <!-- Email: info@promise2secure.com -->
+ Email: info@sastracreations.com
+
+</div>

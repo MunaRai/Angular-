@@ -1,0 +1,41 @@
+<div class="col p-0 y-auto">
+  <p2s-list-page-template
+      heading="locked ip address"
+      [enableAdd]='false'
+      [enableEdit]='false'
+      [enableDelete]='false'
+      [enableSearch]='false'
+      [totalPages]=1>
+    
+    <div class="table-responsive my-3 bg-white">
+      <table class="table m-0 table-hover table-bordered table-fixed">
+        <thead>
+          <tr class="bg-gray-7 text-white">
+            <th class="text-center">IP Address</th>
+
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let ip of lockedIps">
+
+            <td class="text-center">{{ip}}</td>
+
+            <td class="text-center">
+              <button 
+                  class="btn btn-success btn-sm"
+                  (click)="unLockIpAddress(ip)">
+                <i class="fas fa-unlock mr-1"></i>
+                Unlock IP
+            </button>
+            </td>
+
+          </tr>
+
+        </tbody>
+      </table>
+      <p2s-no-record *ngIf="!lockedIps.length"></p2s-no-record>
+    </div>
+  </p2s-list-page-template>
+</div>

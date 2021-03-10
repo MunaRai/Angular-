@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+  <a class="navbar-brand"
+     href="/dashboard">
+    <div class="d-flex align-items-end">
+      <!-- <img *ngIf="!toggle" src="assets/img/smallLogo.png" alt="Promise 2 secure" width="50"> -->
+      <img src="assets/img/logo2.png" alt="Promise 2 secure" width="200">
+
+      <small class="ml-1 d-none">
+        Truck Management System ....<i class="fas fa-truck truck"></i>
+      </small>
+    </div>
+  </a>
+  <button class="navbar-toggler"
+          type="button"
+          aria-controls="navbarColor01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          (click)="isNavbarCollapsed = !isNavbarCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="d-flex align-items-center navbar nav w-100 justify-content-end">
+    <!-- <div class="text-white mr-3">Welcome {{user.username}}</div> -->
+    <!-- <div class="text-white mr-3">{{currentDateTime | date:'yyyy-MM-dd HH:mm:ss'}}</div> -->
+    <!-- <p2s-search></p2s-search> -->
+    <p2s-notifications-bar class="d-flex"></p2s-notifications-bar>
+    <p2s-reminder-bar class="d-flex"></p2s-reminder-bar>
+    <p2s-user-profile class="ml-3"></p2s-user-profile>
+  </div>
+
+  <div class="collapse navbar-collapse"
+       [ngbCollapse]="isNavbarCollapsed">
+
+    <!-- navigation links (only show this on mobile phones) -->
+    <ul class="navbar-nav mr-auto d-block d-md-none">
+      <li class="nav-item"
+          *ngFor="let link of navLinks"
+          routerLinkActive="active">
+        <a class="nav-link" [routerLink]="link.path">{{link.label}} <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <!-- / navigation links -->
+  </div>
+</nav>

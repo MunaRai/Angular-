@@ -1,0 +1,11 @@
+@import 'src/app/shared/styles/variables';
+
+.icon-image {
+  input[type="radio"] {
+    &:checked {
+      &+i {
+        color: $green;
+      }
+    }
+  }
+}

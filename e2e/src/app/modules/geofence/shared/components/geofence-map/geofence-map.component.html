@@ -1,0 +1,46 @@
+<agm-map
+    [latitude]="geofence.geofenceLocation.lat"
+    [longitude]="geofence.geofenceLocation.lng"
+    [zoom]="zoom"
+    (mapClick)="mapClick.emit($event.coords)"
+    [clickableIcons]="false"
+    class="map">
+    <agm-circle
+        *ngIf="geofence.geofenceType === 'circle'"
+        [latitude]="geofence.geofenceCenter.lat"
+        [longitude]="geofence.geofenceCenter.lng"
+        [strokeColor]="geofence.geofenceColor"
+        [fillColor]="geofence.geofenceColor"
+        [radius]="geofence.geofenceRadius"
+        [editable]="editable"
+        (radiusChange)="radiusChange.emit($event)"
+        (centerChange)="centerChange.emit($event)">
+    </agm-circle>
+
+    <agm-polygon
+        *ngIf="geofence.geofenceType === 'polygon'"
+        [fillColor]="geofence.geofenceColor"
+        [strokeColor]="geofence.geofenceColor"
+        [fillColor]="geofence.geofenceColor"
+        [paths]="geofence.geofenceGeometryList"
+        [editable]="editable">
+    </agm-polygon>
+</agm-map>
+
+<!-- <ngui-map
+    [zoom]="zoom"
+    [center]="geofence.location"
+    (mapClick)="onMapclick($event)"
+    class="map">
+  <circle
+      *ngIf="geofence.geofenceType === 'circle'"
+      [center]="geofence.center"
+      [draggable]="true"
+      [strokeColor]="geofence.color"
+      [fillColor]="geofence.color"
+      [editable]="editable"
+      [radius]="unitMeasureMapping[geofence.radius.unit] * geofence.radius.value"
+      (centerChanged)="onCenterChange($event)"
+      (radiusChanged)="onRadiusChange($event)">
+  </circle>
+</ngui-map> -->

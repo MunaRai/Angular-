@@ -1,0 +1,78 @@
+<!-- <p2s-user-form-popup
+    [title]="'Odometer Settings'"
+    (save)="save()"
+    (cancel)="dismiss()">
+</p2s-user-form-popup> -->
+<header class="modal-header">
+  <h4 class="modal-title text-capitalize">Odometer Settings</h4>
+</header>
+  
+<div class="row ml-1">
+  <div 
+      class="col-6"
+      [formGroup]="trackerForm">
+    <!-- tracker odometer -->
+    <p2s-form-group
+          for="trackerOdometer">
+      <input type="number"
+              class="form-control"
+              id="trackerOdometer"
+              formControlName="trackerOdometer"
+              placeholder="New Odometer Reading">
+      <!-- <div 
+          class="invalid-feedback"
+          *ngIf="trackerImeiNumber.errors && (formSubmitted || 
+          trackerImeiNumber.touched || trackerImeiNumber.dirty)">
+        <div *ngIf="trackerImeiNumber.errors.required">
+          Tracker Imei number is required
+        </div>
+
+        <div *ngIf="trackerImeiNumber.errors.minlength">
+          Minimum length is 7
+        </div>
+
+        <div *ngIf="trackerImeiNumber.errors.maxlength">
+          Maximum length is 20
+        </div>
+      </div> -->
+    </p2s-form-group>
+    <!-- / tracker odometer -->
+  </div>
+
+  <div class="col-3 mt-4">
+    <button
+        (click)="save()"
+        class="btn btn-success">
+      Update
+    </button>
+  </div>
+</div>
+
+<h5 class="font-weight-bold ml-2">Odometer History</h5>
+<div class="table-responsive my-3 bg-white scrollable">
+  <table class="table m-0 table-hover table-bordered">
+    <thead>
+      <tr class="bg-gray-7 text-white">
+        <th class="text-center">S.N</th>
+        <th class="text-center">Odometer Reading</th>
+        <th class="text-center">Updated On</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr
+          class="pointer"
+          *ngFor="let odometerHistory of odometerHistoryList;index as i">
+        <td class="text-center">{{i+1}}</td>
+        <td class="text-center">{{odometerHistory.odometerReading}}</td>
+        <td class="text-center">{{odometerHistory.odometerDateCreated | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
+      </tr>
+      <div
+          class="mt-2 text-center text-muted"
+          *ngIf="!odometerHistoryList.length">
+        No odometer history available
+      </div>
+    </tbody>
+  </table>
+</div>
+

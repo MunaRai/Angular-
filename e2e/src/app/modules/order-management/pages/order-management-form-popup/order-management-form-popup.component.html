@@ -1,0 +1,342 @@
+<p2s-user-form-popup
+    [title]="mode + ' Order'"
+    (save)="save()"
+    (cancel)="cancel()"
+    [disableSave]="orderForm.invalid">
+  <form [formGroup]="orderForm">
+
+    <h4>Shipper Details</h4>
+    <div class="row">
+      <!-- shipper selection -->
+      <div class="col-4">
+        <p2s-form-group
+            label="Search Shipper *"
+            for="orderManagementShipperId">
+          <input
+              type="text"
+              class="form-control"
+              id="orderManagementShipperId"
+              placeholder="Search Shipper by name or id"
+              [ngbTypeahead]="searchShipper"
+              [resultFormatter]="clientMasterFormatter"
+              [inputFormatter]="clientMasterFormatter"
+              (selectItem)="onShipperSelect($event.item)"
+              [class.is-invalid]="orderManagementShipperId.errors &&
+                  (formSubmitted || orderManagementShipperId.touched ||
+                  orderManagementShipperId.dirty)">
+          <div 
+              class="invalid-feedback"
+              *ngIf="orderManagementShipperId.errors && (formSubmitted || 
+              orderManagementShipperId.touched || orderManagementShipperId.dirty)">
+            <div *ngIf="orderManagementShipperId.errors.required">
+             Shipper is required
+            </div>
+          </div>
+          <div *ngIf="searchStatus.shipper == 'searching'">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span class="d-inline-block ml-3">Searching Shipper...</span>
+          </div>
+          <div class="invalid-feedback" 
+            *ngIf="searchStatus.shipper === 'failed'">Shipper coundn't be loaded.
+          </div>
+        </p2s-form-group>
+      </div>
+      <!-- /shipper selection -->
+
+      <div class="col-4">
+        <!-- Delivery date -->
+        <!-- <p2s-form-group label="Delivery Date *"
+            for="dateDelivery">
+          <input type="text"
+              class="form-control"
+              id="dateDelivery"
+              ngbDatepicker
+              #deliveryDatePicker="ngbDatepicker"
+              readOnly
+              (click)="deliveryDatePicker.toggle()"
+              formControlName="dateDelivery"
+              [class.is-invalid]="dateDelivery.errors &&
+              (formSubmitted || dateDelivery.touched ||
+              dateDelivery.dirty)">
+          <div 
+              class="invalid-feedback"
+              *ngIf="dateDelivery.errors && (formSubmitted || 
+              dateDelivery.touched || dateDelivery.dirty)">
+            <div *ngIf="dateDelivery.errors.required">
+              Delivery Date is required
+            </div>
+          </div>
+        </p2s-form-group> -->
+        <!-- / Delivery date -->
+      </div>
+    </div>
+      
+    <h4>Consigny Details</h4>
+    <div class="row">
+      <!-- consigny selection -->
+      <div class="col-4">
+        <p2s-form-group
+            label="Search Consigny *"
+            for="orderManagementConsignyId">
+          <input
+              type="text"
+              class="form-control"
+              id="orderManagementConsignyId"
+              placeholder="Search Consigny by name or id"
+              [ngbTypeahead]="searchConsigny"
+              [resultFormatter]="clientMasterFormatter"
+              [inputFormatter]="clientMasterFormatter"
+              (selectItem)="onConsignySelect($event.item)"
+              [class.is-invalid]="orderManagementConsignyId.errors &&
+              (formSubmitted || orderManagementConsignyId.touched ||
+              orderManagementConsignyId.dirty)">
+          <div 
+              class="invalid-feedback"
+              *ngIf="orderManagementConsignyId.errors && (formSubmitted || 
+              orderManagementConsignyId.touched || orderManagementConsignyId.dirty)">
+            <div *ngIf="orderManagementConsignyId.errors.required">
+             Consigny is required.
+            </div>
+          </div>
+          <div *ngIf="searchStatus.consigny == 'searching'">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span class="d-inline-block ml-3">Searching Consigny...</span>
+          </div>
+          <div class="invalid-feedback" *ngIf="searchStatus.consigny === 'failed'">
+            Consigny coundn't be loaded.
+          </div>
+        </p2s-form-group>
+      </div>
+      <!-- /consigny selection -->
+
+      <div class="col-4">
+        <!-- Pickup date -->
+        <!-- <p2s-form-group label="Pickup Date *"
+                        for="datePickup">
+          <input type="text"
+              class="form-control"
+              id="datePickup"
+              ngbDatepicker
+              #pickupDatePicker="ngbDatepicker"
+              readOnly
+              (click)="pickupDatePicker.toggle()"
+              formControlName="datePickup"
+              [class.is-invalid]="datePickup.errors &&
+              (formSubmitted || datePickup.touched ||
+              datePickup.dirty)">
+          <div 
+              class="invalid-feedback"
+              *ngIf="datePickup.errors && (formSubmitted || 
+              datePickup.touched || datePickup.dirty)">
+            <div *ngIf="datePickup.errors.required">
+             Pickup Date  is required.
+            </div>
+          </div>
+        </p2s-form-group> -->
+        <!-- / Pickup date -->
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- bill to -->
+      <div class="col-4">
+        <p2s-form-group 
+            label="Bill To *" 
+            for="orderManagementBillStatus">
+          <select 
+              id="orderManagementBillStatus" 
+              class="form-control" 
+              formControlName="orderManagementBillStatus"
+              [class.is-invalid]="orderManagementBillStatus.errors &&
+              (formSubmitted || orderManagementBillStatus.touched ||
+              orderManagementBillStatus.dirty)">
+            <option value="SHIPPER">Shipper</option>
+            <option value="CONSIGNY">Consigny</option>
+          </select>
+          
+          <div 
+              class="invalid-feedback"
+              *ngIf="orderManagementBillStatus.errors && (formSubmitted || 
+              orderManagementBillStatus.touched || orderManagementBillStatus.dirty)">
+            <div *ngIf="orderManagementBillStatus.errors.required">
+              Bill to  is required.
+            </div>
+          </div>
+        </p2s-form-group>
+      </div>
+      <!-- / bill to -->
+    </div>
+
+    <h4>Commodity Code Details</h4>
+    <div class="row">
+      <!-- commodity selection -->
+      <div class="col-4">
+        <p2s-form-group
+            label="Search Commodity *"
+            for="orderManagementCommodityId">
+          <input
+              type="text"
+              class="form-control"
+              id="orderManagementCommodityId"
+              placeholder="Search commodity code by name or id"
+              [ngbTypeahead]="searchCommodity"
+              [resultFormatter]="commodityCodeFormatter"
+              [inputFormatter]="commodityCodeFormatter"
+              (selectItem)="onCommodityCodeSelect($event.item)"
+              [class.is-invalid]="orderManagementCommodityId.errors &&
+              (formSubmitted || orderManagementCommodityId.touched ||
+              orderManagementCommodityId.dirty)">
+          <div *ngIf="searchStatus.commodity == 'searching'">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span class="d-inline-block ml-3">Searching commodity...</span>
+          </div>
+          <div class="invalid-feedback" *ngIf="searchStatus.commodity === 'failed'">
+            Consigny coundn't be loaded.
+          </div>
+          <div 
+              class="invalid-feedback"
+              *ngIf="orderManagementCommodityId.errors && (formSubmitted || 
+              orderManagementCommodityId.touched || orderManagementCommodityId.dirty)">
+            <div *ngIf="orderManagementCommodityId.errors.required">
+              Bill to  is required.
+            </div>
+          </div>
+          <!-- /commodity selection -->
+        </p2s-form-group>
+      </div>
+    </div>
+
+    <h4> Freight Details</h4>
+    
+    <div  [formGroup]="freightForm">
+      <div class="row">
+          <div class="col-4">
+              <!-- Delivery date -->
+              <p2s-form-group label="Delivery Date *"
+                  for="orderMngFrieghtDeliveryDate">
+                <input type="text"
+                    class="form-control"
+                    id="orderMngFrieghtDeliveryDate"
+                    ngbDatepicker
+                    #deliveryDatePicker="ngbDatepicker"
+                    readOnly
+                    (click)="deliveryDatePicker.toggle()"
+                    formControlName="orderMngFrieghtDeliveryDate"
+                    [class.is-invalid]="orderMngFrieghtDeliveryDate.errors &&
+                    (formSubmitted || orderMngFrieghtDeliveryDate.touched ||
+                    orderMngFrieghtDeliveryDate.dirty)">
+                <div 
+                    class="invalid-feedback"
+                    *ngIf="orderMngFrieghtDeliveryDate.errors && (formSubmitted || 
+                    orderMngFrieghtDeliveryDate.touched || orderMngFrieghtDeliveryDate.dirty)">
+                  <div *ngIf="orderMngFrieghtDeliveryDate.errors.required">
+                    Delivery Date is required
+                  </div>
+                </div>
+              </p2s-form-group>
+              <!-- / Delivery date -->
+            </div>
+            <div class="col-4">
+                <!-- Pickup date -->
+                <p2s-form-group label="Pickup Date *"
+                                for="orderMngFrieghtPickupDate">
+                  <input type="text"
+                      class="form-control"
+                      id="orderMngFrieghtPickupDate"
+                      ngbDatepicker
+                      #pickupDatePicker="ngbDatepicker"
+                      readOnly
+                      (click)="pickupDatePicker.toggle()"
+                      formControlName="orderMngFrieghtPickupDate"
+                      [class.is-invalid]="orderMngFrieghtPickupDate.errors &&
+                      (formSubmitted || orderMngFrieghtPickupDate.touched ||
+                      orderMngFrieghtPickupDate.dirty)">
+                  <div 
+                      class="invalid-feedback"
+                      *ngIf="orderMngFrieghtPickupDate.errors && (formSubmitted || 
+                      orderMngFrieghtPickupDate.touched || orderMngFrieghtPickupDate.dirty)">
+                    <div *ngIf="orderMngFrieghtPickupDate.errors.required">
+                     Pickup Date  is required.
+                    </div>
+                  </div>
+                </p2s-form-group>
+                <!-- / Pickup date -->
+              </div>
+      </div>
+      <div class="row">
+        <!--  pieces -->
+        <div class="col-2">
+          <p2s-form-group label=" Pieces"
+              for="orderMngFrieghtPieces">
+            <input type="number"
+                class="form-control"
+                id="orderMngFrieghtPieces"
+                formControlName="orderMngFrieghtPieces">
+          </p2s-form-group>  
+        </div>
+        <!-- /  pieces -->
+      
+        <!--  weight -->
+        <div class="col-2"> 
+            <p2s-form-group label=" Weight"
+              for="orderMngFrieghtWeight">
+            <input type="number"
+                class="form-control"
+                id="orderMngFrieghtWeight"
+                formControlName="orderMngFrieghtWeight">
+          </p2s-form-group> 
+        </div>
+        <!-- /  weight -->
+
+        <!--  length -->
+        <div class="col-2"> 
+            <p2s-form-group label=" Length"
+                for="orderMngFrieghtlenght">
+              <input type="number"
+                  class="form-control"
+                  id="orderMngFrieghtlenght"
+                  formControlName="orderMngFrieghtlenght">
+            </p2s-form-group> 
+          </div>
+          <!-- /  length -->
+
+        <!--  width -->
+        <div class="col-2"> 
+          <p2s-form-group label=" Width"
+              for="orderMngFrieghtWidth">
+            <input type="number"
+                class="form-control"
+                id="orderMngFrieghtWidth"
+                formControlName="orderMngFrieghtWidth">
+          </p2s-form-group> 
+        </div>
+        <!-- /  width -->
+
+        <!--  cube -->
+        <div class="col-2"> 
+          <p2s-form-group label=" Cube"
+              for="orderMngFrieghtCube">
+            <input type="number"
+                class="form-control"
+                id="orderMngFrieghtCube"
+                formControlName="orderMngFrieghtCube">
+          </p2s-form-group> 
+        </div>
+        <!-- /  cube -->
+        
+         <!--  rate -->
+         <div class="col-2"> 
+          <p2s-form-group label=" Rate"
+              for="orderMngFrieghtRate">
+            <input type="number"
+                class="form-control"
+                id="orderMngFrieghtRate"
+                formControlName="orderMngFrieghtRate">
+          </p2s-form-group> 
+        </div>
+        <!-- /  rate -->
+
+      </div>
+      </div>
+    </form>
+  </p2s-user-form-popup>

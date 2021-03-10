@@ -1,0 +1,32 @@
+<ngb-accordion activeIds="expense-chart" class="p2s-accordion card-stretch col-12 p-0 align-items-stretch"
+  (panelChange)="isPanelOpen = !isPanelOpen" [class.d-flex]="isPanelOpen">
+  <ngb-panel id="expense-chart">
+
+    <!-- title -->
+    <ng-template ngbPanelTitle>
+      <div class="d-flex align-items-center">
+        Expense for {{date | date : 'MMMM'}}
+        <div class="ml-auto">
+          <button class="btn btn-sm btn-success mr-2" (click)="showAddExpensePopup($event)" [disabled]="!selectedTracker">
+            <i class="fas fa-plus mr-1"></i> Add Expense
+          </button>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+      </div>
+    </ng-template>
+    <!-- / title -->
+
+    <!-- content -->
+    <ng-template ngbPanelContent>
+      <div class="expense-chart__content pos-r">
+        <google-chart [data]="chartData"></google-chart>
+        <div class="expense-chart__no-data d-flex align-items-center justify-content-center" *ngIf="noData">No Expense
+          Added</div>
+        <h6 class="d-flex align-items-center p-0 font-weight-bold">
+          Total Expense of {{date | date : 'MMMM'}} : {{totalExpense}}
+        </h6>
+      </div>
+    </ng-template>
+    <!-- / content -->
+  </ngb-panel>
+</ngb-accordion>

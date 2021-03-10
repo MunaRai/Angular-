@@ -1,0 +1,43 @@
+<div class="wizard__container card">
+  <div class="card-body">
+    <h5>{{heading}}</h5>
+
+    <div class="p-3">
+      <!-- header -->
+      <p2s-wizard-header>
+        <ng-container *ngFor="let header of stepHeaders; index as i; first as f; last as l" >
+          <p2s-wizard-step
+              [icon]="header.icon"
+              [firstStep]="f"
+              [lastStep]="l"
+              [success]="i+1 < activeStep"
+              [heading]="header.heading"
+              [subheading]="header.subHeading"
+              [active]="i+1 === activeStep"
+              [step]="i + 1">
+          </p2s-wizard-step>
+          <div
+              class="flex-grow-1 wizard-step-connector"
+              [class.wizard-step-connector--success]="i+1 < activeStep"
+              *ngIf="!l">
+          </div>
+        </ng-container>
+      </p2s-wizard-header>
+
+      <!-- content -->
+      <div class="wizard__content my-4">
+        <ng-content></ng-content>
+      </div>
+
+    </div>
+    <!-- footer -->
+    <p2s-wizard-footer
+        [prevHidden]="activeStep === 1"
+        [nextHidden]="activeStep === wizardContetnts.length"
+        [finishHidden]="activeStep !== wizardContetnts.length"
+        (prev)="onPrev()"
+        (next)="onNext()"
+        (finish)="onFinish()">
+    </p2s-wizard-footer>
+  </div>
+</div>

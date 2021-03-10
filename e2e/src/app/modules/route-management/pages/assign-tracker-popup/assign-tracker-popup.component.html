@@ -1,0 +1,27 @@
+<p2s-user-form-popup [title]="'Assign Tracker To :'+title"
+                     (save)="save()"   
+                     (cancel)="cancel()">
+  
+
+  <p2s-form-group>
+    
+    
+    <div class="row my-2">
+      <div class="col-3"
+           *ngFor="let tracker of trackerList; index as i">
+           
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox"
+                 class="custom-control-input"
+                 [id]="'tracker'+i"
+                 [checked]="hasTracker(tracker.trackerId)"
+                 (change)="addTrackerToRoute(tracker)">
+          <label class="custom-control-label"
+                 [for]="'tracker'+i">
+            {{tracker.trackerName}}
+          </label>
+        </div>
+      </div>
+    </div>
+  </p2s-form-group>
+</p2s-user-form-popup>

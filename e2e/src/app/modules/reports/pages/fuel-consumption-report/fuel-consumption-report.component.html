@@ -1,0 +1,125 @@
+<div class="card width">
+  <div class="card-body">
+  
+    <!-- print button -->
+    <div style="color:black" class="justify-content-center mr-2 mb-3 no-print">
+        <button (click)="prints()"> <i class="fas fa-print fa-lg"> </i> </button>
+    </div>
+    <!--/ print button -->
+  
+    <div class=" mt-3 row">
+        <div class="col-6">
+        <h5 class="font-weight-bold">Fuel Consumption Report</h5>
+        </div>
+  
+        
+        <!-- logo -->
+        <div class="col-6 text-right">
+        <img src="assets/img/logo.png" width="115" height="60"> 
+        </div>
+        <!--/logo  -->
+    </div> 
+  
+  
+        
+    <div  class="border border-secondary rounded" style="height:80px">
+  
+        <table class="table table-borderless" width="100%">
+        <tr>
+  
+            <!-- company name -->
+            <td>
+            <span class="font-weight-bold">Company Name: Promise2Secure</span>
+            </td>
+            <!--/company name -->
+  
+            <!-- user name -->
+            <td>
+            <span class="font-weight-bold">Username: {{user.username}}</span>
+            </td>
+            <!--/user name -->
+            <td>
+              <span class="font-weight-bold">Tracker Name: {{trackerName}}</span>
+            </td>
+        </tr>  
+        
+        <tr>
+            <!-- start date -->
+            <td>
+            <span class="font-weight-bold">Start Date: {{fromDate| date:'yyyy-MM-dd hh:mm:ss a'}}</span>  
+            </td>
+            <!-- / start date -->
+  
+            <!-- end date -->
+            <td>
+            <span class="font-weight-bold">End Date: {{toDate| date:'yyyy-MM-dd hh:mm:ss a'}}</span>
+            </td>
+            <!--/ end date -->
+        </tr>
+        </table>
+  
+    </div>  
+
+    <div class="ml-5">
+      <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+          [colors]="colors">
+      </canvas>
+
+    </div>
+  
+    <div style=" overflow: auto;">
+  
+    <table class=" mt-3 table" border="1" width="100%" >
+      <tr>
+        <th>Date</th>
+        <th>Movement Duration</th>
+        <th>Fuel Consumption(moving)</th>
+        <th>Idling Duration</th>
+        <th>Fuel Consumption(Idling)</th>
+        <th>Total Duration</th>
+        <th>Distance(kms)</th>
+      </tr>
+  
+      <tr>
+        <td>{{fromDate| date:'yyyy-MM-dd hh:mm:ss a'}}</td>
+        <td>01 hr 04 min 02 sec</td>
+        <td>3.92 ltrs</td>
+        <td>00 hr 09 mins 57 sec</td>
+        <td>0.00ltrs</td>
+        <td>01 hr 13 mins 59 sec</td>
+        <td>27.45</td>
+      </tr>
+  
+  
+      <tr>
+        <td>{{secondDate| date:'yyyy-MM-dd hh:mm:ss a'}}</td>
+        <td>00 hr 44 min 23 sec</td>
+        <td>1.01 ltrs</td>
+        <td>00 hr 01 mins 02 sec</td>
+        <td>0.00ltrs</td>
+        <td>00 hr 45 mins 45 sec</td>
+        <td>8.5</td>
+      </tr>
+      
+      <tr>
+        <td>{{thirdDate| date:'yyyy-MM-dd hh:mm:ss a'}}</td>
+        <td>00 hr 44 min 27 sec</td>
+        <td>2.2 ltrs</td>
+        <td>00 hr 0 mins 53 sec</td>
+        <td>0.00ltrs</td>
+        <td>00 hr 45 mins 45 sec</td>
+        <td>18</td>
+      </tr>
+  
+  
+    </table>
+    </div>
+  
+  </div>
+
+</div>

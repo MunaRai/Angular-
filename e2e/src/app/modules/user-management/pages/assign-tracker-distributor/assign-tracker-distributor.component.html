@@ -1,0 +1,103 @@
+<p2s-user-form-popup title='Assign Tracker'
+                     (save)="save()"
+                     (cancel)="cancle()"
+                     [disableSave]="!trackers.length || !distributor.licenseDtoList.length">
+
+  <span>
+    
+  </span>                   
+  <form
+      role="form"
+      [formGroup]="distributorForm">
+
+    <div class="row">
+      <!-- Target user -->
+      <div class="col-6">
+        <p2s-form-group
+            label="Target User"
+            for="userName">
+          <input
+              type="text"
+              class="form-control"
+              name="userName"
+              id="userName"
+              formControlName="username"
+              readonly>
+
+        </p2s-form-group>
+      </div>
+      <!-- / Target user  -->
+
+      <div class="col-6">
+        <p2s-form-group label="Models"
+                        for="role">
+          <select
+              id="role"
+              class="form-control"
+              formControlName="modelId"
+              (click)="getTrackers()">
+            <option 
+                *ngFor="let model of models"  
+                [value]="model.modelId">
+              {{model.modelName}}
+            </option>
+          </select>
+        </p2s-form-group> 
+      </div> 
+    </div>
+
+    <p2s-form-group label="License">
+    <div class="row d-flex">
+    <!-- <div class="row my-2"> -->
+      <div 
+          class="col-3"
+          *ngFor="let license of distributor.licenseDtoList;index as i">
+        <div class="custom-control custom-radio mr-3">
+          <input 
+              type="radio"
+              class="custom-control-input"
+              [value]="license.licenseId"
+              [id]="'license'+i"
+              formControlName="licenseId">
+          <label 
+              class="custom-control-label"
+              [for]="'license'+i">
+            {{license.licenseName}}({{license.licenseCount}})
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+        class="mt-2 text-center text-muted"
+        *ngIf="!distributor.licenseDtoList.length">
+      No data available
+    </div>
+    </p2s-form-group>
+
+
+  <p2s-form-group label="Trackers">
+    <div class="row">
+      <div class="col-3"
+            *ngFor="let tracker of trackers; index as i">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox"
+                  class="custom-control-input"
+                  [id]="'tracker'+i"
+                  (change)="trackerChange(tracker.trackerId)">
+          <label class="custom-control-label"
+                  [for]="'tracker'+i">
+            {{tracker.trackerImeiNumber}}
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+        class="mt-2 text-center text-muted"
+        *ngIf="!trackers.length">
+      No data available
+    </div>
+    </p2s-form-group>
+
+    
+  </form>     
+</p2s-user-form-popup>     

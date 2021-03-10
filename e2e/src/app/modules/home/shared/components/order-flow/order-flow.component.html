@@ -1,0 +1,314 @@
+<!-- <ngb-accordion activeIds="order-summary" class="p2s-accordion">
+  <ngb-panel id="order-summary">
+    <ng-template ngbPanelTitle>
+      <div class="d-flex">
+        Order Flow
+        <div class="ml-auto">
+          <i class="fa fa-chevron-right"></i>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template ngbPanelContent> -->
+<div class="card mt-3">
+  <div class="card-header card-header-rose">
+    <h4 class="card-title ">Order Flow</h4>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Order ID</th>
+            <th>Shipper Name</th>
+            <th>Consigny Name</th>
+            <th>From City</th>
+            <th>To City</th>
+            <th>Bill To</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let orders of orders">
+            <tr class="pointer" [class.table-primary]="orders.orderManagementStatus == 'AVAILABLE'"
+              [class.table-success]="orders.orderManagementStatus == 'DELIVERED'" [class.table-warning]="orders.orderManagementStatus == 'INTRANSIT'"
+              [class.table-danger]="orders.orderManagementStatus == 'CANCELLED'" (click)="orders['expanded'] = !orders['expanded']">
+              <td>
+                <i class="fas" [class.fa-chevron-right]="!orders['expanded']" [class.fa-chevron-down]="orders['expanded']"></i>
+              </td>
+              <td>{{orders.orderId}}</td>
+              <td>{{orders.orderManagementShipper.clientMasterFirstName}} {{orders.orderManagementShipper.clientMasterMiddleName}} {{orders.orderManagementShipper.clientMasterLastName}}</td>
+              <td>{{orders.orderManagementConsigny.clientMasterFirstName}} {{orders.orderManagementConsigny.clientMasterMiddleName}} {{orders.orderManagementShipper.clientMasterLastName}}</td>
+              <td>{{orders.orderManagementShipper.clientMasterAddress.city}}</td>
+              <td>{{orders.orderManagementConsigny.clientMasterAddress.city}}</td>
+              <td>{{orders.orderManagementBill.orderManagementBillTo}}</td>
+              <td>
+                <i class="fas mr-1" [class.fa-tasks]="orders.orderManagementStatus == 'AVAILABLE'" [class.fa-check]="orders.orderManagementStatus == 'DELIVERED'"
+                  [class.fa-truck]="orders.orderManagementStatus == 'INTRANSIT'" [class.fa-times]="orders.orderManagementStatus == 'CANCELLED'">
+                </i>
+                <span class="text-capitalize">{{orders.orderManagementStatus}}</span>
+              </td>
+              <div class="expandable-content"></div>
+            </tr>
+
+            <tr class="expandable-row" *ngIf="orders['expanded']">
+              <td colspan="9">
+                <div class="d-flex align-items-stretch mb-3">
+                  <div class="col-md">
+                    <h4>Shipper Address</h4>
+                    <div class="row mb-1">
+                      <div class="col-md-5 font-weight-bold">Address Line 1:</div>
+                      <div class="col-md">{{orders.orderManagementShipper.clientMasterAddress.street1}}</div>
+                    </div>
+                    <div class="row mb-1">
+                      <div class="col-md-5 font-weight-bold">Address Line 2:</div>
+                      <div class="col-md">{{orders.orderManagementShipper.clientMasterAddress.street2}}</div>
+                    </div>
+                    <div class="row mb-1">
+                      <div class="col-md-5 font-weight-bold">City</div>
+                      <div class="col-md">{{orders.orderManagementShipper.clientMasterAddress.city}}</div>
+                    </div>
+                    <div class="row mb-1">
+                      <div class="col-md-5 font-weight-bold">Country</div>
+                      <div class="col-md">{{orders.orderManagementShipper.clientMasterAddress.country}}</div>
+                    </div>
+                    <div class="row mb-1">
+                      <div class="col-md-5 font-weight-bold">Zip Code</div>
+                      <div class="col-md">{{orders.orderManagementShipper.clientMasterAddress.zipCode}}</div>
+                    </div>
+                  </div>
+
+                  <div class="border-left"></div>
+
+                  <div class="col-md">
+                    <h4>Consigny Address</h4>
+                    <div class="row mb-1">
+                      <div class="col-md-5 font-weight-bold">Address Line 1:</div>
+                      <div class="col-md">{{orders.orderManagementConsigny.clientMasterAddress.street1}}</div>
+                    </div>
+                    <div class="row mb-1">
+                      <div class="col-md-5 font-weight-bold">Address Line 2:</div>
+                      <div class="col-md">{{orders.orderManagementConsigny.clientMasterAddress.street2}}</div>
+                    </div>
+                    <div class="row mb-1">
+                      <div class="col-md-5 font-weight-bold">City:</div>
+                      <div class="col-md">{{orders.orderManagementConsigny.clientMasterAddress.city}}</div>
+                    </div>
+                    <div class="row mb-1">
+                      <div class="col-md-5 font-weight-bold">Country:</div>
+                      <div class="col-md">{{orders.orderManagementConsigny.clientMasterAddress.country}}</div>
+                    </div>
+                    <div class="row mb-1">
+                      <div class="col-md-5 font-weight-bold">Zip Code:</div>
+                      <div class="col-md">{{orders.orderManagementConsigny.clientMasterAddress.country}}</div>
+                    </div>
+                  </div>
+
+                  <div class="border-left"></div>
+                  <div class="col-md">
+                    <h4>Order Details</h4>
+                    <!-- <div class="row mb-1">
+                      <div class="col-md-5 font-weight-bold">Pickup:</div>
+                      <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtPickupDate}}</div>
+                    </div>
+                    <div class="row mb-1">
+                      <div class="col-md-5 font-weight-bold">Delivery:</div>
+                      <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtDeliveryDate}}</div>
+                    </div> -->
+                    <hr>
+                    <div class="row mb-1">
+                      <div class="col-md-3 font-weight-bold">Weight:</div>
+                      <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtWeight}}
+                      </div>
+                    </div>
+
+                    <div class="row mb-1">
+                      <div class="col-md-3 font-weight-bold">Pieces:</div>
+                      <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtPieces}}</div>
+                    </div>
+
+                    <div class="row mb-1">
+                      <div class="col-md-3 font-weight-bold">Width:</div>
+                      <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtWidth}}</div>
+                    </div>
+
+                    <div class="row mb-1">
+                      <div class="col-md-3 font-weight-bold">Length:</div>
+                      <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtlenght}}</div>
+                    </div>
+
+
+                    <div class="row mb-1">
+                      <div class="col-md-3 font-weight-bold">Cube:</div>
+                      <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtCube}}</div>
+                    </div>
+
+
+                    <div class="row mb-1">
+                      <div class="col-md-3 font-weight-bold">Rate:</div>
+                      <div class="col-md">{{orders.orderMngFrieghtDetails.orderMngFrieghtRate}}</div>
+                    </div>
+
+                    <div class="orderflow" *ngIf="orders.orderManagementStatus == 'DELIVERED'">
+                      <img class="proimg" [src]="'data:image/png;base64,'+orders.orderManagementProfileImg">
+                      
+                      <img class="sigimg" [src]="'data:image/png;base64,'+orders.orderManagementSignatureImg">
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- </ng-template>
+  </ngb-panel>
+</ngb-accordion> -->
+<!-- <ngb-accordion activeIds="order-summary"
+               class="p2s-accordion">
+  <ngb-panel id="order-summary">
+    <ng-template ngbPanelTitle>
+      <div class="d-flex">
+        Order Flow
+        <div class="ml-auto">
+          <i class="fa fa-chevron-right"></i>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template ngbPanelContent>
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Order ID</th>
+              <th>Shipper Name</th>
+              <th>Consigny Name</th>
+              <th>From City</th>
+              <th>To City</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let order of orderFlows">
+              <tr class="pointer"
+                  [class.table-primary]="order.status == 'available'"
+                  [class.table-success]="order.status == 'delivered'"
+                  [class.table-warning]="order.status == 'inTransit'"
+                  [class.table-danger]="order.status == 'cancelled'"
+                  (click)="order['expanded'] = !order['expanded']">
+                <td>
+                  <i class="fas"
+                     [class.fa-chevron-right]="!order['expanded']"
+                     [class.fa-chevron-down]="order['expanded']"></i>
+                </td>
+                <td>{{order.orderID}}</td>
+                <td>{{order.shipper.name}}</td>
+                <td>{{order.consigny.name}}</td>
+                <td>{{order.shipper.city}}</td>
+                <td>{{order.consigny.city}}</td>
+                <td>
+                  <i class="fas mr-1"
+                     [class.fa-tasks]="order.status == 'available'"
+                     [class.fa-check-circle]="order.status == 'delivered'"
+                     [class.fa-truck]="order.status == 'inTransit'"
+                     [class.fa-times-circle]="order.status == 'cancelled'"></i> <span class="text-capitalize">{{order.status}}</span>
+                </td>
+                <div class="expandable-content"></div>
+              </tr>
+
+              <tr class="expandable-row" *ngIf="order['expanded']">
+                <td colspan="7">
+                  <div class="d-flex align-items-stretch mb-3">
+                    <div class="col-md">
+                      <h4>Shipper Address</h4>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Address Line 1:</div>
+                        <div class="col-md">{{order.shipper.addressLine1}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Address Line 2:</div>
+                        <div class="col-md">{{order.shipper.addressLine2}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">City</div>
+                        <div class="col-md">{{order.shipper.city}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Country</div>
+                        <div class="col-md">{{order.shipper.country}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Zip Code</div>
+                        <div class="col-md">{{order.shipper.zip}}</div>
+                      </div>
+                    </div>
+
+                    <div class="border-left"></div>
+
+                    <div class="col-md">
+                      <h4>Consigny Address</h4>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Address Line 1:</div>
+                        <div class="col-md">{{order.consigny.addressLine1}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Address Line 2:</div>
+                        <div class="col-md">{{order.consigny.addressLine2}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">City:</div>
+                        <div class="col-md">{{order.consigny.city}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Country:</div>
+                        <div class="col-md">{{order.consigny.country}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Zip Code:</div>
+                        <div class="col-md">{{order.consigny.zip}}</div>
+                      </div>
+                    </div>
+
+                    <div class="border-left"></div>
+
+                    <div class="col-md">
+                      <h4>Order Details</h4>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Pickup:</div>
+                        <div class="col-md">{{order.shipper.pickup | date : 'MM/dd/yyyy mm:hh a'}}</div>
+                      </div>
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Delivery:</div>
+                        <div class="col-md">{{order.consigny.delivery | date : 'MM/dd/yyyy mm:hh a'}}</div>
+                      </div>
+
+                      <hr>
+
+
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Weight:</div>
+                        <div class="col-md">{{order.freight.weight.value}} {{order.freight.weight.unit}}</div>
+                      </div>
+
+                      <div class="row mb-1">
+                        <div class="col-md-5 font-weight-bold">Pieces:</div>
+                        <div class="col-md">{{order.freight.pieces}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </ng-template>
+
+  </ngb-panel>
+</ngb-accordion> -->

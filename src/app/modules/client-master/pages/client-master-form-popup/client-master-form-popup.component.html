@@ -1,0 +1,246 @@
+<p2s-user-form-popup [title]="mode + ' client master'"
+                     (save)="save()"
+                     (cancel)="cancel()">
+  <form novalidate
+        role="form"
+        [formGroup]="clientMasterForm">
+    <div class="row">
+      <!-- name -->
+      <div class="col-6">
+        <p2s-form-group label=" First Name"
+                        for="clientMasterFirstName">
+          <input type="text"
+                 class="form-control"
+                 id="clientMasterFirstName"
+                 [class.is-invalid]="clientMasterForm.controls['clientMasterFirstName'].errors && (formSubmitted || clientMasterForm.controls['clientMasterFirstName'].touched || clientMasterForm.controls['clientMasterFirstName'].dirty)"
+                 formControlName="clientMasterFirstName">
+          <div class="invalid-feedback"
+               *ngIf="clientMasterForm.controls['clientMasterFirstName'].errors && (formSubmitted || clientMasterForm.controls['clientMasterFirstName'].touched || clientMasterForm.controls['clientMasterFirstName'].dirty)">
+            First name is required
+          </div>
+        </p2s-form-group>
+      </div>
+      <!-- / name -->
+      
+      <!-- middlename -->
+      <div class="col-6">
+        <p2s-form-group label=" Middle Name"
+                        for="clientMasterMiddleName">
+          <input type="text"
+                 class="form-control"
+                 id="clientMasterMiddleName"
+                 [class.is-invalid]="clientMasterForm.controls['clientMasterMiddleName'].errors && (formSubmitted || clientMasterForm.controls['clientMasterMiddleName'].touched || clientMasterForm.controls['clientMasterMiddleName'].dirty)"
+                 formControlName="clientMasterMiddleName">
+          <div class="invalid-feedback"
+               *ngIf="clientMasterForm.controls['clientMasterMiddleName'].errors && (formSubmitted || clientMasterForm.controls['clientMasterMiddleName'].touched || clientMasterForm.controls['clientMasterMiddleName'].dirty)">
+            Name is required
+          </div>
+        </p2s-form-group>
+      </div>
+      <!-- / middleame -->
+    </div>
+
+    <div class="row">
+      <!-- lastname -->
+      <div class="col-6">
+          <p2s-form-group label=" Last Name"
+                          for="clientMasterLastName">
+            <input type="text"
+                   class="form-control"
+                   id="clientMasterLastName"
+                   [class.is-invalid]="clientMasterForm.controls['clientMasterLastName'].errors && (formSubmitted || clientMasterForm.controls['clientMasterLastName'].touched || clientMasterForm.controls['clientMasterLastName'].dirty)"
+                   formControlName="clientMasterLastName">
+            <div class="invalid-feedback"
+                 *ngIf="clientMasterForm.controls['clientMasterLastName'].errors && (formSubmitted || clientMasterForm.controls['clientMasterLastName'].touched || clientMasterForm.controls['clientMasterLastName'].dirty)">
+               Last name is required
+            </div>
+          </p2s-form-group>
+        </div>
+        <!-- / middleame -->
+      <!-- phone -->
+      <div class="col-6">
+        <p2s-form-group label="Phone"
+                        for="clientMasterPhone">
+          <input type="text"
+                 class="form-control"
+                 id="clientMasterPhone"
+                 formControlName="clientMasterPhone"
+                 [class.is-invalid]="clientMasterForm.controls['clientMasterPhone'].errors && (formSubmitted || clientMasterForm.controls['clientMasterPhone'].touched || clientMasterForm.controls['clientMasterPhone'].dirty)">
+          <div class="invalid-feedback"
+               *ngIf="clientMasterForm.controls['clientMasterPhone'].errors && (formSubmitted || clientMasterForm.controls['clientMasterPhone'].touched || clientMasterForm.controls['clientMasterPhone'].dirty)">
+            Phone number is required
+          </div>
+        </p2s-form-group>
+      </div>
+      <!-- / phone -->
+    </div>
+
+    <div class="row">
+      <!-- email -->
+      <div class="col-6">
+        <p2s-form-group label="Email"
+                        for="clientMasterEmail">
+          <input type="email"
+                 class="form-control"
+                 id="clientMasterEmail"
+                 formControlName="clientMasterEmail"
+                 [class.is-invalid]="clientMasterForm.controls['clientMasterEmail'].errors && (formSubmitted || clientMasterForm.controls['clientMasterEmail'].touched || clientMasterForm.controls['clientMasterEmail'].dirty)">
+
+          <div class="invalid-feedback"
+               *ngIf="clientMasterForm.controls['clientMasterEmail'].errors && (formSubmitted || clientMasterForm.controls['clientMasterEmail'].touched || clientMasterForm.controls['clientMasterEmail'].dirty)">
+             Email is required
+          </div>
+        </p2s-form-group>
+      </div>
+      <!-- / email -->
+
+      <!-- debtor -->
+      <div class="col-6">
+        <p2s-form-group label="Debtor">
+          <div>
+            <div class="d-flex d-inline-flex align-items-center px-3 mt-1">
+              <p2s-switch formControlName="debtor"></p2s-switch>
+              <span class="ml-3">{{clientMasterForm.get('debtor').value ? 'Yes' : 'No'}}</span>
+            </div>
+          </div>
+        </p2s-form-group>
+      </div>
+      <!-- / debtor -->
+    </div>
+
+    <!-- address section -->
+    <div [formGroup]="addressForm">
+      <div class="row">
+        <div class="col-6">
+          <!-- address line 1 -->
+          <p2s-form-group label="Address Line 1"
+                          for="addressLine1">
+            <input type="text"
+                   id="addressLine1"
+                   class="form-control"
+                   formControlName="street1">
+          </p2s-form-group>
+          <!-- / address line 1 -->
+        </div>
+
+        <div class="col-6">
+          <!-- address line 2 -->
+          <p2s-form-group label="Address Line 2"
+                          for="addressLine2">
+            <input type="text"
+                   id="addressLine2"
+                   class="form-control"
+                   formControlName="street2">
+          </p2s-form-group>
+          <!-- / address line 2 -->
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <!-- City -->
+          <p2s-form-group label="City"
+                          for="city">
+            <input type="text"
+                   id="city"
+                   class="form-control"
+                   formControlName="city"
+                   [class.is-invalid]="addressForm.controls['city'].errors && (formSubmitted || addressForm.controls['city'].touched || addressForm.controls['city'].dirty)">
+            <div class="invalid-feedback"
+                *ngIf="addressForm.controls['city'].errors && (formSubmitted || addressForm.controls['city'].touched || addressForm.controls['city'].dirty)">
+              City is required
+            </div>
+          </p2s-form-group>
+          <!-- / City -->
+        </div>
+
+        <div class="col-6">
+           <!-- State -->
+          <p2s-form-group label="State"
+                          for="state">
+            <input type="text"
+                   id="state"
+                   class="form-control"
+                   formControlName="state">
+          </p2s-form-group>
+          <!-- / State -->
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <!-- Country -->
+          <p2s-form-group label="Country"
+                          for="country">
+            <select id="country"
+                    class="form-control"
+                    formControlName="country"
+                    [class.is-invalid]="addressForm.controls['country'].errors 
+                    && (formSubmitted || addressForm.controls['country'].touched || addressForm.controls['country'].dirty)">
+              <option value="USA">USA</option>
+              <option value="Canada">Canada</option>
+              <option value="China">China</option>
+              <option value="India">India</option>
+              <option value="Nepal">Nepal</option>
+            </select>
+
+            <div class="invalid-feedback"
+                 *ngIf="addressForm.controls['country'].errors && (formSubmitted || addressForm.controls['country'].touched || addressForm.controls['country'].dirty)">
+              Country is required
+            </div>
+          </p2s-form-group>
+          <!-- / Country -->
+        </div>
+
+        <div class="col-6">
+           <!-- Zip -->
+          <p2s-form-group label="Zip"
+                          for="zip">
+            <input type="number"
+                   id="zip"
+                   class="form-control"
+                   formControlName="zipCode">
+          </p2s-form-group>
+          <!-- / Zip -->
+        </div>
+      </div>
+    </div>
+    <!-- / address section -->
+    <div class="row">
+      <div class="col-6">
+        <!-- lat -->
+        <p2s-form-group 
+            label="Latitude"
+            for="clientMasterAddressLat">
+          <input type="number"
+              id="clientMasterAddressLat"
+              class="form-control"
+              formControlName="clientMasterAddressLat"
+              [class.is-invalid]="clientMasterForm.controls['clientMasterAddressLat'].errors && (formSubmitted || clientMasterForm.controls['clientMasterAddressLat'].touched || clientMasterForm.controls['clientMasterAddressLat'].dirty)">
+            <div class="invalid-feedback"
+              *ngIf="clientMasterForm.controls['clientMasterAddressLat'].errors && (formSubmitted || clientMasterForm.controls['clientMasterAddressLat'].touched || clientMasterForm.controls['clientMasterAddressLat'].dirty)">
+            Latitude is required
+          </div>
+        </p2s-form-group>
+        <!-- / lat -->  
+      </div>
+      <div class="col-6">
+          <!-- long -->
+          <p2s-form-group 
+              label="Longitude"
+              for="clientMasterAddressLong">
+            <input type="number"
+                id="clientMasterAddressLong"
+                class="form-control"
+                formControlName="clientMasterAddressLong" 
+                [class.is-invalid]="clientMasterForm.controls['clientMasterAddressLong'].errors && (formSubmitted || clientMasterForm.controls['clientMasterAddressLong'].touched || clientMasterForm.controls['clientMasterAddressLong'].dirty)">
+            <div class="invalid-feedback"
+                *ngIf="clientMasterForm.controls['clientMasterAddressLong'].errors && (formSubmitted || clientMasterForm.controls['clientMasterAddressLong'].touched || clientMasterForm.controls['clientMasterAddressLong'].dirty)">
+              Longitude is required
+            </div>
+          </p2s-form-group>
+          <!-- / long -->  
+        </div>
+    </div>
+  </form>
+</p2s-user-form-popup>

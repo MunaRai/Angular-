@@ -1,0 +1,89 @@
+<div class="col p-0 y-auto">
+    <p2s-list-page-template
+        heading="user management"
+        [editDisabled]="!selectedUser"
+        [deleteDisabled]="!selectedUser"
+        (add)="showUserPopup('add')"
+        (edit)="showUserPopup('edit')"
+        (delete)="delete()"
+        (search)="onSearch($event)"
+        (pageChange)="gotoPage($event)"
+        (next)="next()"
+        (prev)="previous()"
+        (limitChange)="changeLimit($event)"
+        [page]="pagingSorting.page"
+        [totalPages]="pagingSorting.totalPages">
+
+
+        <!-- select to filter normal user and customer care user -->
+       
+          <p2s-form-group label="UserType" for="User Type">
+            <select class="p-0 form-control col-2" 
+                    [(ngModel)]="userType"
+                    (change)="showUsers()">
+              <option value="normalUser">Normal User</option>
+              <option value="ccUser">Customer Care User</option>
+
+            </select>
+          </p2s-form-group>  
+       
+        <!--/ select to filter normal user and customer care user -->
+
+
+      <div class="table-responsive my-3 bg-white mt-2">
+        <table class="table m-0 table-hover table-bordered table-fixed">
+          <thead>
+            <tr class="bg-gray-7 text-white">
+              <th>Username</th>
+
+              <th class="text-center">Name</th>
+
+              <th class="text-center">Organization Name</th>
+
+              <!-- <th class="text-center">Deleted</th> -->
+
+              <th class="text-center">Status</th>
+              
+              <th *ngIf="userType=='normalUser'" class="text-center">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let user of users"
+                class="pointer"
+                [class.table-secondary]="user == selectedUser"
+                (click)="selectedUser = user">
+              <td>{{user.username}}</td>
+              <td class="text-center">{{user.userFirstName}} {{user.userMiddleName}} {{user.userLastName}}</td>
+              <td class="text-center">{{user.userOrganizationName}}</td>
+              <!-- <td class="text-center">{{user.userDisabled}}</td> -->
+              <!-- <td class="text-center">{{user.trackers.length}}</td> -->
+              <!-- remove the empty cell once we get trackers array -->
+              <!-- <td class="text-center">{{user.userFeatures}}</td> -->
+
+              <td class="text-center">
+                <span class="status text-capitalize"
+                      [class.success]="user.userStatus == 'ACTIVE'"
+                      [class.warning]="user.userStatus == 'EXPIRING'"
+                      [class.dark]="user.userStatus == 'INACTIVE'"
+                      [class.danger]="user.userStatus == 'EXPIRED'">
+                  {{user?.userStatus?.toLocaleLowerCase()}}
+                </span>
+              </td>
+
+              <td *ngIf="userType=='normalUser'" class="text-center">
+                <button 
+                    class="btn btn-primary btn-sm"
+                    (click)="openTrackerAssignPopUp(user)" 
+                    ngbTooltip="Assign Tracker">
+                  Assign Tracker
+                </button> 
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+        <p2s-no-record *ngIf="!users.length"></p2s-no-record>
+      </div>
+    </p2s-list-page-template>
+</div>

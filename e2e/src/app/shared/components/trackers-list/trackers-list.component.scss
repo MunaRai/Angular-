@@ -1,0 +1,146 @@
+@import './src/app/shared/styles/variables';
+
+.trackers-list {
+  .fa-star {
+    // &:hover {
+    //   color: $orange;
+    // }
+   
+    &.favorite {
+      color: $orange;
+    }
+  }
+}
+.trackers-list {
+  @media screen and (min-width: 769px) {
+    ::ng-deep {
+      > ngb-tabset {
+        .nav-link {
+          min-width: 40px;
+          text-align: center;
+        }
+        >.tab-content {
+          //  col
+          -ms-flex-preferred-size: 0;
+          flex-basis: 0;
+          -webkit-box-flex: 1;
+          -ms-flex-positive: 1;
+          flex-grow: 1;
+          max-width: 100%;
+
+          //  d-flex
+          display: -webkit-box !important;
+          display: -ms-flexbox !important;
+          display: flex !important;
+
+          // flex-column
+          -webkit-box-orient: vertical !important;
+          -webkit-box-direction: normal !important;
+          -ms-flex-direction: column !important;
+          flex-direction: column !important;
+          .tab-pane{
+            &.active {
+              //  col
+              -ms-flex-preferred-size: 0;
+              flex-basis: 0;
+              -webkit-box-flex: 1;
+              -ms-flex-positive: 1;
+              flex-grow: 1;
+              max-width: 100%;
+
+              //  d-flex
+              display: -webkit-box !important;
+              display: -ms-flexbox !important;
+              display: flex !important;
+
+              // flex-column
+              -webkit-box-orient: vertical !important;
+              -webkit-box-direction: normal !important;
+              -ms-flex-direction: column !important;
+              flex-direction: column !important;
+
+              background: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.digital-input-box {
+  $size: 30px;
+  height: $size;
+  width: $size;
+  display: inline-block;
+}
+
+
+ .favAsBtn{
+  padding:0;
+  border:none;
+  background:none;
+  outline: none;
+ }
+
+ .treelist{
+  list-style-type:none
+ }
+
+ .red{
+   color:#F01111;
+ }
+
+ .orange{
+   color:#FFB700;
+  }
+
+  .green{
+    color:#30C419;
+    
+  } 
+
+  .gray{
+    color:#696969;
+    
+  }
+
+  
+  
+  
+
+  .scrollable{
+    max-height:350px;
+    overflow: auto;
+    list-style: none;
+    font-size: 14px;
+    font-style: oblique;
+    background-color: black;
+    color:white;
+  }
+
+  .bottom_line{
+    border-bottom: 1px solid #0000001c;
+    margin-top: 3px;
+    width:100%;
+  }
+  button.btn.btn-link{
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+
+
+  .transparent{
+    background-color:transparent !important;
+    border-radius: 50px;
+  }
+
+
+  
+
+  

@@ -1,0 +1,44 @@
+<div class="col p-0 y-auto">
+  <p2s-list-page-template heading="Reminder" (add)="showReminderPopup('add')" (edit)="showReminderPopup('edit')"
+    [editDisabled]="!selectedReminder" [deleteDisabled]="!selectedReminder" (delete)="delete()" (cancel)="cancel()"
+    (search)="onSearch($event)" (pageChange)="gotoPage($event)" (next)="next()" (prev)="previous()" (limitChange)="changeLimit($event)"
+    [page]="pagingSorting.page" [totalPages]="pagingSorting.totalPages">
+
+    <div class="ibox mt-3">
+      <div class="ibox-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Subject</th>
+                <th scope="col">Description</th>
+                <!-- <th scope="col">Action</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rem of reminders" class="pointer" [class.table-secondary]="rem == selectedReminder"
+                (click)="selectedReminder = rem">
+                <td scope="row">{{rem.reminderSubject}}</td>
+                <td>{{rem.reminderBody}}</td>
+                <!-- <td>
+                  <button class="btn btn-primary btn-sm" 
+                          (click)="pause()" 
+                          ngbTooltip="Pause Reminder"
+                          *ngIf="rem.reminderIsTriggered === true">
+                    <i class="fas fa-pause fa-md"></i>
+                  </button>
+                  <button class="btn btn-info btn-sm" 
+                          (click)="resume()" 
+                          ngbTooltip="Resume"
+                          *ngIf="rem.reminderIsTriggered === false">
+                    <i class="fas fa-play fa-md"></i>
+                  </button>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </p2s-list-page-template>
+</div>

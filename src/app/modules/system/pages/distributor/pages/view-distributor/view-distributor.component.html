@@ -1,0 +1,54 @@
+<header class="modal-header">
+  <h4 class="modal-title text-capitalize">Distributor Detail</h4>
+
+  <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</header>
+
+<!-- distributor name and username detail table -->
+
+  <table class="table table-borderless table-sm ml-1" width="100%">
+    <tr>
+      <td>
+        <strong>Distributor Name :</strong>
+        <span>{{distributor.distributorName}}</span>
+
+      </td>
+
+      <td>
+      <strong>Distributor Username :</strong>
+      <span>{{distributor.userDto.username}}</span>
+    </td>
+
+    </tr>
+  </table>
+<!--/ distributor name and username detail table -->
+
+<h5 class="text-left font-weight-bold mt-3 ml-2">Assigned Licenses</h5>
+
+<!-- license detail table -->
+<div class=" border border-secondary rounded my-3 ml-2 mr-2">
+
+  <table class="table table-borderless table-sm">
+    <tr class="bg-gray-7 text-white">
+      <th class="text-center">Name</th>
+      <th class="text-center">Count</th>
+    </tr>
+
+    <tr *ngFor="let license of distributor.licenseDtoList" class="table-hover">
+        <td class="text-center">{{license.licenseName}}</td>
+        <td class="text-center">{{license.licenseCount}}</td>
+    </tr>
+    <div
+        class="mt-2 text-center text-muted"
+        *ngIf="!distributor.licenseDtoList.length">
+      No data available
+    </div>
+
+  </table>
+</div>
+<!-- license detail table -->
+
+  
+ 

@@ -1,0 +1,111 @@
+<div
+    class="col p-0 y-auto">
+  <p2s-list-page-template
+      heading="tracker management"
+      [editDisabled]="!selectedTracker"
+      [deleteDisabled]="!selectedTracker"
+      [enableAdd]='false'
+      [enableDelete]='false'
+      (add)="showTrackerPopup('add')"
+      (edit)="showTrackerPopup('edit')"
+      (delete)="delete()"
+      (search)="onSearch($event)"
+      (pageChange)="gotoPage($event)"
+      (next)="next()"
+      (prev)="previous()"
+      (limitChange)="changeLimit($event)"
+      [page]="pagingSorting.page"
+      [totalPages]="pagingSorting.totalPages" >
+    <div class="table-responsive my-3 bg-white">
+      <table class="table m-0 table-hover table-bordered table-fixed">
+        <thead>
+          <tr class="bg-gray-7 text-white">
+            <!-- <th>Tracker ID</th> -->
+            <th class="text-center"></th>
+            <th class="text-center">IMEI</th>
+
+            <th class="text-center" *ngIf="user.userRole === 'ROLE_ADMIN'">SIM No.</th>
+
+            <th class="text-center">Model</th>
+
+            <th class="text-center">Tracker Name</th>
+
+            <!-- <th class="text-center">Users</th> -->
+
+            <th class="text-center">Expiry Date</th>
+
+            <th class="text-center">Status</th>
+            <th  class="text-center">Vip Tracker</th>
+
+            <th class="text-center" *ngIf="user.userRole === 'ROLE_ADMIN'">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+              *ngFor="let tracker of trackers"
+              class="pointer"
+              [class.table-secondary]="tracker == selectedTracker"
+              (click)="selectedTracker = tracker">
+            <td class="text-center">
+              <button
+                  class="btn btn-sm transparent"
+                  (click)="showTrackerDetails(tracker)"
+                  [ngbTooltip]="'Show Tracker Details'">
+                <i class="fas fa-chevron-up"></i>
+              </button>
+            </td>
+            <td class="text-center">{{tracker.trackerImeiNumber}}</td>
+
+            <td class="text-center" *ngIf="user.userRole === 'ROLE_ADMIN'">{{tracker.trackerSimNumber}}</td>
+
+            <td class="text-center">{{tracker.trackerModelName}}</td>
+
+            <td class="text-center">
+              {{tracker.trackerName}}
+
+              <button
+                  *ngIf="tracker.trackerName"
+                  class="btn btn-sm transparent"
+                  (click)="showTrackerUsersList(tracker)"
+                  [ngbTooltip]="'Show user list'">
+                <i class="fas fa-chevron-up"></i>
+              </button>
+            </td>
+
+            <!-- <td class="text-center">{{getUserNames(tracker.users).join(', ')}}</td> -->
+            <!-- <td class="text-center">{{tracker.trackerName}}</td> -->
+            <td
+                class="text-center">
+              {{tracker.trackerDateExpiry | date : 'MM/dd/yyyy'}}
+            </td>
+
+            <td
+                class="text-center">
+              <span class="status text-capitalize"
+                    [class.success]="tracker.trackerStatus == 'ACTIVE'"
+                    [class.warning]="tracker.trackerStatus == 'EXPIRING'"
+                    [class.dark]="tracker.trackerStatus == 'INACTIVE'"
+                    [class.danger]="tracker.trackerStatus == 'EXPIRED'">
+                {{tracker.trackerStatus.toLowerCase()}}
+              </span>
+            </td>
+            <td  class="text-center">{{tracker.vipTracker===true?'YES':'NO'}}</td>
+
+            <td
+                *ngIf="user.userRole === 'ROLE_ADMIN'"
+                class="text-center">
+              <button
+                  class="btn btn-success btn-sm"
+                  (click)="openMoveTrackerToUser(tracker)"
+                  [disabled]="!tracker.trackerIsAssign">
+                Assign to new User
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p2s-no-record *ngIf="!trackers.length"></p2s-no-record>
+    </div>
+  </p2s-list-page-template>
+</div>

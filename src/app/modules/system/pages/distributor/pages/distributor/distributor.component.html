@@ -1,0 +1,179 @@
+<div class="col p-0 y-auto">
+  <p2s-list-page-template
+       heading="Distributor"
+       [editDisabled]="!selectedDistributor"
+       [deleteDisabled]="!selectedDistributor"
+       addTooltip="Add Distributor"
+       editTooltip="Edit Distributor"
+       deleteTooltip="Delete Distributor"
+     (search)="onSearch($event)"
+     (add)="showDistributorPopUpForm('add')"
+     (edit)="showDistributorPopUpForm('edit')"
+     (delete)="delete()"
+     (pageChange)="gotoPage($event)"
+     (next)="next()"
+     (prev)="previous()"
+     (limitChange)="changeLimit($event)"
+     [page]="pagingSorting.page"
+     [totalPages]="pagingSorting.totalPages" >
+
+     <!-- <div class="row">
+        <div class="col-2">
+          <div class="input-group input-group-md">
+            <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="keyword" 
+                placeholder="Search....."
+                (keyup)="onSearch(keyword)">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fas fa-search"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div> -->
+
+     <div class="table-responsive my-3">
+        <table class="table m-0 table-hover table-bordered table-fixed">
+          <thead>
+            <tr class="bg-gray-7 text-white">
+ 
+              <th class="text-center">Name</th>
+
+              <th class="text-center">Username</th>
+
+              <th class="text-center">Email</th>
+
+              <th class="text-center">Address</th>
+
+              <th class="text-center">Phone No</th>
+
+              <th  class ="text-center">Actions</th>
+
+              <!-- <th class ="text-center"> View Detail</th> -->
+ 
+
+            </tr>
+          </thead>
+ 
+          <tbody>
+            <tr 
+                *ngFor="let distributor of distributors"
+                class="pointer"
+                [class.table-secondary]="distributor == selectedDistributor"
+                (click)="selectedDistributor = distributor">
+              <td class="text-center">
+                <button 
+                    (click)="viewDistributorDetail(distributor)" 
+                    class="btn btn-link"
+                    ngbTooltip="View Detail">
+                  {{distributor.distributorName}}
+                </button>
+              </td>
+
+              <td class="text-center">{{distributor.userDto.username}}</td>
+
+              <td class="text-center">{{distributor.userDto.userEmail}}</td>
+
+              <td class="text-center">{{distributor.userDto.userAddress.city}}, {{distributor.userDto.userAddress.country}}</td>
+
+              <td class="text-center">{{distributor.userDto.userPhone}}</td>
+
+            
+              <!-- <td class="text-center">
+                <button 
+                    class="btn transparent" 
+                    (click)="distributor.showAddButtons = !distributor.showAddButtons">
+                  <i 
+                      class="fas fa-lg"
+                      [class.fa-angle-double-right] ="!distributor.showAddButtons"
+                      [class.fa-angle-double-down] ="distributor.showAddButtons">
+                  </i>
+                  Add Tracker/License
+                </button>
+                  <ul 
+                      *ngIf="distributor.showAddButtons" 
+                      style="list-style-type:none">
+                    <li> 
+                      <button 
+                          class="btn btn-primary btn-sm mt-1"
+                          (click)="openTrackerAssignPopUp(distributor)" 
+                          ngbTooltip="Assign Tracker">
+                        <i class="fa fa-microchip fa-md mr-2"></i>    
+                        Assign Tracker
+                      </button> 
+                    </li>
+                    <li> 
+                      <button 
+                            class="btn btn-info btn-sm mt-2"
+                            (click)="openLicenseAssignPopUp(distributor)" 
+                            ngbTooltip="Add License"> 
+                          <i class="fa fa-address-card fa-md mr-2"></i>
+                          Assign License
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                          class="btn btn-danger btn-sm mt-2"
+                          (click)="openTrackerUnAssignPopUp(distributor)"
+                          ngbTooltip="UnAssign Tracker">
+                        <i class="fa fa-microchip fa-md mr-2"></i>    
+                        Delete Tracker
+                      </button>
+                    </li>
+                  </ul>
+              </td> -->
+
+              <td class="text-center">
+                <button 
+                    class="btn transparent" 
+                    (click)="distributor.showAddButtons = !distributor.showAddButtons"
+                    [ngbTooltip]="distributor.showAddButtons?'Hide':'Show'">
+                  <i 
+                      class="fas fa-lg"
+                      [class.fa-angle-double-right] ="!distributor.showAddButtons"
+                      [class.fa-angle-double-left] ="distributor.showAddButtons">
+                  </i>
+                </button>
+
+                <span *ngIf="distributor.showAddButtons">
+                  <button 
+                      class="btn btn-primary btn-sm"
+                      (click)="openTrackerAssignPopUp(distributor)" 
+                      ngbTooltip="Assign Tracker">
+                    <i class="fa fa-microchip fa-md"></i>    
+                  </button> 
+                  <button 
+                        class="btn btn-info btn-sm"
+                        (click)="openLicenseAssignPopUp(distributor)" 
+                        ngbTooltip="Add License"> 
+                      <i class="fa fa-address-card fa-md"></i>
+                  </button>
+                  <button
+                      class="btn btn-danger btn-sm"
+                      (click)="openTrackerUnAssignPopUp(distributor)"
+                      ngbTooltip="UnAssign Tracker">
+                    <i class="fa fa-microchip fa-md"></i>    
+                  </button>
+                </span>
+              </td>
+              <!-- <td class="text-center">
+                <button 
+                    (click)="viewDistributorDetail(distributor)" 
+                    class="btn btn-link"
+                    ngbTooltip="View Detail"> 
+                  <i class="fa fa-eye fa-lg"></i>
+                </button>
+              </td> -->
+              
+            </tr>
+          </tbody>
+ 
+        </table>
+        <p2s-no-record *ngIf="!distributors.length"></p2s-no-record>
+     </div>
+ 
+  </p2s-list-page-template>  
+</div>

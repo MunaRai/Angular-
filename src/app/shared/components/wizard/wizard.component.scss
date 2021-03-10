@@ -1,0 +1,8 @@
+.wizard-step-connector {
+  height: 4px;
+  background: var(--gray);
+  margin-top: 18px;
+  &--success {
+    background: var(--green);
+  }
+}

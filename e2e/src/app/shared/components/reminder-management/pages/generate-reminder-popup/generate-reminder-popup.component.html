@@ -1,0 +1,241 @@
+<p2s-user-form-popup [title]="'Manage' + ' Reminder'" (save)="save()" (cancel)="dismiss()">
+  <form novalidate role="form" [formGroup]="reminderForm">
+
+    <div class="row">
+      <div class="col-6">
+        <!-- <p2s-form-group
+              label="Reminder Start Date">
+            <input 
+                type="text"
+                class="form-control"
+                id="reminderStartDate"
+                ngbDatepicker
+                #reminderStartDatePicker="ngbDatepicker"
+                readOnly
+                (click)="reminderStartDatePicker.toggle()"
+                formControlName="reminderStartDate">
+            </p2s-form-group> -->
+        <div class="form-inline">
+          <div class="form-group fromToDate">From</div>
+          <div class="input-append date" id="datetimepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+            <span class="add-on"><i class="icon-th"></i></span>
+          </div>
+          <i class="far fa-calendar-alt calenders "></i>
+          <input type="date" class="form-control hasDatepicker ml-2 mt-2" id="hasDatepicker" formControlName="fromDate"
+            name="sdate" style="width:166px">
+          <div class="form-group" style="display: inline-block;color: #008000">
+            <i class="far fa-clock m-2"></i>
+          </div>
+          <div class="form-group" style="display: inline-block;">
+            <input id="shr" class="form-control mt-2" type="time" name="time" value="0" min="0" max="23"
+              formControlName="fromTime">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-inline mt-3" >
+          <div class="form-group fromToDate">To</div>
+          <i class="far fa-calendar-alt calenders"></i>
+          <input type="date" class="form-control ml-2" id="sdate" formControlName="toDate" name="sdate" style="width: 166px">
+          <div class="form-group" style="display: inline-block;color: #008000">
+            <i class="far fa-clock m-2"></i>
+          </div>
+          <div class="form-group" style="display: inline-block;">
+            <input id="shr" class="form-control" type="time" name="shr" value="0" min="0" max="23" formControlName="toTime">
+          </div>
+        </div>
+        <!-- <p2s-form-group
+                label="Reminder End Date">
+              <input 
+                  type="text"
+                  class="form-control"
+                  id="reminderEndDate"
+                  ngbDatepicker
+                  #reminderDatePicker="ngbDatepicker"
+                  readOnly
+                  (click)="reminderDatePicker.toggle()"
+                  formControlName="reminderEndDate">
+              </p2s-form-group> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <p2s-form-group label="Reminder Subject" 
+                        for="reminderSubject">
+          <textarea id="reminderSubject" rows="5" 
+                    formControlName="reminderSubject" 
+                    class="form-control">
+          </textarea>
+        </p2s-form-group>
+      </div>
+      <div class="col-6">
+        <p2s-form-group label="Reminder Body" for="reminderBody">
+          <textarea id="reminderBody" rows="5" formControlName="reminderBody" class="form-control">
+                  </textarea>
+        </p2s-form-group>
+      </div>
+    </div>
+  </form>
+</p2s-user-form-popup>
+
+
+<!-- <p2s-user-form-popup 
+    [title]="'Manage' + ' Reminder'"
+    (save)="save()"
+    (cancel)="dismiss()">
+  <form novalidate
+      role="form"
+      [formGroup]="reminderForm">
+
+    <div class = "row">
+      <div class="col-6">
+        <p2s-form-group
+            label="Based On"
+            for="reminderBasedOn">
+          <select
+              id="role"
+              class="form-control"
+              formControlName="reminderBasedOn">
+            <option value="date">Date</option>
+            <option value="distance"> Distance</option>
+            <option value="enginehours">Engine hours</option>
+          </select>
+        </p2s-form-group>
+      </div> 
+      <div class="col-6" *ngIf="showDistanceControls">
+      
+        <p2s-form-group
+            label="distance (km)"
+            for="reminderBasedOn">
+          <input type="text"
+                class="form-control"
+                id="distance"
+                formControlName="distance">
+        </p2s-form-group>
+      </div>
+
+      <div class="col-6" *ngIf="showEngineHoursControls">
+        <p2s-form-group
+            label="Engine Hours (km/h)"
+            for="reminderBasedOn">
+          <input type="text"
+              class="form-control"
+              id="enginehours"
+              formControlName="engineHours">
+        </p2s-form-group>
+      </div>
+    </div>
+
+    <div class = "row" *ngIf="showDateControls">
+      <div class="col-6">
+        <p2s-form-group 
+            label="Reminder Start Date"
+            for="reminderBasedOn">
+          <input type="text"
+              class="form-control"
+              id="reminderStartDate"
+              ngbDatepicker
+              #reminderDatePicker="ngbDatepicker"
+              readOnly
+              (click)="reminderDatePicker.toggle()"
+              formControlName="reminderStartDate">
+        </p2s-form-group>
+      </div>
+          
+      <div class="col-6">
+        <p2s-form-group
+            label="Reminder End Date"
+            for="reminderBasedOn">
+          <input 
+              type="text"
+              class="form-control"
+              id="reminderEndDate"
+              ngbDatepicker
+              #reminderDatePicker="ngbDatepicker"
+              readOnly
+              (click)="reminderDatePicker.toggle()"
+              formControlName="reminderEndDate">
+          </p2s-form-group>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <p2s-form-group 
+            label="Reminder  Date"
+            for="reminderDate">
+          <input type="text"
+              class="form-control"
+              id="reminderDate"
+              ngbDatepicker
+              #reminderDatePicker="ngbDatepicker"
+              readOnly
+              (click)="reminderDatePicker.toggle()"
+              formControlName="reminderDate">
+        </p2s-form-group>
+      </div>
+
+      <div class="col-6">
+        <p2s-form-group 
+            label="Email"
+             for="email">
+          <input type="email"
+              class="form-control"
+              id="email"
+              [class.is-invalid]="reminderForm.controls['email'].errors && (formSubmitted ||
+              reminderForm.controls['email'].touched || reminderForm.controls['email'].dirty)"
+              formControlName="email">
+          <div
+              class="invalid-feedback"
+              *ngIf="email.errors && (formSubmitted || email.touched || email.dirty)">
+             
+            <div *ngIf="email.errors.required">
+                Email is required
+            </div>
+ 
+            <div *ngIf="email.errors.minlength">
+                Minimum length is 10
+            </div>
+ 
+            <div *ngIf="email.errors.maxlength">
+                Maximum length is 20
+            </div>
+          </div>
+        </p2s-form-group>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <p2s-form-group 
+            label="Notify  Before"
+            for="notifyBeforeDate">
+          <input type="text"
+              class="form-control"
+              id="notifyBeforeDate"
+              ngbDatepicker
+              #reminderDatePicker="ngbDatepicker"
+              readOnly
+              (click)="reminderDatePicker.toggle()"
+              formControlName="notifyBeforeDate">
+        </p2s-form-group>
+      </div>
+    </div>
+  
+    <div class="row" >
+      <div class="col-12">
+        <p2s-form-group
+            label="Remarks"
+            for="remark">
+          <textarea
+              id="remark"
+              rows="5"
+              formControlName="remark"
+              class="form-control">
+          </textarea>
+        </p2s-form-group>
+      </div>
+    </div>
+  </form>
+</p2s-user-form-popup> -->

@@ -1,0 +1,40 @@
+<div class="col p-0 y-auto">
+  <p2s-list-page-template heading="commodity code"
+                          [editDisabled]="!selectedCommodity"
+                          [deleteDisabled]="!selectedCommodity"
+                          (add)="showCommodityPopup('add')"
+                          (edit)="showCommodityPopup('edit')"
+                          (delete)="delete()"
+                          (search)="onSearch($event)" 
+                          (pageChange)="gotopage($event)"
+                          (next)="next()"
+                          (prev)="previous()"
+                          (limitChange)="changeLimit($event)"
+                          [page]="pagingSorting.page"
+                          [totalPages]="pagingSorting.totalPages" >
+    <div class="my-3 table-responsive bg-white">
+      <table class="table m-0 table-hover table-bordered">
+        <thead>
+          <tr class="bg-gray-7 text-white">
+            <th>Commodity Code</th>
+            <th class="text-center">Description</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let commodity of commodityCodes"
+          class="pointer"
+          [class.table-secondary]="commodity == selectedCommodity"
+          (click)="selectedCommodity = commodity">
+            <td>
+              {{commodity.commodityCode}}
+            </td>
+            <td class="text-center">
+              {{commodity.commodityCodeDescription}}
+            </td>
+         </tr>
+        </tbody>
+      </table>
+    </div>
+  </p2s-list-page-template>
+</div>

@@ -1,0 +1,94 @@
+<p2s-user-form-popup 
+    [title]=" mode+' User Role'"
+    (save)="save()"
+    (cancel)="dismiss()"
+    [disableSave]="userRoleForm.invalid">
+  <form novalidate
+      role="form"
+      [formGroup]="userRoleForm">
+    <!-- user Role  Name -->
+    <div class="col-12">
+      <p2s-form-group 
+          label="UserRole Name"
+          for="roleName"
+          required="true">
+        <input 
+            type="text"
+            class="form-control"
+            id="roleName"
+            formControlName="roleName"
+            [class.is-invalid]="roleName?.errors &&
+                   (formSubmitted || roleName?.touched ||
+                   roleName?.dirty)">
+        <div 
+            class="invalid-feedback"
+            *ngIf="roleName.errors && (formSubmitted ||
+            roleName.touched || roleName.dirty)">
+          <div *ngIf="roleName.errors.required">
+              UserRole name is required
+          </div>
+
+          <div *ngIf="roleName.errors.minlength">
+              Minimum length is 4
+          </div>
+
+          <div *ngIf="roleName.errors.maxlength">
+              Maximum length is 30
+          </div>
+
+          <div *ngIf="roleName.errors.pattern">
+              {{checkPattern.errorPatternMsg}}
+          </div>
+
+
+        </div>   
+      </p2s-form-group>
+    </div>  
+    
+    <!-- / user Role  Name -->
+
+    <!--user Role Code -->
+    <div class="col-12">
+      <p2s-form-group
+          label="UserRole Code"
+          for="roleCode"
+          required="true">
+        <input 
+            type="text"
+            class="form-control"
+            id="roleCode"
+            formControlName="roleCode"
+            [class.is-invalid]="roleCode?.errors &&
+            (formSubmitted || roleCode?.touched ||
+            roleCode?.dirty)">
+        <div 
+            class="invalid-feedback"
+            *ngIf="roleCode.errors && (formSubmitted ||
+            roleCode.touched || roleCode.dirty)">
+          <div *ngIf="roleCode.errors.required">
+              UserRole code is required
+          </div>
+
+          <div *ngIf="roleCode.errors.minlength">
+              Minimum length is 2
+          </div>
+
+          <div *ngIf="roleCode.errors.maxlength">
+              Maximum length is 5
+          </div>
+
+          <div *ngIf="roleCode.errors.pattern">
+              {{checkPattern.errorPatternMsg}}
+          </div>
+        </div>   
+      </p2s-form-group>
+    </div>
+    <!-- /user Role Code -->
+  </form>
+
+</p2s-user-form-popup>
+
+
+
+
+

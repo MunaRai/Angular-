@@ -1,0 +1,64 @@
+<agm-map 
+    [latitude]="lat"
+    [longitude]="lng"
+    [zoom]="18"
+    class="h-100 w-100">
+  <!-- <agm-marker
+      *ngFor="let stop of stopList;index as i"
+      [latitude]="stop.lat"
+      [longitude]="stop.lng"
+      [iconUrl]="stop.markerIcon"> -->
+    <!-- <agm-polyline
+        strokeColor="#63F55B"
+        [strokeOpacity]="0.7"
+        [strokeWeight]="7"
+        [visible]="true">
+      <agm-polyline-point
+        *ngFor="let path of paths"
+          [latitude]="path.lat"
+          [longitude]="path.lng">
+      </agm-polyline-point>
+    </agm-polyline> -->
+    <agm-direction *ngFor="let stop of stopList;index as i"
+        [origin]="stopList[i]"
+        [destination]="stopList[stopList.length-1]"
+        [renderOptions]="optionsRed">
+      <agm-marker
+          *ngFor="let stop of stopList;index as i"
+          [latitude]="stop.lat"
+          [longitude]="stop.lng"
+          [iconUrl]="stop.markerIcon">
+        <agm-info-window>
+          <div class="mb-2">
+            Stop Name : {{stop.stopName}}
+          </div>
+        </agm-info-window>
+      </agm-marker>
+    </agm-direction>
+  <!-- </agm-marker> -->
+
+  <agm-marker
+      [latitude]="lat"
+      [longitude]="lng"
+      [iconUrl]="markerCarIcon">
+    <agm-info-window>
+      <div class="mb-2">
+        <i class="fas fa-truck"></i> : {{selectedTracker?.trackerName}}
+      </div>
+      <div class="mb-2">
+        <i class="fas fa-map-marker-alt"></i> : {{selectedTracker?.gpsAttributeAddress}}
+      </div>
+      <div class="mb-2">
+        <i class="fas fa-shipping-fast"></i> : {{selectedTracker?.gpsAttributeSpeed}} km/h
+      </div>
+      <div class="mb-2">
+        <i class="fas fa-clock"></i> : {{selectedTracker?.gpsAttributeDateCreated  |date:'yyyy-MM-dd hh:mm:ss a'}}
+      </div>
+      <div class="mb-2">
+        <i class="fas fa-calendar-check"></i> : {{selectedTracker?.gpsAttributeStatus }}
+      </div>
+    </agm-info-window>
+  </agm-marker>
+
+  
+</agm-map>

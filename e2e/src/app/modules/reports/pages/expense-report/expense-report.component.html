@@ -1,0 +1,129 @@
+<div class="card mt-5 width ">
+  <div class="card-body ">
+    <!-- print button -->
+    <div style="color:black" class="justify-content-center mr-2 mb-3 no-print">
+      <button (click)="prints()" [ngbTooltip]="'Print'"> <i class="fas fa-print fa-lg"> </i> </button>
+      <button (click)="generatePdf()" [ngbTooltip]="'Export as Pdf'"> <i class="far fa-file-pdf fa-lg"></i> </button>
+      <button (click)="exportAsXLSX()" [ngbTooltip]="'Export as XLSX'"><i class="far fa-file-excel fa-lg"></i></button>
+    </div>
+    <!--/ print button -->
+  
+    <div class=" mt-3 row">
+      <div class="col-3">
+        <h5 class="font-weight-bold">Expense Report</h5>
+      </div>
+
+      <div class="col-3 text-center">
+        <h5 class="font-weight-bold">Type : {{expenseType}}</h5>
+      </div>
+
+      <!-- logo -->
+      <div class="col-6 text-right">
+        <img src="assets/img/logo.png" width="115" height="60"> 
+      </div>
+      <!--/logo  -->
+    </div>
+
+
+    <div class="text-center" *ngIf="!isdataFetched">
+        <p2s-spinner color="blue" size="lg"></p2s-spinner>
+    </div>
+
+    <div *ngIf="isdataFetched">
+     
+      <div  class="border border-secondary rounded" style="height:80px">
+        <table class="table table-borderless" width="100%">
+          <tr>
+            <!-- company name -->
+            <td>
+              <span class="font-weight-bold">Company Name: Promise2Secure</span>
+            </td>
+            <!--/company name -->
+
+            <!-- user name -->
+            <td>
+              <span class="font-weight-bold">Username: {{username}}</span>
+            </td>
+            <!--/user name -->
+          </tr>  
+              
+          <tr>
+            <!-- start date -->
+            <td>
+              <span class="font-weight-bold">Start Date: {{fromDate| date:'yyyy-MM-dd hh:mm:ss a'}}</span>  
+            </td>
+            <!-- / start date -->
+
+            <!-- end date -->
+            <td>
+              <span class="font-weight-bold">End Date: {{toDate| date:'yyyy-MM-dd hh:mm:ss a'}}</span>
+            </td>
+            <!--/ end date -->
+          </tr>
+        </table>
+      </div>  
+          
+      <table 
+          class="mt-3 table-borderless" 
+          width="100%" 
+          style="background-color:#e0e0e0d9;">
+        <tr>
+          <!-- tracker name -->
+          <td>
+            <span class="font-weight-bold">Tracker Name: {{trackerName}}</span>
+          </td>
+          <!--/ tracker name -->
+                
+          <!-- date -->
+          <td>
+            <span class="font-weight-bold">Today's Date: {{todayDate|date:'yyyy-MM-dd'}}</span>  
+          </td>
+          <!--/ date  -->
+
+          <!-- purpose -->
+          <!-- <td>
+            <span class="font-weight-bold"> Purpose:</span>  
+          </td> -->
+          <!--/ purpose  -->
+        </tr>
+      </table>
+
+      <table
+          class=" mt-3 table" 
+          border="1" 
+          width="100%">
+        <tr>
+          <th>Date</th>
+          <!-- <th>Time</th> -->
+          <!-- <th *ngIf="expenseType === 'All'">Expense Type</th> -->
+          <th>Expense Type</th>
+          <th>Expense Amount</th>
+        </tr>
+
+        <!-- data -->
+        <tr
+            *ngFor="let expenseReport of expenseReportList ">
+          <td>{{expenseReport.expenseDate|date:'yyyy-MM-dd hh:mm:ss a'}}</td>
+          <!-- <td>{{expenseReport.expenseDate|date:''}}</td> -->
+          <td>{{expenseType}}</td>
+          <td>{{expenseReport.expenseAmount}}</td>
+        </tr>
+        <!-- / data -->
+      </table>
+
+      <!-- summary -->
+      <h5 class="font-weight-bold">Report Summary</h5>
+      <div  class="border border-secondary rounded">
+        <table class="table-borderless " width="100%">
+          <tr>
+            <!-- <td>Tracker Name : Unknown</td> -->
+            <td>Total Expense : {{totalExpense}}</td>
+            <!-- <td> {{expenseReport.maximumSpeed}}</td>
+            <td>{{quickOverview.distance}} </td> -->
+          </tr>
+        </table>
+      </div>  
+      <!--/ summary  -->
+    </div>  
+  </div>  
+</div>

@@ -1,0 +1,246 @@
+// overflow
+.y-auto {
+  overflow-y: auto;
+}
+
+.overflow-none {
+  overflow: hidden;
+}
+
+.x-overflow-none {
+  overflow-x: hidden;
+}
+
+// display and visibility
+.v-hidden {
+  visibility: hidden;
+}
+
+// size
+.h-0 {
+  height: 0;
+}
+
+.w-0 {
+  width: 0;
+}
+
+.section--disabled {
+  pointer-events: none;
+  opacity: .7;
+}
+
+// buttons
+@mixin clear-btn($color) {
+  color: darken($color, 5%);
+  &:hover {
+    background: lighten($color, 5%);
+    color: white;
+  }
+}
+.btn {
+  &-clear {
+    border: none;
+    background: transparent;
+    &:hover {
+      background: rgba(black, .2);
+    }
+    &-primary {
+      @include clear-btn($blue);
+    }
+    &-warning {
+      @include clear-btn($yellow);
+    }
+    &-danger {
+      @include clear-btn($red);
+    }
+    &-success {
+      @include clear-btn($green);
+    }
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+// cursor
+.pointer {
+  cursor: pointer;
+}
+
+// backgrounds
+.bg-gray-1 {
+  background: $gray-100;
+}
+
+.bg-gray-2 {
+  background: $gray-200;
+}
+
+.bg-gray-3 {
+  background: $gray-300;
+}
+
+.bg-gray-4 {
+  background: $gray-400;
+}
+
+.bg-gray-5 {
+  background: $gray-500;
+}
+
+.bg-gray-6 {
+  background: $gray-600;
+}
+
+.bg-gray-7 {
+  background: $gray-700;
+}
+
+.bg-gray-8 {
+  background: $gray-800;
+}
+
+.bg-gray-9 {
+  background: $gray-900;
+}
+
+.bg-white {
+  background: white;
+}
+
+.bg-blue {
+  background: $blue;
+}
+
+
+.bg-red {
+  background: $red;
+}
+
+.bg-green {
+  background: $green;
+}
+
+.bg-orange {
+  background: $orange;
+}
+
+.bg-yellow {
+  background: $yellow;
+}
+
+
+
+// font-size
+.font-size-1 {
+  font-size: 1em;
+}
+
+.font-size-2 {
+  font-size: 1.2em;
+}
+
+.font-size-2 {
+  font-size: 1.2em;
+}
+
+.font-size-3 {
+  font-size: 1.3em;
+}
+
+.font-size-4 {
+  font-size: 1.4em;
+}
+
+.font-size-5 {
+  font-size: 1.5em;
+}
+
+.font-size-6 {
+  font-size: 1.6em;
+}
+
+.font-size-7 {
+  font-size: 1.7em;
+}
+
+.font-size-8 {
+  font-size: 1.8em;
+}
+
+.font-size-9 {
+  font-size: 1.9em;
+}
+
+.font-size-10 {
+  font-size: 2em;
+}
+
+.font-size-11 {
+  font-size: 2.1em;
+}
+
+.font-size-down-1 {
+  font-size: .9em;
+}
+
+.font-size-down-2 {
+  font-size: .8em;
+}
+
+.font-size-down-3 {
+  font-size: .7em;
+}
+
+.font-size-down-4 {
+  font-size: .6em;
+}
+
+.font-size-down-5 {
+  font-size: .5em;
+}
+
+// positioning
+.pos-r {
+  position: relative;
+}
+
+.pos-a {
+  position: absolute;
+}
+
+// z-index
+.z-1 {
+  z-index: 1;
+}
+
+.z-2 {
+  z-index: 2;
+}
+
+.z-3 {
+  z-index: 3;
+}
+
+.z-4 {
+  z-index: 4;
+}
+
+.z-5 {
+  z-index: 5;
+}
+
+
+// .table-fixed tbody {
+//   display: block;
+//   max-height: 325px;
+//   overflow-y: scroll;
+// }
+  
+// .table-fixed thead,tbody tr {
+//   display: table;
+//   width: 100%;
+//   table-layout: fixed;
+// }

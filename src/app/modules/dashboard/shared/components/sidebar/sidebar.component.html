@@ -1,0 +1,26 @@
+<div  class="col bg-dark p-0 sidebar__container y-auto"
+      [class.sidebar__container--expanded]="isSidebarExpanded">
+
+    <!-- <div class="py-2 sidebar__toggle-btn">
+      <button class="btn-clear btn btn-block text-white px-3"
+          (click)="isSidebarExpanded = !isSidebarExpanded"
+          [class.text-center]="!isSidebarExpanded"
+          [class.text-right]="isSidebarExpanded">
+        <i class="fas"
+          [class.fa-angle-double-right]="!isSidebarExpanded"
+          [class.fa-angle-double-left]="isSidebarExpanded"></i>
+      </button>
+    </div> -->
+
+  <div class="sidebar__links__container border-top">
+    <a class="sidebar__links__item d-flex align-items-center px-3 py-4 border-bottom font-weight-bold text-truncate"
+       *ngFor="let link of (sidebarLinks | navLinksFilter: user?.userRole)"
+       [routerLink]="link.path"
+       routerLinkActive="sidebar__links__item--active">
+      <i class="fas sidebar__links__item__icon"
+          [ngClass]="link.icon"></i>
+      <span class="ml-3 sidebar__links__item__text">{{link.label}}</span>
+    </a>
+  </div>
+</div>
+

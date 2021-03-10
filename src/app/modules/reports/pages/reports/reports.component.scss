@@ -1,0 +1,63 @@
+@import './src/app/shared/styles/variables';
+.fromToDate {
+  display: inline-block;
+  width: 50px;
+  color: #02518c;
+}
+
+.calenders {
+  display: inline-block;
+  color: green;
+}
+
+.hover tr {
+  &:hover {
+    background: $gray-300;
+  }
+  &.favorite {
+    color: $orange;
+  }
+}
+
+.table tr.active td {
+  background-color: #123456 !important;
+  color: white;
+}
+
+.border-left {
+  border-left: 1px solid #ddd;
+}
+
+
+// #shr:focus {
+//   &::before {
+//     content: "Min";
+//   }
+// }
+
+
+.panel-body{
+  tr{
+  .clicked{
+  background: gray;
+  }
+}
+}
+
+* input,select{
+  margin-bottom:20px; 
+  border: 0px solid #000000;
+  border-bottom-width: 1px;
+  background-color: transparent;
+}
+
+
+
+* input:focus,select:focus {
+  outline: none;
+  box-shadow:none !important;
+  border-bottom-color: red;
+  border-bottom-width: 2px;
+    
+  }
+

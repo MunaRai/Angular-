@@ -1,0 +1,148 @@
+<div class="card mt-5 width">
+  <div class="card-body ">
+
+    <!-- print button -->
+    <div style="color:black" class="justify-content-center mr-2 mb-3 no-print">
+      <button (click)="prints()"> <i class="fas fa-print fa-lg"> </i> </button>
+    </div>
+    <!--/ print button -->
+
+    <div class=" mt-3 row">
+      <div class="col-6">
+        <h5 class="font-weight-bold">Trip Report</h5>
+      </div>
+
+      
+      <!-- logo -->
+      <div class="col-6 text-right">
+        <img src="assets/img/logo.png" width="115" height="60"> 
+      </div>
+      <!--/logo  -->
+    </div> 
+
+
+      
+    <div  class="border border-secondary rounded" style="height:80px">
+
+      <table class="table table-borderless" width="100%">
+        <tr>
+
+          <!-- company name -->
+          <td>
+            <span class="font-weight-bold">Company Name: Promise2Secure</span>
+          </td>
+          <!--/company name -->
+
+          <!-- user name -->
+          <td>
+            <span class="font-weight-bold">Username: {{user.username}}</span>
+          </td>
+          <!--/user name -->
+        </tr>  
+        
+        <tr>
+          <!-- start date -->
+          <td>
+            <span class="font-weight-bold">Start Date: {{fromDate| date:'yyyy-MM-dd hh:mm:ss a'}}</span>  
+          </td>
+          <!-- / start date -->
+
+          <!-- end date -->
+          <td>
+            <span class="font-weight-bold">End Date: {{toDate| date:'yyyy-MM-dd hh:mm:ss a'}}</span>
+          </td>
+          <!--/ end date -->
+        </tr>
+      </table>
+
+    </div>  
+    
+    <table class="mt-3 table-borderless mb-2 " width="100%" 
+            style="background-color:#e0e0e0d9;">
+      <tr>
+        <!-- tracker name -->
+        <td>
+          <span class="font-weight-bold">Tracker Name: {{trackerName}}</span>
+        </td>
+        <!--/ tracker name -->
+        
+        <!-- purpose -->
+        <!-- <td>
+          <span class="font-weight-bold"> Purpose: Unknown</span>  
+        </td> -->
+        <!--/ purpose  -->
+
+        <!-- date -->
+        <td>
+          <span class="font-weight-bold">Today's Date: {{todayDate | date:'yyyy-MM-dd'}}</span>  
+        </td>
+        <!--/ date  -->
+      </tr>
+
+    </table>
+
+
+    <div class="tripCss mb-2">
+      <div class="row">
+        <div class="col-3"><span class="stopped">STOPPED</span></div>
+      </div>
+      <div class="row">
+        <div class="col-6">Current Location : Complex UNILAK,Rumbai Riau(p)</div>
+        <div class="col-6">Distance : 0 km</div>
+      </div>
+      <div class="row">
+        <div class="col-6">Date/Time : {{fromDate|date:'yyyy-MM-dd hh:mm:ss a'}}</div>
+        <div class="col-6">Speed : 0 km/hr</div>
+      </div>
+    </div>
+
+    <div class="tripCss mb-2">
+      <div class="row">
+        <div class="col-3"><span class="moving">MOVING</span></div>
+      </div>
+      <div class="row">
+        <div class="col-6">Start From : Complex UNILAK,Rumbai Riau(p)</div>
+        <div class="col-6">Current Location : Jalan Were House, Kabupaten Siak</div>
+      </div>
+      <div class="row">
+        <div class="col-6">Date/Time : {{secondDate|date:'yyyy-MM-dd hh:mm:ss a'}}</div>
+        <div class="col-6">Speed : 30 km/hr</div>
+      </div>
+      <div class="row">
+        <div class="col-6">Distance : 5 km</div>
+      </div>
+    </div>
+
+
+    <div class="tripCss mb-2">
+      <div class="row">
+        <div class="col-3"><span class="stopped">STOPPED</span></div>
+      </div>
+      <div class="row">
+        <div class="col-6">Current Location : JI.Minas Camp</div>
+        <div class="col-6">Distance : 0 km</div>
+      </div>
+      <div class="row">
+        <div class="col-6">Date/Time : {{thirdDate|date:'yyyy-MM-dd hh:mm:ss a'}}</div>
+        <div class="col-6">Speed : 0 km/hr</div>
+      </div>
+    </div>
+
+    <div class="tripCss mb-2">
+      <div class="row">
+        <div class="col-3"><span class="moving">MOVING</span></div>
+      </div>
+      <div class="row">
+        <div class="col-6">Start From : JI.Minas Camp</div>
+        <div class="col-6">Current Location : JI Water Plant</div>
+      </div>
+      <div class="row">
+        <div class="col-6">Date/Time : {{fourthDate|date:'yyyy-MM-dd hh:mm:ss a'}}</div>
+        <div class="col-6">Speed : 50 km/hr</div>
+      </div>
+      <div class="row">
+        <div class="col-6">Distance : 10 km</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="col p-0 y-auto">
+  <p2s-list-page-template
+      heading="Assign Order"
+      [enableEdit]='false'
+      [enableDelete]='false'
+      [editDisabled]="!selectedAssignOrder"
+      [deleteDisabled]="!selectedAssignOrder"
+      addTooltip="Assign Order"
+      editTooltip="Edit Assigned Orders"
+      deleteTooltip="Delete Assigned Orders"
+      (search)="onSearch($event)"
+      delete = "delete()"
+      (add)="showOrderAssignPopUpForm('add')"
+      (edit)="showOrderAssignPopUpForm('edit')"
+      (pageChange)="gotoPage($event)"
+      (next)="next()"
+      (prev)="previous()"
+      (limitChange)="changeLimit($event)"
+      [page]="pagingSorting.page"
+      [totalPages]="pagingSorting.totalPages" >
+ 
+    <div class="table-responsive my-3">
+      <table class="table m-0 table-hover table-bordered">
+        <thead>
+          <tr class="bg-gray-7 text-white">
+            <th class="text-center">Order Id</th>
+            <th  class ="text-center">Tracker Name</th>
+            <th  class ="text-center">Assign Date</th>
+            <th  class ="text-center">Description</th>
+            <!-- <th  class ="text-center">Order</th> -->
+            <th  class ="text-center">Status</th>
+            <!-- <th>Action</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+              *ngFor="let assignedOrder of assignedOrders"
+              class="pointer"
+              [class.table-secondary]="assignedOrder == selectedAssignOrder"
+              (click)="selectedAssignOrder = assignedOrder">
+            <td class="text-center">
+              <!-- <button 
+                (click)="viewAssignedOrdeDetails(assignedOrder)" 
+                class="btn btn-link"
+                ngbTooltip="View Detail">{{assignedOrder.orderAssign}}
+              </button> -->{{assignedOrder.orderAssign}}
+              </td>
+            <td class="text-center">{{assignedOrder.orderAssignTrackerDto.trackerName}}</td>
+            <td *ngFor="let commo of assignedOrder.commodityDto" class="text-center"  >{{commo.commodityCodeId}}</td> 
+            <!-- <td class="text-center"  *ngFor="let shipper of assignedOrder.orderManagementShipper">{{shipper.clientMasterFirstName}}</td>  -->
+            <!-- <td class="text-center"  *ngFor="let consigny of assignedOrder.orderManagementConsigny">{{consigny.clientMasterFirstName}}</td>  -->
+            <td *ngFor="let order of assignedOrder.orderAssingOrderManagementDtoList.orderManagementShipper">{{order.clientMasterFirstName}}</td>
+            <td class="text-center">{{assignedOrder.orderAssignDateCreated | date:'yyyy-MM-dd hh:mm:ss a'}}</td> 
+            <td class="text-center">{{assignedOrder.orderAssignDescription}}</td> 
+            <!-- <td class="text-center">{{assignedOrder.orderAssingOrderManagementDtoList.orderId}}</td>  -->
+            <td class="text-center">
+                <span class="status text-capitalize"
+                [class.success]="assignedOrder.orderAssignStatus == 'ACTIVE'"
+                [class.warning]="assignedOrder.orderAssignStatus == 'EXPIRING'"
+                [class.dark]="assignedOrder.orderAssignStatus == 'INACTIVE'"
+                [class.danger]="assignedOrder.orderAssignStatus == 'EXPIRED'">
+                {{assignedOrder.orderAssignStatus}}
+          </span></td> 
+            <!-- <td>  -->
+              <!-- <button 
+                  (click)="onProcessing()" 
+                  class="btn btn-link"
+                  ngbTooltip="Process Further"> 
+                <i class="far fa-arrow-alt-circle-right fa-2x"></i>
+              </button> -->
+              <!-- <button 
+                  (click)="onCancel()" 
+                  class="btn btn-link"
+                  ngbTooltip="Cancel Order"> 
+                <i class="far fa-times-circle fa-2x"></i>
+              </button> -->
+             <!-- </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </p2s-list-page-template>  
+</div>

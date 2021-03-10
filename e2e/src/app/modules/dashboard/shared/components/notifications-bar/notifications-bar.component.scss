@@ -1,0 +1,45 @@
+.notifications {
+  &__container {
+    position: relative;
+    $placement: -5px;
+    .badge {
+      position: absolute;
+      right: $placement;
+      top: $placement;
+    }
+    .dropdown-toggle:after {
+      display: none;
+    }
+
+    .dropdown-menu {
+      padding: 0;
+      box-shadow: 0 0px 23px 4px rgba(black, 0.2);
+      overflow-y: auto;
+      max-height: 400px;
+    }
+
+    .dropdown-item {
+      min-width: 250px;
+      &.is-seen {
+        opacity: .6;
+        pointer-events: none;
+      }
+    }
+  }
+
+  &__item {
+    &__name {
+      width: 150px;
+    }
+    &__status {
+      width: 150px;
+    }
+  }
+}
+
+.red{
+  background-color: rgb(248, 247, 247);
+}
+.green{
+  background-color: green;
+}

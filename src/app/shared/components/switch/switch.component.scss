@@ -1,0 +1,54 @@
+@import 'src/app/shared/styles/variables';
+/* The switch - the box around the slider */
+
+$width: 45px;
+$height: 26px;
+.p2s-switch {
+  position: relative;
+  display: inline-block;
+  width: $width;
+  height: $height;
+  margin: 0;
+  input {
+    display: none;
+    &:checked {
+      & + .p2s-switch__slider {
+        background-color: $blue;
+        &:before {
+          transform: translateX($height - 8);
+        }
+      }
+    }
+
+    &:focus {
+      & + .p2s-switch__slider {
+        box-shadow: 0 0 1px $blue;
+      }
+    }
+  }
+
+  /* The slider */
+  &__slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: $height;
+    &:before {
+      position: absolute;
+      content: "";
+      height: $height - 8;
+      width: $height - 8;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+  }
+}

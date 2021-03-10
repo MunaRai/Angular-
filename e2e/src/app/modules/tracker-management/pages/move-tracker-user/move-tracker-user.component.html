@@ -1,0 +1,36 @@
+<p2s-user-form-popup title="Move Tracker"
+                     (save)="save()"   
+                     (cancel)="cancel()"
+                     [disableSave]="!users.length">
+  
+
+  <p2s-form-group label="Targeted Users">
+    <div
+        class="my-3 text-center"
+        *ngIf="!users">
+      <p2s-spinner></p2s-spinner>
+    </div>
+    
+    <div class="row my-2">
+      <div class="col-3"
+           *ngFor="let user of users; index as i">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox"
+                 class="custom-control-input"
+                 [id]="'user'+i"
+                 (change)="userChange(user.userId)">
+          <label class="custom-control-label"
+                 [for]="'user'+i">
+            {{user.userFirstName}} {{user.userMiddleName}} {{user.userLastName}}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div
+        class="mt-2 text-center text-muted"
+        *ngIf="!users.length">
+      No data available
+    </div>
+  </p2s-form-group>
+</p2s-user-form-popup>

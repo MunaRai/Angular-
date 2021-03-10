@@ -1,0 +1,32 @@
+<ngb-accordion
+    activeIds="total-tracker-chart"
+    class="p2s-accordion card-stretch col-12 p-0 align-items-stretch"
+    (panelChange)="isPanelOpen = !isPanelOpen"
+    [class.d-flex]="isPanelOpen">
+  <ngb-panel id="total-tracker-chart">
+
+    <!-- title -->
+    <ng-template ngbPanelTitle>
+      <div class="d-flex align-items-center">
+        Total Trackers for {{date | date : 'MMMM'}}
+        <div class="ml-auto">
+          <i class="fa fa-chevron-right"></i>
+        </div> 
+      </div>
+    </ng-template>
+    <!-- / title -->
+
+    <!-- content -->
+    <ng-template ngbPanelContent>
+      <div class="total-tracker-chart__content pos-r">
+        <google-chart [data]="chartData"></google-chart>
+        <div class="total-tracker-chart__no-data d-flex align-items-center justify-content-center"
+             *ngIf="noData">No Trackers </div>
+        <!-- <h6 class="d-flex align-items-center p-0 font-weight-bold">
+          Total Trackers : {{totalTrackers}}
+        </h6> -->
+      </div>
+    </ng-template>
+    <!-- / content -->
+  </ngb-panel>
+</ngb-accordion>

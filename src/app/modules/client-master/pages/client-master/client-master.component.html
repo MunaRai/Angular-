@@ -1,0 +1,97 @@
+<div class="col p-0 y-auto">
+  <p2s-list-page-template heading="client master"
+                          [editDisabled]="!selectedClientMaster"
+                          [deleteDisabled]="!selectedClientMaster"
+                          (add)="showClientMasterPopup('add')"
+                          (edit)="showClientMasterPopup('edit')"
+                          (delete)="delete()"
+                          (search)="onSearch($event)" 
+                          (pageChange)="gotopage($event)"
+                          (next)="next()"
+                          (prev)="previous()"
+                          (limitChange)="changeLimit($event)"
+                          [page]="pagingSorting.page"
+                          [totalPages]="pagingSorting.totalPages">
+    <div class="my-3 table-responsive bg-white">
+      <table class="table m-0 table-hover table-bordered">
+        <thead>
+          <tr class="bg-gray-7 text-white">
+            <th>ID</th>
+
+            <th class="text-center">Name</th>
+
+            <th class="text-center">Phone</th>
+
+            <th class="text-center">Email</th>
+
+            <th class="text-center">Debtor</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <ng-container *ngFor="let cm of clientMasters">
+            <tr class="pointer"
+                [class.table-secondary]="cm == selectedClientMaster"
+                (click)="selectedClientMaster = cm; cm['expanded'] = !cm['expanded']">
+              <td>
+                <i class="fas"
+                  [class.fa-chevron-right]="!cm['expanded']"
+                  [class.fa-chevron-down]="cm['expanded']"></i>
+                {{cm.clientId}}
+              </td>
+              <td class="text-center">{{cm.clientMasterFirstName}}</td>
+              <td class="text-center">{{cm.clientMasterPhone}}</td>
+              <td class="text-center">{{cm.clientMasterEmail}}</td>
+
+              <td class="text-center">
+                <i class="fas mr-1"
+                   [class.fa-check]="cm.debtor"
+                   [class.fa-times]="!cm.debtor"></i>
+                {{cm.debtor? 'Yes': 'No'}}
+              </td>
+            </tr>
+
+            <tr class="expandable-row" *ngIf="cm['expanded']">
+              <td colspan="5">
+                <div class="px-3">
+                  <h4>Address</h4>
+                  <div class="row d-flex flex-wrap">
+                    <div class="col-3">
+                      <strong>Address Line 1:</strong> <span>{{cm.clientMasterAddress.line1}}</span>
+                    </div>
+
+                    <div class="col-3"
+                         *ngIf="cm?.clientMasterAddress?.line2">
+                      <strong>Address Line 2:</strong> <span>{{cm.clientMasterAddress.line2}}</span>
+                    </div>
+
+                    <div class="col-3">
+                      <strong>State:</strong> <span>{{cm.clientMasterAddress.state}}</span>
+                    </div>
+
+                    <div class="col-3">
+                      <strong>Country:</strong> <span>{{cm.clientMasterAddress.country}}</span>
+                    </div>
+
+                    <div class="col-3">
+                      <strong>zip:</strong> <span>{{cm.clientMasterAddress.zipCode}}</span>
+                    </div>
+                    <hr>
+                    <div class="col-3">
+                      <strong>Latitude:</strong> <span>{{cm.clientMasterAddressLat}}</span>
+                    </div>
+                    <div class="col-3">
+                      <strong>Longitude:</strong> <span>{{cm.clientMasterAddressLong}}</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+          </ng-container>
+        </tbody>
+
+      </table>
+    </div>
+  </p2s-list-page-template>
+</div>

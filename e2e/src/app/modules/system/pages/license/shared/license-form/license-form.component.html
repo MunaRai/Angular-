@@ -1,0 +1,149 @@
+<p2s-user-form-popup 
+    [title]=" mode+' license'"
+    (save)="save()"
+    (cancel)="dismiss()"
+    [disableSave]="licenseForm.invalid">
+  <form novalidate
+      role="form"
+      [formGroup]="licenseForm">
+    <!-- license Name -->
+    <div class="col-12">
+      <p2s-form-group 
+          label="Name"
+          for="licenseName"
+          required="true">
+        <input 
+            type="text"
+            class="form-control"
+            id="licenseName"
+            formControlName="licenseName"
+            [class.is-invalid]="licenseName?.errors &&
+                   (formSubmitted || licenseName?.touched ||
+                   licenseName?.dirty)">
+        <div 
+            class="invalid-feedback"
+            *ngIf="licenseName.errors && (formSubmitted ||
+            licenseName.touched || licenseName.dirty)">
+          <div *ngIf="licenseName.errors.required">
+              License  name is required
+          </div>
+
+          <div *ngIf="licenseName.errors.minlength">
+              Minimum length is 3
+          </div>
+
+          <div *ngIf="licenseName.errors.maxlength">
+              Maximum length is 20
+          </div>
+
+          <div *ngIf="licenseName.errors.pattern">
+            {{checkPattern.errorPatternMsg}}
+          </div>
+        </div>   
+      </p2s-form-group>
+    </div>  
+    <!-- / license Name -->
+
+    <!--license Description -->
+    <div class="col-12">
+      <p2s-form-group
+          label="Description"
+          for="licenseDescription"
+          required="true">
+        <input 
+            type="text"
+            class="form-control"
+            id="licenseDescription"
+            formControlName="licenseDescription"
+            [class.is-invalid]="licenseDescription?.errors &&
+                   (formSubmitted || licenseDescription?.touched ||
+                   licenseDescription?.dirty)">
+        <div 
+            class="invalid-feedback"
+            *ngIf="licenseDescription.errors && (formSubmitted ||
+            licenseDescription.touched || licenseDescription.dirty)">
+          <div *ngIf="licenseDescription.errors.required">
+              License description is required
+          </div>
+
+          <div *ngIf="licenseDescription.errors.minlength">
+              Minimum length is 3
+          </div>
+
+          <div *ngIf="licenseDescription.errors.maxlength">
+              Maximum length is 20
+          </div>
+
+          <div *ngIf="licenseDescription.errors.pattern">
+            {{checkPattern.errorPatternMsg}}
+          </div>
+        </div>   
+      </p2s-form-group>
+      
+    </div>
+    <!-- /license Description -->
+    
+    <!-- license type -->
+    <div class="col-12">
+      <p2s-form-group 
+          label="Type"
+          for="licenseType"
+          required="true">
+        <select 
+            class="form-control"
+            id="licenseType"
+            formControlName="licenseType"
+            [class.is-invalid]="licenseType?.errors &&
+            (formSubmitted || licenseType?.touched ||
+            licenseType?.dirty)">
+          <option value="OLD">Old</option>
+          <option value="NEW">New</option>
+        </select>
+        <div 
+            class="invalid-feedback"
+            *ngIf="licenseType.errors && (formSubmitted ||
+            licenseType.touched || licenseType.dirty)">
+          <div *ngIf="licenseType.errors.required">
+              License type is required
+          </div>
+        </div>   
+      </p2s-form-group>
+    </div>  
+    <!-- / license type -->
+
+    <!-- license Months -->
+    <div class="col-12">
+      <p2s-form-group 
+          label="Months"
+          for="licenseMonths"
+          required="true">
+        <input 
+            type="number"
+            class="form-control"
+            id="licenseMonths"
+            formControlName="licenseMonths"
+            [class.is-invalid]="licenseMonths?.errors &&
+                    (formSubmitted || licenseMonths?.touched ||
+                    licenseMonths?.dirty)">
+        <div 
+            class="invalid-feedback"
+            *ngIf="licenseMonths.errors && (formSubmitted ||
+            licenseMonths.touched || licenseMonths.dirty)">
+          <div *ngIf="licenseMonths.errors.required">
+              License  Months is required
+          </div>
+
+          <div *ngIf="licenseMonths.errors.minlength">
+              Minimum length is 1
+          </div>
+
+          <div *ngIf="licenseMonths.errors.maxlength">
+              Maximum length is 3
+          </div>
+        </div>   
+      </p2s-form-group>
+    </div>  
+    <!-- / license Months -->
+  </form>
+
+</p2s-user-form-popup>

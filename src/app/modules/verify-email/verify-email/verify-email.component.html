@@ -1,0 +1,18 @@
+<div *ngIf="!emailVerification">
+  <h2 class="text-center font-weight-bold mt-3">
+    <span class="text-danger">{{emailVerificationError}}</span>
+  </h2>
+
+  <h4 class="text-center font-weight-bold mt-4">
+    <button class="btn btn-success btn-lg" routerLink="/login">
+      Login to Continue
+      <i class="fas fa-arrow-right"></i>
+    </button>
+  </h4>
+</div>
+
+
+<div *ngIf="emailVerification">
+    <h2 class="text-center font-weight-bold">Your Email is being verified !!!!</h2>
+    <h4 class="text-center font-weight-bold">Please wait for a moment</h4>
+</div>

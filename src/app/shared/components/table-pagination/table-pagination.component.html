@@ -1,0 +1,122 @@
+<nav aria-label="Table Pagination"
+     class="d-flex align-items-center"
+     *ngIf="size != 'sm'; else smallSize">
+  <!-- previous -->
+  <ng-container [ngTemplateOutlet]="prevBtn"></ng-container>
+  <!-- / previous -->
+
+  <span class="mx-3">Page</span>
+
+  <!-- page number input -->
+  <div class="col-1 p-0">
+    <ng-container [ngTemplateOutlet]="pageNumber"></ng-container>
+  </div>
+  <!-- / page number input -->
+
+  <span class="mx-3">Of</span>
+
+  <span class="mx-3">{{totalPages}}</span>
+
+  <!-- next  -->
+  <ng-container [ngTemplateOutlet]="nextBtn"></ng-container>
+  <!-- / next -->
+
+  <span class="align-self-stretch border-left mx-3"></span>
+
+  <span class="mx-3">
+    Records per page
+  </span>
+
+  <!-- number of records select -->
+  <div class="col-1">
+    <ng-container [ngTemplateOutlet]="limitSection"></ng-container>
+  </div>
+  <!-- / number of records select -->
+</nav>
+
+<ng-template #smallSize>
+
+  <div class="col-12 d-flex align-items-center justify-content-center font-size-down-1">
+    <!-- previous -->
+    <ng-container [ngTemplateOutlet]="prevBtn"></ng-container>
+    <!-- / previous -->
+
+    <span class="mx-3 text-muted">Page</span>
+
+    <!-- page number input -->
+    <div class="col-2 p-0">
+      <ng-container [ngTemplateOutlet]="pageNumber"></ng-container>
+    </div>
+    <!-- / page number input -->
+
+    <span class="mx-3 text-muted">Of</span>
+
+    <span class="mx-3 text-muted">{{totalPages}}</span>
+
+    <!-- next  -->
+    <ng-container [ngTemplateOutlet]="nextBtn"></ng-container>
+    <!-- / next -->
+  </div>
+
+  <hr class="my-2">
+
+  <div class="col-12 d-flex align-items-center justify-content-center mb-2">
+    <span class="mr-3 text-muted font-size-down-1">
+      Records per page
+    </span>
+
+    <!-- number of records select -->
+    <div class="col-3 p-0">
+      <ng-container [ngTemplateOutlet]="limitSection"></ng-container>
+    </div>
+    <!-- / number of records select -->
+  </div>
+
+</ng-template>
+
+<!-- prev button -->
+<ng-template #prevBtn>
+  <button class="btn btn-outline-primary btn-sm"
+          [ngClass]="'btn-outline-'+theme"
+          (click)="onPrev()">
+    <i class="fa fa-chevron-left"></i>
+  </button>
+</ng-template>
+<!-- / prev btn -->
+
+
+<!-- limit -->
+<ng-template #limitSection>
+  <select class="form-control form-control-sm"
+          [(ngModel)]="limit"
+          (ngModelChange)="onLimitChange()">
+    <option value="10">10</option>
+    <option value="20">20</option>
+    <option value="30">30</option>
+    <option value="40">40</option>
+    <option value="50">50</option>
+  </select>
+</ng-template>
+<!-- / limit -->
+
+<!-- next button -->
+<ng-template #nextBtn>
+  <button class="btn btn-outline-primary btn-sm"
+          [ngClass]="'btn-outline-'+theme"
+          (click)="onNext()">
+    <i class="fa fa-chevron-right"></i>
+  </button>
+</ng-template>
+<!-- / next button -->
+
+<!-- page number input -->
+<ng-template #pageNumber>
+  <input type="number"
+         class="form-control form-control-sm"
+         [(ngModel)]="page"
+         (keyup.enter)="onPageChange()"
+         (keypress)="numberOnly($event)"
+         min="1"
+         [max]="totalPages">
+</ng-template>
+<!-- / page number input -->

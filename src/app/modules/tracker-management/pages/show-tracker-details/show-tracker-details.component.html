@@ -1,0 +1,53 @@
+<p2s-user-form-popup
+    [title]="'Tracker Name : ' + tracker.trackerName"
+    (cancel)="dismiss()"
+    [enableSave]=false
+    [enableCancel]=false
+    [enableFooter]=false>
+  <table class="table table-bordered">
+    <tr>
+      <td>Imei Number  </td>
+      <td>{{tracker.trackerImeiNumber}}</td>
+    </tr>
+    <tr *ngIf="user.userRole === 'ROLE_ADMIN'">
+      <td>Model Name</td>
+      <td>{{tracker.trackerModelName}}</td>
+    </tr>
+    <tr *ngIf="user.userRole === 'ROLE_ADMIN'">
+      <td>Sim Number</td>
+      <td>{{tracker.trackerSimNumber}}</td>
+    </tr>
+    <tr>
+      <td>Created Date</td>
+      <td>{{tracker.trackerDateCreated | date: 'yyyy-MM-dd'}}</td>
+    </tr>
+    <tr>
+      <td>Expiry Date</td>
+      <td>{{tracker.trackerDateExpiry | date: 'yyyy-MM-dd'}}</td>
+    </tr>
+    <tr>
+      <td>Installed Date</td>
+      <td>{{tracker.trackerDateInstalled | date: 'yyyy-MM-dd'}}</td>
+    </tr>
+    <tr>
+      <td>Purchased Date</td>
+      <td>{{tracker.trackerDatePurchase | date: 'yyyy-MM-dd'}}</td>
+    </tr>
+    <tr>
+      <td>Odometer Reading</td>
+      <td>{{tracker.trackerOdometer}}</td>
+    </tr>
+    <tr>
+      <td>Sim Provider</td>
+      <td>{{tracker.trackerSimProvider}}</td>
+    </tr>
+    <tr>
+      <td>Speed Limit</td>
+      <td>{{tracker.trackerSpeedLimit}}</td>
+    </tr>
+    <tr>
+      <td>Sim Valid Date</td>
+      <td>{{tracker.trackerSimValidDate | date: 'yyyy-MM-dd'}}</td>
+    </tr>
+  </table>
+</p2s-user-form-popup>

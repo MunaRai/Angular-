@@ -1,0 +1,35 @@
+<div class="d-flex col p-0 align-items-stretch y-auto">
+  <!-- dashboard section -->
+  <div class="col y-auto py-4 pr-3">
+    <div class="d-flex flex-wrap align-items-stertch">
+
+
+      <!-- trackers summary   -->
+      <div class="col-lg-12">
+        <p2s-trackers-summary></p2s-trackers-summary>
+      </div>
+      <!-- / trackers summary -->
+
+      <!-- order summary -->
+      <div class="col-lg-12">
+        <p2s-order-summary></p2s-order-summary>
+      </div>
+      <!-- / order summary -->
+      <!-- reminder button -->
+      <div id="mySidenav" class="sidenav fixed-top ">
+        <button (click)="reminder($event)" id="reminder">
+          <i class="fas fa-edit mr-2"></i>Reminder
+        </button>
+      </div>
+      <!-- / reminder button -->
+    </div>
+      
+
+      <!-- order flow -->
+      <div class="col-12">
+        <p2s-order-flow></p2s-order-flow>
+      </div>
+      <!-- / order flow -->
+  </div>
+  <!-- / dashboard section -->
+</div>

@@ -1,0 +1,91 @@
+@import 'src/app/shared/styles/variables';
+
+.colorgraph {
+  height: 5px;
+  border-top: 0;
+  background: #c4e17f;
+  border-radius: 5px;
+  background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+}
+
+:host {
+  background: #33b5e5;
+}
+
+
+
+@mixin circle($size, $top, $left, $blur: 3px) {
+  width: $size;
+  height: $size;
+  background: rgba(white, .2);
+  top: $top;
+  left: $left;
+  content: '';
+  border-radius: 50%;
+  position: absolute;
+  z-index: 0;
+}
+
+.bokeh-bg {
+  background: #33b5e5;
+  position: relative;
+  $size: 100px;
+  &:before {
+    @include circle($size, 300px, 200px, 2px);
+  }
+
+  &:after {
+    @include circle($size * 2, 30%, 400px);
+  }
+
+  >div {
+    &:before {
+      @include circle($size + 10, 20%, 80%, 1px);
+    }
+
+    &:after {
+      @include circle($size - 5, 10%, 20%, 2px);
+    }
+  }
+}
+
+.truck {
+  animation:
+    move-forward 1.5s ease-in-out,
+    up-down 1s 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes up-down {
+  0% {
+    transform: translate(8px, -1px);
+  }
+  25% {
+    transform: translate(8px, -2px);
+  }
+  50% {
+    transform: translate(8px, -1px);
+  }
+  75% {
+    transform: translate(8px, -4px);
+  }
+  100% {
+    transform: translate(8px, -3px);
+  }
+}
+
+@keyframes move-forward {
+  0% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(8px);
+  }
+}
+.btn-link {
+  position: relative;
+  bottom: 35px;
+  left: 90%;
+}

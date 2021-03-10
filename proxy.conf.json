@@ -1,0 +1,11 @@
+{
+  "/api/v1/": {
+    "target": "http://103.233.58.147:8080/api/v1",
+    "logLevel": "debug",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/v1": ""
+    }
+  }
+}

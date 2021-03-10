@@ -1,0 +1,37 @@
+ <!-- header -->
+<header class="p-3 bg-gray-9 text-capitalize text-white font-size-2" *ngIf="!hideHeader">
+  {{heading}}
+</header>
+<!-- / header -->
+
+<!-- page content -->
+<section class="p-4">
+  <p2s-table-top-bar
+      [enableAdminControl]="true"
+      [enableEmail]="false"
+      [enableExport]="false"
+      [enablePrint]="false"
+      [enableAdd]="enableAdd"
+      [enableEdit]="enableEdit"
+      [enableDelete]="enableDelete"
+      [enableSearch]="enableSearch"
+      [viewDisabled]="viewDisabled"
+      [deleteDisabled]="deleteDisabled"
+      [editDisabled]="editDisabled"
+      (view)="onView()"
+      (add)="onAdd()"
+      (edit)="onEdit()"
+      (delete)="onDelete()"
+      (search)="onSearch($event)"
+      [addTooltip]="addTooltip"
+      [editTooltip]="editTooltip"
+      [deleteTooltip]="deleteTooltip"></p2s-table-top-bar>
+  <ng-content></ng-content>
+  <p2s-table-pagination
+      (limitChange)="onLimitChange($event)"
+      (pageChange)="onPageChange($event)"
+      (prev)="onPrev()"
+      (next)="onNext()"
+      [totalPages]="totalPages"></p2s-table-pagination>
+</section>
+<!-- page content -->

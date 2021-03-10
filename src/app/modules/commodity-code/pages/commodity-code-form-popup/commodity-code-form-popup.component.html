@@ -1,0 +1,35 @@
+<p2s-user-form-popup
+    [title]="mode + ' Commodity Code'"
+    (save)="save()"
+    (cancel)="cancel()">
+  <form novalidate
+        [formGroup]="commodityCodeForm">
+    <p2s-form-group label="Commodity Code"
+                    for="commodityCode">
+      <input type="text"   
+          class="form-control"
+          formControlName="commodityCode"
+          [class.is-invalid]="commodityCodeForm.controls['commodityCode'].errors && (formSubmitted || commodityCodeForm.controls['commodityCode'].touched || commodityCodeForm.controls['commodityCode'].dirty)"
+          formControlName="commodityCode">
+        <div class="invalid-feedback"
+        *ngIf="commodityCodeForm.controls['commodityCode'].errors && (formSubmitted || commodityCodeForm.controls['commodityCode'].touched || commodityCodeForm.controls['commodityCode'].dirty)">
+        Commodity code is required
+   </div>
+ </p2s-form-group>
+
+    <p2s-form-group label="Description"
+                    for="commodityCodeDescription">
+      <textarea id="commodityCodeDescription"
+                class="form-control"
+                formControlName="commodityCodeDescription"
+                [class.is-invalid]="commodityCodeForm.controls['commodityCodeDescription'].errors && (formSubmitted || commodityCodeForm.controls['commodityCodeDescription'].touched || commodityCodeForm.controls['commodityCodeDescription'].dirty)"
+                rows="5">
+       </textarea>
+      <div class="invalid-feedback"
+           *ngIf="commodityCodeForm.controls['commodityCodeDescription'].errors && (formSubmitted || commodityCodeForm.controls['commodityCodeDescription'].touched || commodityCodeForm.controls['commodityCodeDescription'].dirty)">
+        Description is required
+      </div>
+    </p2s-form-group>
+  </form>
+
+</p2s-user-form-popup>

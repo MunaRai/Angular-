@@ -1,0 +1,477 @@
+<p2s-user-form-popup [title]="mode + ' Tracker'"
+                     (save)="save()"
+                     (cancel)="dismiss()"
+                     [disableSave]="trackerForm.invalid">
+  <form novalidate
+        role="form"
+        [formGroup]="trackerForm">
+
+    <div class = "row">
+
+      <div class="col-6">
+          <!-- imei -->
+        <p2s-form-group label="IMEI number"
+              for="trackerImeiNumber">
+          <input type="text"
+                  class="form-control"
+                  id="trackerImeiNumber"
+                  formControlName="trackerImeiNumber"
+                  readonly
+                  [class.is-invalid]="trackerImeiNumber.errors &&
+                  (formSubmitted || trackerImeiNumber.touched ||
+                  trackerImeiNumber.dirty)">
+          <div 
+              class="invalid-feedback"
+              *ngIf="trackerImeiNumber.errors && (formSubmitted || 
+              trackerImeiNumber.touched || trackerImeiNumber.dirty)">
+            <div *ngIf="trackerImeiNumber.errors.required">
+              Tracker Imei number is required
+            </div>
+
+            <div *ngIf="trackerImeiNumber.errors.minlength">
+             Minimum length is 7
+            </div>
+
+            <div *ngIf="trackerImeiNumber.errors.maxlength">
+              Maximum length is 20
+            </div>
+          </div>
+        </p2s-form-group>
+          <!-- / imei -->
+      </div>
+
+      <div class="col-6">
+         <!-- tracker name -->
+        <p2s-form-group label="Tracker Name"
+            for="trackerName"
+            required="true">
+          <input type="text"
+                  class="form-control"
+                  id="trackerName"
+                  formControlName="trackerName"
+                  [class.is-invalid]="trackerName.errors &&
+                  (formSubmitted || trackerName.touched ||
+                  trackerName.dirty)">
+          <div 
+              class="invalid-feedback"
+              *ngIf="trackerName.errors && (formSubmitted || 
+              trackerName.touched || trackerName.dirty)">
+            <div *ngIf="trackerName.errors.required">
+              Tracker Name number is required
+            </div>
+    
+            <div *ngIf="trackerName.errors.minlength">
+              Minimum length is 3
+            </div>
+    
+            <div *ngIf="trackerName.errors.maxlength">
+              Maximum length is 20
+            </div>
+
+            <div *ngIf="trackerName.errors.pattern">
+              {{checkPattern.errorPatternMsg}}
+            </div>
+          </div>
+        </p2s-form-group>
+        <!-- / tracker name -->
+      </div>
+    </div>
+    <div class = "row">
+      <div class="col-6">
+        <!-- Purchase date -->
+        <p2s-form-group label="Purchase Date"
+                        for="datePurchased">
+          <input type="text"
+                 class="form-control"
+                 id="trackerDatePurchased"
+                 ngbDatepicker
+                 #purchasedDatePicker="ngbDatepicker"
+                 readOnly
+                 formControlName="trackerDatePurchased">
+        </p2s-form-group>
+        <!-- / Purchase date -->
+      </div>
+
+      <div class="col-6">
+        <!-- model no -->
+        <p2s-form-group label="Tracker Model"
+                        for="trackerModelName">
+          <!-- <select id="trackerModelName"
+                  class="custom-select"
+                  formControlName="trackerModelName"
+                  [class.is-invalid]="trackerModelName.errors &&
+                   (formSubmitted || trackerModelName.touched ||
+                   trackerModelName.dirty)">
+              <option *ngFor="let trackerModelName of trackerModels"
+                    [value]="trackerModelName">{{trackerModelName}}
+              </option>
+          </select> -->
+          <input type="text"
+                 class="form-control"
+                 id="traackerModelName"
+                 formControlName="trackerModelName"
+                 readonly
+                 [class.is-invalid]="trackerSimProvider.errors &&
+                 (formSubmitted || trackerSimProvider.touched || 
+                 trackerSimProvider.dirty)">
+          <div 
+              class="invalid-feedback"
+              *ngIf="trackerModelName.errors && (formSubmitted ||
+               trackerModelName.touched || trackerModelName.dirty)">
+            <div *ngIf="trackerModelName.errors.required">
+              Tracker Model name is required
+            </div>
+
+            <div *ngIf="trackerModelName.errors.minlength">
+              Minimum length is 3
+            </div>
+
+            <div *ngIf="trackerModelName.errors.maxlength">
+              Maximum length is 20
+            </div>
+          </div>
+        </p2s-form-group>
+        <!-- / model no -->
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-6">
+        <!-- Expiry date -->
+        <p2s-form-group label="Expiry Date"
+                        for="trackerDateExpiry">
+          <input type="text"
+                 class="form-control"
+                 id="trackerDateExpiry"
+                 ngbDatepicker
+                 #expiresDatePicker="ngbDatepicker"
+                 readOnly
+                 [minDate]="today"
+                 formControlName="trackerDateExpiry">
+        </p2s-form-group>
+        <!-- / Expiry date -->
+      </div>
+
+      <div class="col-6">
+        <!-- Installation date -->
+        <p2s-form-group label="Installation Date"
+                        for="trackerDateInstalled">
+          <input type="text"
+                 class="form-control"
+                 id="dateInstalled"
+                 ngbDatepicker
+                 #intalledDatePicker="ngbDatepicker"
+                 readOnly
+                 formControlName="trackerDateInstalled">
+        </p2s-form-group>
+        <!-- / Installation date -->
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-6">
+        <!-- SIM Provider -->
+        <p2s-form-group label="SIM provider"
+                            for="trackerSimProvider">
+          <input type="text"
+                class="form-control"
+                id="trackerSimProvider"
+                formControlName="trackerSimProvider"
+                [class.is-invalid]="trackerSimProvider.errors &&
+                 (formSubmitted || trackerSimProvider.touched || 
+                 trackerSimProvider.dirty)">
+          <div 
+              class="invalid-feedback"
+              *ngIf="trackerSimProvider.errors && (formSubmitted || 
+              trackerSimProvider.touched || trackerSimProvider.dirty)">
+            
+            <div *ngIf="trackerSimProvider.errors.required">
+              Tracker sim provider is required
+            </div>
+
+            <div *ngIf="trackerSimProvider.errors.minlength">
+              Minimum length is 3
+            </div>
+
+            <div *ngIf="trackerSimProvider.errors.maxlength">
+               Maximum length is 20
+            </div>
+
+            <div *ngIf="trackerSimProvider.errors.pattern">
+              {{checkPattern.errorPatternMsg}}
+            </div>
+
+          </div>
+        </p2s-form-group>
+        <!-- / SIM Provider -->
+      </div>
+
+      <div class="col-6">
+        <!-- Sim -->
+        <p2s-form-group label="Sim Number"
+                        for="trackerSimNumber"
+                        required="true">
+            <input type="text"
+                 class="form-control"
+                 id="trackerSimNumber"
+                 [readOnly]="user.userRole === 'ROLE_USER'"
+                 formControlName="trackerSimNumber"
+                 [class.is-invalid]="trackerSimNumber.errors && 
+                 (formSubmitted || trackerSimNumber.touched || 
+                 trackerSimNumber.dirty)">  
+            <div 
+                class="invalid-feedback"
+                *ngIf="trackerSimNumber.errors && (formSubmitted || trackerSimNumber.touched ||
+                trackerSimNumber.dirty)">
+
+              <div *ngIf="trackerSimNumber.errors.required">
+                Tracker Sim number is required
+              </div>
+
+              <div *ngIf="trackerSimNumber.errors.minlength">
+                 Minimum length is 3
+              </div>
+              
+              <div *ngIf="trackerSimNumber.errors.maxlength">
+                Maximum length is 20
+              </div>
+
+              <div *ngIf="trackerSimNumber.errors.pattern">
+                {{checkPattern.errorPatternMsg}}
+              </div>
+            </div>  
+        </p2s-form-group>
+        <!-- / Sim -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <!-- icon image -->
+        <p2s-form-group label="Icon Image "
+                        class="icon-image"
+                        required="true">
+          <div class="d-flex align-items-center"
+          [class.is-invalid]="trackerIcon.errors &&
+          (formSubmitted || trackerIcon.touched ||
+          trackerIcon.dirty)">
+            <!-- truck -->
+            <label for="truck"
+                   class="pointer mx-3 font-size-5"
+                   ngbTooltip="Truck">
+              <input type="radio"
+                     id="truck"
+                     class="v-hidden h-0 w-0"
+                     value="truck"
+                     formControlName="trackerIcon">
+              <i class="fa fa-truck"></i>
+            </label>
+            <!-- / truck -->
+
+            <!-- trailer -->
+            <label for="trailer"
+                   class="pointer mx-3 font-size-11"
+                   ngbTooltip="Trailer">
+              <input type="radio"
+                     id="trailer"
+                     class="v-hidden h-0 w-0"
+                     value="trailer"
+                     formControlName="trackerIcon">
+              <i class="icon-trailer"></i>
+              <!-- <i class="fa fa-truck-moving"></i> -->
+            </label>
+            <!-- / trailer -->
+
+            <!-- car -->
+            <label for="car"
+                   class="pointer mx-3 font-size-8"
+                   ngbTooltip="Car">
+              <input type="radio"
+                     id="car"
+                     class="v-hidden h-0 w-0"
+                     value="car"
+                     formControlName="trackerIcon">
+              <i class="fa fa-car"></i>
+            </label>
+            <!-- / car -->
+
+            <!-- bike -->
+            <label for="bike"
+                   class="pointer mx-3 font-size-8"
+                   ngbTooltip="Motorcycle">
+              <input type="radio"
+                     id="bike"
+                     class="v-hidden h-0 w-0"
+                     value="bike"
+                     formControlName="trackerIcon">
+              <i class="fa fa-motorcycle"></i>
+            </label>
+            <!-- / bike -->
+            <div 
+            class="invalid-feedback"
+            *ngIf="trackerIcon.errors && (formSubmitted || 
+            trackerIcon.touched || trackerIcon.dirty)">
+          <div *ngIf="trackerIcon.errors.required">
+            Tracker Imei number is required
+          </div>
+        </div>
+          </div>
+        </p2s-form-group>
+        <!-- / icon image -->
+      </div>
+
+      <div class="col-6">
+        <!-- Sim Expiry date -->
+        <p2s-form-group label="Sim Valid Date"
+                        for="trackerSimValidDate">
+          <input type="text"
+                 class="form-control"
+                 id="trackerSimValidDate"
+                 ngbDatepicker
+                 #simValidDatePicker="ngbDatepicker"
+                 readOnly
+                 [minDate]="today"
+                 (click)="user.userRole === 'ROLE_ADMIN'?simValidDatePicker.toggle():false"
+                 formControlName="trackerSimValidDate"
+                 [class.is-invalid]="trackerSimValidDate.errors && 
+                 (formSubmitted || trackerSimValidDate.touched || 
+                 trackerSimValidDate.dirty)">
+          <div 
+              class="invalid-feedback"
+              *ngIf="trackerSimValidDate.errors && (formSubmitted || 
+              trackerSimValidDate.touched || trackerImeiNumber.dirty)">
+            <div *ngIf="trackerSimValidDate.errors.required">
+              Sim valid date is required
+            </div>
+          </div>
+        </p2s-form-group>
+        <!-- / Sim valid date -->
+      </div>
+
+    </div>
+
+    <!-- <div *ngIf="user.userRole=='ROLE_ADMIN'" class="row"> -->
+      <!-- <div class="col-6"> -->
+        <!-- temperature sensor type -->
+        <!-- <p2s-form-group 
+            label="Temperature Sensor"
+            for="temperatureSensor">
+          <select
+              id="temperatureSensor"
+              class="form-control">
+            <option value="" [selected]>Default</option>
+            <option value=""> </option>
+          </select>
+        </p2s-form-group> -->
+        <!-- / temperature sensor type -->
+      <!-- </div> -->
+
+      <!-- <div class="col-6"> -->
+        <!-- fuel sensor type -->
+        <!-- <p2s-form-group 
+            label="Fuel Sensor"
+            for="fuelSensor">
+          <select
+              id="fuelSensor"
+              class="form-control">
+            <option value="" [selected]>Default</option>
+            <option value=""> </option>
+          </select>
+        </p2s-form-group> -->
+        <!-- / fuel sensor type -->
+      <!-- </div> -->
+         
+    <!-- </div> -->
+
+    <div class="row">
+      <div class="col-6">
+        <!-- Tracker speed limit -->
+        <p2s-form-group label="Tracker speed limit"
+                        for="trackerSpeedLimit"
+                        required="true">
+          <input type="number"
+                 class="form-control"
+                 id="trackerSpeedLimit"
+                 formControlName="trackerSpeedLimit">
+        </p2s-form-group>
+        <!-- / Tracker speed limit -->
+      </div>
+      <div class="col-6">
+        <p2s-form-group label=" Is Vip Tracker">
+            <p2s-switch
+              formControlName="vipTracker">
+
+            </p2s-switch>
+        </p2s-form-group>
+        
+      </div>
+
+
+
+
+
+      <!-- <div class="col-6"> -->
+        <!-- Tracker created for --> 
+        <!-- <p2s-form-group label="Tracker created for *"
+                        for="trackerCreatedFor">
+          <input 
+              type="text"
+              class="form-control"
+              id="trackerCreatedFor"
+              formControlName="trackerCreatedFor"
+              [class.is-invalid]="trackerCreatedFor.errors && 
+                 (formSubmitted || trackerCreatedFor.touched || 
+                 trackerCreatedFor.dirty)"
+              [ngbTypeahead]="fetchCreatedFor">
+          <div 
+              class="invalid-feedback"
+              *ngIf="trackerCreatedFor.errors && (formSubmitted || 
+              trackerCreatedFor.touched || trackerCreatedFor.dirty)">
+            <div *ngIf="trackerCreatedFor.errors.required">
+              Tracker created for is required
+            </div>
+          </div>
+          <div *ngIf="searching">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span class="d-inline-block ml-3">Searching Users...</span>
+          </div>
+          <div class="invalid-feedback" *ngIf="searchFailed">Users coundn't be loaded.</div>
+        </p2s-form-group> -->
+        <!-- / Tracker created for -->
+      <!-- </div> -->
+      
+    </div>
+
+    
+
+    <!-- <hr>
+
+    <h5 class="font-weight-bold mb-4">Features</h5>
+
+    <div
+        class="my-3 text-center"
+        *ngIf="!features">
+      <p2s-spinner></p2s-spinner>
+    </div>
+
+    <div class="row my-2">
+      <div class="col-4"
+           *ngFor="let feature of features; index as i">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox"
+                 class="custom-control-input"
+                 [id]="'featCheck'+i"
+                 [checked]="hasFeature(feature.featureId)"
+                 (change)="featureChange(feature.featureId)">
+          <label class="custom-control-label"
+                 [for]="'featCheck'+i">
+            {{feature.featureName}}
+          </label>
+        </div>
+      </div>
+    </div> -->
+
+  </form>
+</p2s-user-form-popup>

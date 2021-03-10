@@ -1,0 +1,148 @@
+<div class="col-lg-12 p-4 y-auto">
+  <div class="row justify-content-between">
+    <div class="col-lg-3 col-md-6 col-sm-6 ">
+      <div class="card card-stats">
+        <div class="card-header card-header-warning card-header-icon">
+          <div class="card-icon"><i class="fas fa-chart-bar"></i></div>
+          <p class="card-category">Total Trackers</p>
+          <h3 class="card-title">{{trackerCount}}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-header card-header-success card-header-icon">
+          <div class="card-icon"><i class="fas fa-user"></i></div>
+          <p class="card-category">Total Distributors</p>
+          <h3 class="card-title">{{distributorCount}}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-header card-header-rose card-header-icon">
+          <div class="card-icon"><i class="fas fa-copyright"></i></div>
+          <p class="card-category">Total License</p>
+          <h3 class="card-title">{{licenseCount}}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-header card-header-info card-header-icon">
+          <div class="card-icon"><i class="fas fa-users"></i></div>
+          <p class="card-category">Total Users</p>
+          <h3 class="card-title">{{userCount}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <div class="col p-4 y-auto"> -->
+  <!-- / header card -->
+  <!-- <div class="row">
+    <div class="col-3">
+      <div class="card mb-3" style="max-width: 20rem;">
+        <div class="card-body text-center">
+          <h4 class="card-title h1 m-0">{{trackerCount}}</h4>
+          <p class="card-text text-muted">Total Trackers</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="card mb-3" style="max-width: 20rem;">
+        <div class="card-body text-center">
+          <h4 class="card-title h1 m-0">{{distributorCount}}</h4>
+          <p class="card-text text-muted">Total Distributors</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="card mb-3" style="max-width: 20rem;">
+        <div class="card-body text-center">
+          <h4 class="card-title h1 m-0">{{licenseCount}}</h4>
+          <p class="card-text text-muted">Total License</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="card mb-3" style="max-width: 20rem;">
+        <div class="card-body text-center">
+          <h4 class="card-title h1 m-0">{{userCount}}</h4>
+          <p class="card-text text-muted">Total Users</p>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!-- / header card -->
+
+
+  <div class="row">
+    <!-- bar chart -->
+    <div class="col-6">
+      <p2s-bar-chart class="col-12 p-0 d-flex align-items-stretch">
+      </p2s-bar-chart>
+    </div>
+    <!-- / bar chart -->
+
+    <!-- pie chart -->
+    <div class="col-6">
+      <p2s-pie-chart class="col-12 p-0 d-flex align-items-stretch">
+      </p2s-pie-chart>
+    </div>
+    <!-- / pie chart -->
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="col p-0 y-auto">
+        <div class="table-responsive my-3 bg-white">
+          <table class="table m-0 table-hover table-bordered">
+            <thead style="background: #212529;">
+              <tr class=" text-white">
+                <th>User</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>License Count</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white">
+              <tr *ngFor="let distributor of distributors">
+                <td>
+                  <div>{{distributor.userDto.userFirstName}} {{distributor.userDto.userLastName}}</div>
+                  <div class="small text-muted">
+                    {{distributor.userDto.userEmail}}
+                  </div>
+                </td>
+                <td>
+                  {{distributor.userDto.username}}
+                </td>
+                <td>
+                  <div class="clearfix">
+                    <div class="float-left">
+                      {{distributor.userDto.userRole}}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  0
+                  <!-- {{distributor.licenseDtoList.licenseCount || 0}} -->
+                </td>
+                <td>
+                  <span class="status text-capitalize" [class.success]="distributor.userDto.userStatus == 'ACTIVE'"
+                    [class.dark]="distributor.userDto.userStatus == 'INACTIVE'">
+                    {{distributor.userDto.userStatus.toLowerCase()}}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

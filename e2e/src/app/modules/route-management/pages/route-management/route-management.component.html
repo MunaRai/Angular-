@@ -1,0 +1,67 @@
+<div class="col p-0 y-auto">
+  <p2s-list-page-template
+        heading="Add Route"
+        [editDisabled]="!selectedRoute"
+        [deleteDisabled]="!selectedRoute"
+        addTooltip="Create Route"
+        editTooltip="Edit Route"
+        (add)="showRoutepopup('add')"
+        (edit)="showRoutepopup('edit')"
+        (delete)="delete()"
+        (search)="onSearch($event)"
+        (pageChange)="gotoPage($event)"
+        (next)="next()"
+        (prev)="previous()"
+        (limitChange)="changeLimit($event)"
+        [page]="pagingSorting.page"
+        [totalPages]=1>
+    <div class="my-3 table-responsive bg-white">
+        <table class="table m-0  table-bordered">
+          <thead>
+            <tr class="bg-gray-7 text-white">
+              <th class="text-center">RouteName</th>
+              <th class="text-center">Show route in map</th>
+              <th class="text-center">Assign Tracker</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container >
+              <tr class="pointer"
+                  *ngFor="let route of routes"
+                  [class.table-secondary]="route == selectedRoute"
+                  (click)="selectedRoute = route"
+                  >
+                <td class="text-center">
+                  {{route.routeName}}
+                </td>
+                <td class="text-center">
+                  
+                  <button
+                      class="btn btn-link"
+                      (click)="showStopList(route)"
+                     >
+                    <!-- {{route.stopCounts}} -->
+                    view
+                  </button>
+                </td>
+                <td class="text-center">
+                  <button 
+                    class="btn btn-primary btn-sm" 
+                    (click)="showTrackerAssignpopup(route)">
+                  Assign Tracker
+                </button>
+                 
+                
+                </td>
+
+
+              </tr>
+
+            </ng-container>    
+          </tbody>
+        </table>
+        <p2s-no-record *ngIf="!routes.length"></p2s-no-record>
+    </div>
+  </p2s-list-page-template>
+   
+</div>

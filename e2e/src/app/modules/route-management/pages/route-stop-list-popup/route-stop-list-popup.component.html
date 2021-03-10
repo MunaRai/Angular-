@@ -1,0 +1,31 @@
+<header class="modal-header">
+  <h5 class="modal-title text-capitalize">Route Name : {{route.routeName}}</h5>
+  <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</header>
+
+
+<section>
+  <agm-map 
+    [latitude]="route.stops[0].lat"
+    [longitude]="route.stops[0].lng"
+    [zoom]="15">
+    <agm-direction *ngFor="let stop of route.stops;index as i"
+        [origin]="route.stops[i]"
+        [destination]="route.stops[route.stops.length-1]"
+        [renderOptions]="optionsRed">
+      <agm-marker
+          *ngFor="let stop of route.stops;index as i"
+          [latitude]="stop.lat"
+          [longitude]="stop.lng"
+          [iconUrl]="redIcon">
+        <agm-info-window>
+          <div class="mb-2 font-weight-bold">
+            Stop Name : {{stop.stopName}}
+          </div>
+        </agm-info-window>
+      </agm-marker>
+    </agm-direction>
+  </agm-map>
+</section>

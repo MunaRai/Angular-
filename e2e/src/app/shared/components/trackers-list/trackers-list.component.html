@@ -1,0 +1,746 @@
+<ng-container *ngIf="mode == 'dashboard'" [ngTemplateOutlet]="trackersListSection">
+</ng-container>
+<div class="col p-0 d-md-flex flex-column trackers-list" *ngIf="mode != 'dashboard'">
+  <ngb-tabset class="col p-0 d-flex flex-column" (tabChange)="onTabChange($event)">
+
+    <!-- trackers list -->
+    <ngb-tab>
+      <ng-template ngbTabTitle>
+        <i class="fas fa-list" ngbTooltip="Trackers List" container="body"></i>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <ng-container [ngTemplateOutlet]="trackersListSection"></ng-container>
+      </ng-template>
+    </ngb-tab>
+    <!-- / trackers list -->
+
+    <!-- tracker info -->
+    <ngb-tab id="info">
+      <ng-template ngbTabTitle>
+        <i class="fas fa-info" ngbTooltip="Tracker Information" container="body"></i>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <ng-container [ngTemplateOutlet]="infoSection"></ng-container>
+      </ng-template>
+    </ngb-tab>
+    <!-- / tracker info -->
+
+    <!-- Tracker alarm -->
+    <ngb-tab id="alarm">
+      <ng-template ngbTabTitle>
+        <i class="fas fa-bell" ngbTooltip="Alarm" container="body"></i>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <ng-container [ngTemplateOutlet]="alarmsSection"></ng-container>
+      </ng-template>
+    </ngb-tab>
+    <!-- /Tracker alarm -->
+
+    <!-- Tracker History -->
+    <ngb-tab id="history-tab">
+      <ng-template ngbTabTitle>
+        <i class="fas fa-history" ngbTooltip="Tracker History" container="body"></i>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <p2s-tracker-history class="col-md p-0 d-md-flex flex-column" [trackerId]="selectedTracker.trackerId" (play)="play.emit($event)"
+          (pause)="pause.emit($event)" (stop)="stop.emit($event)">
+        </p2s-tracker-history>
+      </ng-template>
+    </ngb-tab>
+    <!-- /tracker history -->
+
+      <!-- Tracker reminder -->
+     <!-- <ngb-tab id="reminder">
+      <ng-template ngbTabTitle>
+        <i class="far fa-clock" ngbTooltip="Reminder" container="body"></i>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <ng-container [ngTemplateOutlet]="reminderSection"></ng-container>
+      </ng-template>
+    </ngb-tab> -->
+    <!-- /Tracker reminder -->
+
+
+    <!-- route management -->
+    <ngb-tab id="route" *ngIf="user.userRole === 'ROLE_USER'">
+      <ng-template ngbTabTitle>
+        <i class="fas fa-random" ngbTooltip="Route" container="body"></i>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <ng-container [ngTemplateOutlet]="routesection"></ng-container>
+      </ng-template>
+    </ngb-tab>
+    <!-- /route management -->
+
+
+    <!-- tracker Eta -->
+    <!-- <ngb-tab>
+    <ngb-tab id="route" *ngIf="user.userRole === 'ROLE_USER'">
+      <ng-template ngbTabTitle>
+        <i class="fas fa-random" ngbTooltip="Route" container="body"></i>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <ng-container [ngTemplateOutlet]="routesection"></ng-container>
+      </ng-template>
+    </ngb-tab>
+     /route management -->
+
+    <!-- tracker Sensor -->
+    <!-- <ngb-tab id="sensor" *ngIf="user.userRole === 'ROLE_ADMIN'">
+      <ng-template ngbTabTitle>
+        <i class="fas fa-cogs" ngbTooltip="Sensor" container="body"></i>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <ng-container [ngTemplateOutlet]="sensorssection"></ng-container>
+      </ng-template>
+    </ngb-tab> -->
+    <!-- tracker Sensor -->
+
+    <!-- tracker Eta -->
+    <!-- <ngb-tab>
+        <ng-template ngbTabTitle>
+          <i class="fas fa-stopwatch" ngbTooltip="ETA" container="body"></i>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <ng-container [ngTemplateOutlet]="etaSection"></ng-container>
+        </ng-template>
+      </ngb-tab> -->
+    <!-- /tracker Eta -->
+
+  </ngb-tabset>
+</div>
+
+<!-- <ng-template #sensorssection> -->
+  <!-- <table class="table table-borderless ml-1 mt-2"> -->
+    <!-- <tr>
+      <td class="text-center"><img src="assets/img/latest.png" height ="55px" width="55px"></td>
+      <td class="text-center">FuelSensor Reading</td>
+      <td class="text-center">50%</td>
+    </tr> -->
+
+    <!-- <tr>
+      <td class="text-center"><img src="assets/img/thermometer.svg" height ="50px" width="55px"></td>
+      <td class="text-center">Temperature Reading</td>
+      <td class="text-center">30&ordm; C</td>
+    </tr> -->
+  <!-- </table> -->
+<!-- </ng-template> -->
+
+<ng-template #routesection>
+  <div class="row m-2 text-capitalize">
+    <!-- <h4 style="font-family: sans-serif;">{{routeInformation.routeName}}</h4> -->
+    <!--  -->
+  </div>
+  <div class="bottom_line"></div>
+
+  <div class="row mt-2">
+    <div class="col-4 text-center"><i class="fas fa-map-pin fa-lg green">
+        <h5 class="font-weight-bold"> Crossed</h5>
+      </i></div>
+    <div class="col-4 text-center"><i class="fas fa-map-pin fa-lg blue">
+        <h5 class="font-weight-bold"> Skipped</h5>
+
+      </i></div>
+    <div class="col-4 text-center"><i class="fas fa-map-pin fa-lg red">
+        <h5 class="font-weight-bold"> Pending</h5>
+
+      </i></div>
+  </div>
+  <div class="bottom_line"></div>
+
+
+  <div class="row mt-2">
+    <ul class="treelist">
+      <li class=""><i class="fas fa-life-ring fa-lg mr-1"></i>Live Status : {{currentStop.stopName}}</li>
+      <li class="mt-3"><i class="fas fa-level-down-alt fa-lg mr-1"></i>Crossed Stop : {{crossedStop.stopName}}</li>
+      <li class="mt-3"><i class="fas fa-level-up-alt fa-lg mr-1"></i>Next Stop : {{nextStop.stopName}}</li>
+      <!-- <li class="mt-3"><i class="fab fa-dochub mr-1"></i>Next Stop Away : </li> -->
+      <div class="bottom_line"></div>
+      <li>
+        <ng-template #popContent>
+          <div class="scrollable">
+            <table class="table">
+              <tr>
+                <th class="text-uppercase">skipped Stop</th>
+                <th class="text-uppercase">Positions</th>
+              </tr>
+              <tr *ngFor="let stop of skippedStopsList">
+                <td>
+                  {{stop.stopName}}
+                </td>
+                <td>
+                  {{stop.position}}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </ng-template>
+        <div class="mt-2 mb-2">
+          <i class="fas fa-life-ring fa-lg"></i> Skipped Stops
+          <button type="button" class="btn transparent" [ngbPopover]="popContent" triggers="manual" #p1="ngbPopover"
+            (click)="toggleWithGreeting(p1)">
+            <i class="fas fa-chevron-right"></i>
+          </button></div>
+      </li>
+      <div class="bottom_line"></div>
+
+      <li class="mt-3"><i class="fas fa-shipping-fast mr-1"></i>Current Speed : {{selectedTracker.gpsAttributeSpeed}}
+        km/hr</li>
+      <li class="mt-3">
+        <i class="fas fa-map-marker-alt fa-lg mr-1"></i>
+        Current Location : 
+        <address class="text-muted">{{selectedTracker.gpsAttributeAddress}}</address>
+      </li>
+    </ul>
+  </div>
+  <div class="bottom_line"></div>
+
+</ng-template>
+
+
+<ng-template #trackersListSection>
+  <!-- heading -->
+  <div *ngIf="mode == 'dashboard'" class="px-3 py-2 d-flex align-items-center" [class.bg-gray-9]="mode == 'dashboard'" [class.bg-gray-3]="mode != 'dashboard'"
+    [class.text-white]="mode == 'dashboard'">
+    Trackers
+    <div class="ml-auto btn-group" role="group">
+      <button type="button" class="btn btn-sm active" [ngClass]="
+            {'btn-outline-dark text-white': mode == 'dashboard', 'btn-outline-primary': mode !== 'dashboard'}
+          "
+          (click)="filterBy = ''"
+          [class.active]="filterBy === ''">All</button>
+      <button
+          type="button"
+          class="btn btn-sm"
+          [ngClass]="
+            {'btn-outline-dark text-white': mode == 'dashboard', 'btn-outline-primary': mode !== 'dashboard'}"
+          (click)="filterBy='favorites'"
+          [class.active]="filterBy === 'favorites'">
+        <i class="fas fa-star mr-1 text-warning"></i> Favorites
+      </button>
+
+    </div>
+  </div>
+  <!-- / heading -->
+
+  <!-- search bar -->
+  <div *ngIf="mode == 'dashboard'" class="d-flex py-2">
+    <div class="col-6">
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fas fa-search"></i></div>
+        </div>
+        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm">
+      </div>
+    </div>
+
+    <div class="col-6">
+      <select class="form-control form-control-sm" [(ngModel)]="filterBy">
+        <option value="">All</option>
+        <option value="favorites">Favorites</option>
+        <option value="moving">Moving</option>
+        <option value="stopped">Stopped</option>
+        <option value="idle">Idle</option>
+        <option value="Stalled">Stalled</option>
+      </select>
+    </div>
+  </div>
+  <!-- / search bar -->
+
+  <!-- trackers -->
+  <div class="col-md y-auto px-0">
+
+    <div droppable class="my-5 text-center" *ngIf="(isLoading$ | async)">
+      <p2s-spinner></p2s-spinner>
+    </div>
+
+    <div class="my-3 px-3" *ngIf="isError">
+      <div class="alert alert-danger">
+        Error Fetching Data
+      </div>
+    </div>
+
+    <div class="table-responsive trackers-list" *ngIf="!(isLoading$ | async) && !isError">
+      <table class="table m-0 table-hover">
+        <thead *ngIf="mode == 'dashboard'">
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Tracker <i class="fa fa-chevron-down"></i></th>
+            <th>Updated on <i class="fa fa-chevron-down"></i></th>
+          </tr>
+        </thead>
+        <!-- list of all trackers in home -->
+        <tbody *ngIf="mode==='dashboard'">
+          <tr *ngFor="let tracker of (trackerList | trackerFilter : searchTerm : filterBy)" class="pointer"
+            [class.table-secondary]="tracker === selectedTracker" (click)="onTrackerSelect(tracker)">
+            <td>
+              <button class="favAsBtn" [disabled]="!tracker.trackerName" (click)="setAsFavourite(tracker,$event)">
+                <i class="fas fa-star" [class.favorite]="user.favouriteTrackers.includes(tracker.trackerId)">
+                </i>
+
+              </button>
+            </td>
+            <td>
+              <i class="fa" [class.fa-truck]="tracker.trackerIcon == 'truck'" [class.fa-motorcycle]="tracker.trackerIcon == 'bike'"
+                [class.fa-car]="tracker.trackerIcon == 'car'" [class.icon-trailer]="tracker.trackerIcon == 'trailer'">
+              </i>
+            </td>
+            <td>
+              <h5 class="m-0">
+                <span class="badge" [class.badge-warning]="tracker.gpsAttributeStatus == 'IDLE'" [class.badge-success]="tracker.gpsAttributeStatus == 'MOVING'"
+                  [class.badge-danger]="tracker.gpsAttributeStatus == 'STOPPED'" [class.badge-secondary]="tracker.gpsAttributeStatus == 'STALLED'"
+                  [ngbTooltip]="tracker.gpsAttributeStatus || 'Tracker not Active'" container="body">
+                  {{ tracker?.trackerName }}
+                </span>
+              </h5>
+            </td>
+
+            <td *ngIf="mode == 'dashboard'">
+              <span *ngIf="tracker?.gpsAttributeDateCreated && tracker.gpsAttributeStatus; else timeIsNull">
+                {{ tracker?.gpsAttributeDateCreated | timeAgo }}
+              </span>
+              <ng-template #timeIsNull>
+                Tracker Not Installed
+              </ng-template>
+            </td>
+
+            <td *ngIf="mode !== 'dashboard'">
+              <span *ngIf="tracker?.gpsAttributeSpeed">
+                {{ tracker?.gpsAttributeSpeed}} km/h
+              </span>
+            </td>
+          </tr>
+        </tbody>
+        <!--/ list of all trackers in home -->
+
+
+        <!-- list of distributors and their respective users and their respective trackers -->
+        <tbody *ngIf="mode != 'dashboard' && user.userRole == 'ROLE_SYSTEM'">
+          <tr>
+            <th class="ml-1">Distributors <i class="fa fa-chevron-down"></i></th>
+          </tr>
+          <tr *ngFor="let distributor of distributors">
+            <td>
+              <button class="btn btn-link mr-2" (click)="distributor.showDistributorList = !distributor.showDistributorList;findUsersAndTrackers(distributor)">
+              <i class="fas" [class.fa-user-plus]="!distributor.showDistributorList" [class.fa-user-minus]="distributor.showDistributorList">
+                </i>
+              </button> <span class="font-weight-bold"> {{distributor.distributorName}} </span>
+
+              <div class="row ml-4" *ngIf="distributor.showDistributorList">
+                <ul *ngIf="distributor.userDtoList" class="treelist">
+                  <li *ngFor="let user of distributor.userDtoList">
+                    <button class="btn btn-link mr-2" (click)="user.showTrackerList = !user.showTrackerList">
+                      <i class="fas" [class.fa-user-plus]="!user.showTrackerList" [class.fa-user-minus]="user.showTrackerList">
+                      </i>
+                    </button><span class="font-weight-bold">{{user.username}}</span>
+
+                    <span *ngIf="user.showTrackerList">
+                      <ul *ngFor="let tracker of trackerList" class="ml-4 treelist">
+                        <li *ngIf="tracker.trackerUsers.includes(user.userId)">
+                          <span [class.orange]="tracker.gpsAttributeStatus == 'IDLE'" [class.green]="tracker.gpsAttributeStatus == 'MOVING'"
+                                [class.red]="tracker.gpsAttributeStatus == 'STOPPED'" [class.gray]="tracker.gpsAttributeStatus == 'STALLED'"
+                                [ngbTooltip]="tracker.gpsAttributeStatus || 'Tracker not Active'" container="body">
+
+                            <i class="fa fa-lg" [class.fa-truck]="tracker.trackerIcon == 'truck'" [class.fa-motorcycle]="tracker.trackerIcon == 'bike'"
+                            [class.fa-car]="tracker.trackerIcon == 'car'" [class.icon-trailer]="tracker.trackerIcon == 'trailer'">
+                            </i>
+                          </span>
+                            <button class="btn btn-link btn-sm ml-2" (click)="onTrackerSelect(tracker)">
+                              
+                              <span class="font-weight-bold">  {{tracker.trackerName||'Tracker name not added'}} </span>
+                            </button>
+                          
+                        </li>
+                      </ul>
+                    </span>
+                  </li>
+                </ul>
+
+                <!-- if there is no record -->
+                <p *ngIf="!distributor.userDtoList.length" class="py-2 font-weight-bold font-size-down-2 text-center">
+                  No user found
+                </p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <!--/ list of distributors and their respective users and their respective trackers -->
+
+
+        <!-- list of users and their assigned trackers for live tracking -->
+        <tbody *ngIf="mode !='dashboard' && user.userRole=='ROLE_ADMIN'">
+          <tr>
+            <th class="ml-1">Users <i class="fa fa-chevron-down"></i></th>
+          </tr>
+
+          <tr *ngFor="let user of users">
+            <td>
+              <button class="btn btn-link mr-2" (click)="(user.showTrackerList = !user.showTrackerList);closeOtherUser(user)">
+               
+                <i class="fas" [class.fa-user-plus]="!user.showTrackerList" [class.fa-user-minus]="user.showTrackerList">
+                </i> 
+              </button> <span class="font-weight-bold">{{user.username}} </span> 
+
+              <span *ngIf="user.showTrackerList">
+                <ul *ngFor="let tracker of trackerList" class="ml-4 treelist">
+                  <li *ngIf="tracker.trackerUsers.includes(user.userId)">
+
+                    <span [class.orange]="tracker.gpsAttributeStatus == 'IDLE'" [class.green]="tracker.gpsAttributeStatus == 'MOVING'"
+                          [class.red]="tracker.gpsAttributeStatus == 'STOPPED'" [class.gray]="tracker.gpsAttributeStatus == 'STALLED'"
+                          [ngbTooltip]="tracker.gpsAttributeStatus || 'Tracker not Active'" container="body">
+
+                      <i class="fa fa-lg" [class.fa-truck]="tracker.trackerIcon == 'truck'" [class.fa-motorcycle]="tracker.trackerIcon == 'bike'"
+                      [class.fa-car]="tracker.trackerIcon == 'car'" [class.icon-trailer]="tracker.trackerIcon == 'trailer'">
+                      </i>
+                      
+                    </span>
+                    <button class="btn btn-link btn-sm ml-2" (click)="onTrackerSelect(tracker)">
+                      <span class="font-weight-bold">{{tracker.trackerName}} </span>
+                    </button>
+                  </li>
+                </ul>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+
+        
+        <tbody *ngIf="mode !='dashboard' && user.userRole=='ROLE_USER'">
+          
+          <tr *ngFor="let tracker of trackerList" class="ml-4 treelist">
+           <td>&nbsp;</td>
+            
+            <td>
+              <span [class.orange]="tracker.gpsAttributeStatus == 'IDLE'" [class.green]="tracker.gpsAttributeStatus == 'MOVING'"
+                    [class.red]="tracker.gpsAttributeStatus == 'STOPPED'" [class.gray]="tracker.gpsAttributeStatus == 'STALLED'"
+                    [ngbTooltip]="tracker.gpsAttributeStatus || 'Tracker not Active'" container="body">
+
+                <i class="fa fa-lg" [class.fa-truck]="tracker.trackerIcon == 'truck'" [class.fa-motorcycle]="tracker.trackerIcon == 'bike'"
+                [class.fa-car]="tracker.trackerIcon == 'car'" [class.icon-trailer]="tracker.trackerIcon == 'trailer'"></i> &nbsp;             </span>  
+
+              <button class="btn btn-link btn-sm ml-2" (click)="onTrackerSelect(tracker)">
+                <span class="font-weight-bold">  {{tracker.trackerName}} </span>
+              </button>
+            </td>  
+            
+          </tr>
+
+        <!-- </span> -->
+        <!-- </td>
+        </tr>
+        </tbody> -->
+        </tbody>
+
+
+        <!-- <tbody *ngIf="mode !='dashboard' && user.userRole=='ROLE_USER'">
+            <tr >
+              <th class="ml-1">Trackers <i class="fa fa-chevron-down"></i></th>
+            </tr>
+  
+           
+  
+        </tbody> -->
+
+
+
+      </table>
+      <!-- <div class="px-3 my-3 text-center text-muted" *ngIf="!trackerList.length">
+        No data available
+      </div> -->
+    </div>
+  </div>
+  <!-- / trackers -->
+
+  <!-- trackers summary -->
+  <div class="px-3 py-2 bg-gray-2" [class.bordedr-top]="mode == 'dashboard'">
+    <small class="d-flex flex-wrap justify-content-center">
+      <span class="d-flex align-items-center">
+        <strong>Total:</strong> <span class="badge badge-primary mx-2">{{total}}</span>
+      </span>
+
+      <span class="d-flex align-items-center ml-2">
+        <strong>Moving:</strong> <span class="badge badge-success mx-2">{{moving}}</span>
+      </span>
+
+      <span class="d-flex align-items-center ml-2">
+        <strong>Idle:</strong> <span class="badge badge-warning mx-2">{{idle}}</span>
+      </span>
+
+      <span class="d-flex align-items-center ml-2">
+        <strong>Stopped:</strong> <span class="badge badge-danger mx-2">{{stopped}}</span>
+      </span>
+
+      <span class="d-flex align-items-center ml-2">
+        <strong>Stalled:</strong> <span class="badge badge-dark mx-2">{{stalled}}</span>
+      </span>
+    </small>
+  </div>
+  <!-- / trackers summary -->
+  <!-- paging -->
+  <!-- <div class="pt-2 border-top"
+      *ngIf="mode == 'dashboard'">
+    <p2s-table-pagination size="sm" theme="dark"></p2s-table-pagination>
+  </div> -->
+  <!-- / paging -->
+</ng-template>
+
+<!-- device info -->
+<ng-template #infoSection>
+
+  <!-- header -->
+  <div class="bg-gray-3 w-100 py-2 px-3">
+    Tracker Information
+  </div>
+  <!-- /header -->
+
+  <div class="py-3 col y-auto">
+
+    <!-- name -->
+    <h5><i class="fas fa-truck font-size-1 mr-1"></i> {{info.trackerName}}
+      <!-- <button class="btn btn-primary">Reminder</button> -->
+    </h5>
+    <!-- / name -->
+    <hr>
+
+    <!-- started from -->
+    <h5><i class="icon-pointer font-size-1 mr-1"></i> Started From</h5>
+    <div>
+      <b>Address:</b>
+      <address>
+        {{info.startedAddress}}
+      </address>
+      <!-- <b><i class="fas fa-clock fa-lg"></i></b> -->
+    </div>
+    <!-- / started from -->
+
+    <!-- started from -->
+    <h5><i class="icon-pointer font-size-1 mr-1"></i> Current Address</h5>
+    <div>
+      <b>Address:</b>
+      <address>
+        {{info.currentAddress}}
+      </address>
+    </div>
+    <!-- / started from -->
+
+    <hr>
+
+    <!-- stats -->
+    <h5><i class="fas fa-chart-bar mr-1"></i>Statistics</h5>
+    <div class="">
+      <h5><i class="fas fa-shipping-fast mr-1"></i> Speed (KM/H)</h5>
+
+      <div class="row text-center">
+        <!-- current speed -->
+        <div class="col">
+          <div class="font-weight-bold">Current:</div>
+          <div class="badge badge-success">
+            {{selectedTracker.gpsAttributeSpeed | number : '1.2-2'}}
+          </div>
+        </div>
+        <!-- / current speed -->
+        <!-- maximum speed -->
+        <div class="col">
+          <div class="font-weight-bold">Maximum:</div>
+          <div class="badge badge-danger">
+            {{info.maximumSpeed | number : '1.2-2'}}
+          </div>
+        </div>
+        <!-- / maximum speed -->
+        <!-- average speed -->
+        <div class="col">
+          <div class="font-weight-bold">Average:</div>
+          <div class="badge badge-success">
+            {{info.averageSpeed | number : '1.2-2'}}
+          </div>
+        </div>
+        <!-- / average speed -->
+      </div>
+
+      <hr>
+
+      <h5><i class="icon-pointer font-size-1 mr-1"></i> Total Distance(KM)</h5>
+      <!-- distance  -->
+      <div class="col">
+        <div class="font-weight-bold">Total Distance:</div>
+        <div class="badge badge-success">
+          {{info.totalDistance | number : '1.2-2'}}
+        </div>
+      </div>
+      <!-- / distance  -->
+
+    </div>
+    <!-- / stats -->
+    <hr>
+  </div>
+</ng-template>
+<!-- / device info -->
+
+<!-- sensor -->
+<!-- <ng-template #sensorSection> -->
+
+  <!-- Sensor Info -->
+<!-- <div class="bg-gray-3 w-100 py-2 px-3">
+    Sensor
+  </div> -->
+
+<!-- / sensor info  -->
+
+<!-- Digital Input -->
+<!-- <div class="py-3 col y-auto">
+
+    <div class="mb-4 d-flex align-items-center">
+      <img src="assets/img/pressure.svg" alt="" width="50" ngbTooltip="Fuel 50%" container="body">
+
+      <i class="fas fa-thermometer-half fa-3x ml-4" ngbTooltip="Temp 30 C" container="body"></i>
+    </div>
+    <h5>Digital Input</h5>
+
+    <div class="d-flex mb-3">
+
+      <span class="digital-input-box bg-red d-flex align-items-center justify-content-center text-white">
+        1
+      </span>
+
+      <span class="digital-input-box bg-green d-flex align-items-center justify-content-center text-white ml-2">
+        2
+      </span>
+
+      <span class="digital-input-box bg-red d-flex align-items-center justify-content-center text-white ml-2">
+        3
+      </span>
+    </div> -->
+
+<!-- more -->
+<!-- <button class="btn btn-primary">More</button> -->
+<!-- /more -->
+
+<!-- </div> -->
+<!-- /digital input -->
+
+<!-- </ng-template> -->
+<!-- / sensor -->
+
+
+<!-- alarms -->
+<ng-template #alarmsSection>
+  <div class="my-3 table-responsive">
+    <table class="table m-0">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Recent Event</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let alarm of alarms">
+          <td>{{alarm?.notificationCreatedDate | date: 'MM-dd-yyyy hh:mm a'}}</td>
+          <td>
+            <span *ngIf="alarm?.notificationType?.notification === 'overSpeed'">
+              <i class="fas fa-shipping-fast mr-1 text-danger">
+              </i> Over Speed
+            </span>
+            <span *ngIf="alarm?.notificationType?.notification === 'ignition'">
+              <i class="fas fa-power-off mr-1" [class.text-success]="alarm?.notificationType?.value"
+                [class.text-danger]="!alarm.notificationType.value">
+              </i> Ignition
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="!alarmsLoading && (!alarms || !alarms.length)">
+          <td>No data available.</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="my-3 text-center" *ngIf="alarmsLoading">
+    <p2s-spinner></p2s-spinner>
+  </div>
+</ng-template>
+<!-- / alarms -->
+
+<!-- reminder -->
+<ng-template #reminderSection>
+  <!-- search bar -->
+  <!-- <div class="d-flex py-2">
+     <div class="col-6">
+       <div class="input-group input-group-sm">
+         <div class="input-group-prepend">
+           <div class="input-group-text"><i class="fas fa-search"></i></div>
+         </div>
+         <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm">
+       </div>
+     </div>
+ 
+     <div class="col-6">
+       <select class="form-control form-control-sm" [(ngModel)]="filterBy">
+         <option value="">All</option>
+         <option value="upcoming">Upcoming</option>
+         <option value="expired">Expired</option>
+       </select>
+     </div>
+   </div> -->
+   <!-- / search bar -->
+
+    <!-- <div class="my-3 table-responsive"> -->
+      <!--reminder-table-->
+      <!-- <table class="table m-0 table-hover"> -->
+        <!-- <thead>
+          <tr>
+            <th>Based On </th>
+            <th>Start Date</th>
+            <th>Remark </th>
+          </tr>
+        </thead> -->
+         <!-- <tbody class="pointer">
+          <ng-container *ngFor="let rem of reminder" >
+            <tr  
+                ngbPopover="{{rem.remark}}" 
+                popoverTitle="Status: {{rem.remark}}">
+              <td>{{rem.reminderBasedOn}}</td>
+              <td>{{rem.reminderDate | date : 'MM/dd/yyyy mm:hh a'}}</td>
+              <td>{{rem.remark}}</td> -->
+              <!-- <td>
+                <button
+                    class="btn btn-outline btn-sm btn-primary"
+                    (click)="onEdit()">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button
+                    class="btn btn-outline btn-sm btn-danger"
+                    (click)="onDelete()">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td> -->
+            <!-- </tr>
+            <tr *ngIf="!reminderLoading && (!reminder || !reminder.length)">
+              <td>No data available.</td>
+              <td></td>
+            </tr>
+          </ng-container>  
+        </tbody>
+      </table> -->
+      <!--/reminder-table-->
+    <!-- </div> -->
+    <!-- <div class="my-3 text-center" *ngIf="reminderLoading">
+      <p2s-spinner></p2s-spinner>
+    </div>
+      <div class=" d-flex py-2  ">
+        <div class="col-6">
+          <button
+            class="btn btn-success mr-2"
+            (click)="showManageReminder($event)">
+          <i class="fas fa-save mr-1"></i> Manage Reminder
+          </button>
+        </div>
+      </div> -->
+    
+  </ng-template>
+  <!-- / reminder -->
+
+<!-- eta -->
+<ng-template #etaSection>
+  <!-- This is ETA -->
+</ng-template>

@@ -1,0 +1,22 @@
+.total-tracker-chart{
+    &__content {
+      height: 295px;
+    }
+  
+    &__no-data {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(black, .3);
+      font-weight: 700;
+      color: white;
+      text-shadow: 0px 0px 11px black;
+      margin: -20px;
+    }
+  }
+  h6.d-flex.align-items-center {
+    margin-top: -23px;
+    position: relative;
+  }

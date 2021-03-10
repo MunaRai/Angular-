@@ -1,0 +1,76 @@
+<p2s-user-form-popup 
+    [title]=" mode+' Model'"
+    (save)="save()"
+    (cancel)="dismiss()"
+    [disableSave]="modelForm.invalid">
+  <form novalidate
+      role="form"
+      [formGroup]="modelForm">
+
+    
+    <!-- model Name -->
+    <div class="col-12">
+      <p2s-form-group 
+          label="Name"
+          for="modelName"
+          required="true">
+        <input 
+            type="text"
+            class="form-control"
+            id="modelName"
+            required
+            formControlName="modelName"
+            [class.is-invalid]="modelName?.errors &&
+                   (formSubmitted || modelName?.touched ||
+                   modelName?.dirty)">
+
+        <div 
+            class="invalid-feedback"
+            *ngIf="modelName.errors && (formSubmitted ||
+            modelName.touched || modelName.dirty)">
+          <div *ngIf="modelName.errors.required">
+              Model name is required
+          </div>
+
+          <div *ngIf="modelName.errors.minlength">
+              Minimum length is 3
+          </div>
+
+          <div *ngIf="modelName.errors.maxlength">
+              Maximum length is 20
+          </div>
+
+          <div *ngIf="modelName.errors.pattern">
+              {{checkPattern.errorPatternMsg}}
+          </div>
+        </div>            
+      </p2s-form-group>
+    </div>  
+    
+    <!-- / model Name -->
+
+    <!--model description -->
+    <!-- <div class="col-12">
+      <p2s-form-group
+          label="Description"
+          for="description">
+        <input 
+            type="text"
+            class="form-control"
+            id="description"
+            formControlName="description">
+      </p2s-form-group>
+       -->
+    <!-- </div> -->
+    <!-- /model description -->
+  
+
+  <!-- </form> -->
+  </form>
+
+</p2s-user-form-popup>
+
+
+
+
+

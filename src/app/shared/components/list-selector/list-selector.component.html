@@ -1,0 +1,66 @@
+<p2s-form-group [label]="label">
+  <div class="row">
+    <!-- left list -->
+    <div class="col list-selector__items y-auto table-responsive">
+      <div class="mb-2 font-weight-bold font-size-down-2">Available</div>
+      <table class="table m-0">
+        <thead>
+          <tr>
+            <th *ngIf="codeProp">ID</th>
+            <th>Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+              *ngFor="let item of (collection | idFilter: selection: idProp)">
+            <td *ngIf="codeProp">{{item[codeProp]}}</td>
+            <td>{{item[nameProp]}}</td>
+            <td class="text-right">
+              <button class="btn btn-success btn-sm" (click)="add(item)">
+                <i class="fas fa-plus"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+          class="mt-2 text-center text-muted"
+          *ngIf="!collection.length">
+        No data available
+      </div>
+    </div>
+
+
+    <!-- right list -->
+    <div class="col list-selector__items y-auto table-responsive">
+      <div class="mb-2 font-weight-bold font-size-down-2">Selected</div>
+      <table class="table m-0">
+        <thead>
+          <tr>
+            <th *ngIf="codeProp">ID</th>
+            <th>Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of (collection | idFilter: selection: idProp : false); index as i">
+            <td *ngIf="codeProp">{{item[codeProp]}}</td>
+            <td>{{item[nameProp]}}</td>
+            <td class="text-right">
+              <button class="btn btn-danger btn-sm" (click)="remove(i)">
+                <i class="fas fa-times"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+          class="mt-2 text-center text-muted"
+          *ngIf="!selection.length">
+        No data selected
+      </div>
+    </div>
+
+  </div>
+</p2s-form-group>

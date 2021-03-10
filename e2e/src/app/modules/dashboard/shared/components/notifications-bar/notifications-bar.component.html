@@ -1,0 +1,174 @@
+<!-- notifications -->
+<!-- {{notifications}} -->
+<span class="text-white">
+  <!-- {{(notifications | async) | json}} -->
+</span>
+<div class="notifications__container ml-3">
+  <div ngbDropdown placement="bottom-right" #notificationDd="ngbDropdown">
+    <button class="btn btn-dark btn-clear" id="dropdownBasic1" ngbDropdownToggle>
+      <i class="fas fa-bell"></i>
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" *ngIf="notifications?.length">
+      <div class="px-3 py-1 bg-gray-2" (click)="$event.stopPropagation()" *ngIf="notifications.length">
+        <small class="d-flex align-items-center">
+          <!-- <strong class="col p-0">Recent</strong> -->
+          <div class="col"></div>
+          <a class="ml-3 pointer" tabindex="1" (click)="markAllAsSeen()">Mark All as Seen</a>
+        </small>
+      </div>
+      <!-- notification button -->
+      <button
+          class="dropdown-item border-bottom pointer"
+          *ngFor="let notification of notifications; index as i"
+          [class.is-seen]="notification?.isSeen"
+          (click)="markThisAsSeen(notification.notificationId, i)">
+        <div class="d-flex my-2 align-items-center">
+          <div class="notifications__item__name">
+            {{notification?.gpsAttributeTrackerName}}
+          </div>
+
+          <span class="align-self-stretch border-left mx-2"></span>
+
+          <span class="notifications__item__status">
+            <span *ngIf="notification?.notificationType?.notification === 'ignition'">
+              <i class="fas fa-power-off mr-1" [class.text-success]="notification?.notificationType?.value"
+                [class.text-danger]="!notification.notificationType.value">
+              </i> Ignition
+            </span>
+
+            <span *ngIf="notification?.notificationType?.notification === 'overSpeed'">
+              <i class="fas fa-shipping-fast mr-1 text-danger">
+              </i> Over Speed
+            </span>
+
+            <span *ngIf="notification?.notificationType?.notification === 'geofence speed circle'">
+              <i class="fas fa-shipping-fast mr-1 text-danger"></i>
+              Geo (Over Speed)
+            </span>
+
+
+            <span *ngIf="notification?.notificationType?.notification === 'inside geofence circle' && notification?.notificationType?.value">
+              <i class="fas fa-circle text-success mr-1"></i>
+              Geofence (In)
+            </span>
+
+            <span *ngIf="notification?.notificationType?.notification === 'inside geofence circle' && !notification?.notificationType?.value">
+              <i class="fas fa-circle text-danger mr-1"></i>
+              Geofence (Out)
+            </span>
+
+          </span>
+          <span class="notifications__item__time">
+            <span class="align-self-stretch border-left mx-2"></span>
+            <i class="fas fa-clock mr-2 "></i> {{notification?.notificationCreatedDate | date: 'MM-dd-yyyy hh:mm a'}}
+          </span>
+        </div>
+      </button>
+      <!-- / notification button -->
+
+      <!-- load more button -->
+      <div *ngIf="notifications.length">
+        <button class="btn btn-block btn-primary" (click)="$event.stopPropagation();loadMoreNotifications()" [disabled]="(loading | async)">
+          <span class="d-flex align-items-center justify-content-center">
+            <i class="fa fas-refresh mr-1"></i> Load More
+            <p2s-spinner class="ml-3" size="sm" *ngIf="(loading | async)" color="white">
+            </p2s-spinner>
+          </span>
+        </button>
+      </div>
+      <!-- / load more button -->
+    </div>
+    <!-- no notification -->
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" *ngIf="!notifications?.length">
+        <!-- notification button -->
+        <button
+            class="dropdown-item border-bottom pointer">
+          <div class="d-flex my-2 align-items-center">
+            <div class="notifications__item__name">
+             No recent notifications.
+            </div>
+            <!-- <span class="notifications__item__time">
+              <span class="align-self-stretch border-left mx-2"></span>
+              <i class="fas fa-clock mr-2 "></i> {{date | date: 'MM-dd-yyyy hh:mm a'}}
+            </span> -->
+          </div>
+        </button>
+        <!-- / notification button -->
+      </div>
+       <!-- /no notification -->
+  </div>
+  <!-- <span class="badge badge-danger" *ngIf="(notificationCount | async) > 0"> {{notificationCount | async}}
+  </span> -->
+  <span class="badge badge-danger" *ngIf="(count) > 0"> {{count}}
+  </span>
+</div>
+<!-- / notifications -->
+
+<!-- email notifications -->
+<!-- <div class="notifications__container ml-3">
+
+  <div ngbDropdown placement="bottom-right">
+    <button class="btn btn-dark btn-clear" id="dropdownBasic1" ngbDropdownToggle>
+      <i class="fas fa-envelope"></i>
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button class="dropdown-item border-bottom py-2 pointer border-bottom">
+        <div class="d-flex align-items-center">
+          <i class="fas fa-check-circle text-success"></i>
+          <span class="font-weight-bold mx-2">Email Sent:</span>
+          <span class="">email@email.com</span>
+        </div>
+        <div class="ml-4">
+            <strong>Username:</strong> <span>Username</span>
+        </div>
+        <div class="ml-4">
+            <strong>Status: </strong> <span>Sent</span>
+        </div>
+      </button> -->
+
+<!-- <button class="dropdown-item border-bottom py-2 pointer">
+        <div class="d-flex align-items-center">
+          <i class="fas fa-check-circle text-success"></i>
+          <span class="font-weight-bold mx-2">Email Sent:</span>
+          <span class="">user22@email.com</span>
+        </div>
+        <div class="ml-4">
+            <strong>Regardng:</strong> <span>Geofence</span>
+        </div>
+        <div class="ml-4">
+            <strong>Date: </strong> <span>4 April 2:32 pm</span>
+        </div>
+      </button>
+
+      <button class="dropdown-item border-bottom py-2 pointer">
+        <div class="d-flex align-items-center">
+          <i class="fas fa-times-circle text-danger"></i>
+          <span class="font-weight-bold mx-2">Emailed Failed:</span>
+          <span class="">user2@email.com</span>
+        </div>
+        <div class="ml-4">
+            <strong>Regardng:</strong> <span>Geofence</span>
+        </div>
+        <div class="ml-4">
+            <strong>Date: </strong> <span>4 April 2:32 pm</span>
+        </div>
+      </button>
+
+      <button class="dropdown-item border-bottom py-2 pointer">
+        <div class="d-flex align-items-center">
+          <i class="fas fa-check-circle text-success"></i>
+          <span class="font-weight-bold mx-2">Email Sent:</span>
+          <span class="">user33@email.com</span>
+        </div>
+        <div class="ml-4">
+            <strong>Regardng:</strong> <span>Geofence</span>
+        </div>
+        <div class="ml-4">
+            <strong>Date: </strong> <span>4 April 2:32 pm</span>
+        </div>
+      </button> -->
+<!-- </div>
+  </div>
+  <span class="badge badge-danger">5</span>
+</div> -->
+<!-- / email notifications -->

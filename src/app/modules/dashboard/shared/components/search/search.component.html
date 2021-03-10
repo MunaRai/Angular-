@@ -1,0 +1,10 @@
+<div class="d-flex align-items-center">
+  <div class="mr-1 search__container"
+       [class.search__container--expanded]="isSearchShowing">
+    <input (click)="search($event.stopPropagation())" type="text" class="form-control" placeholder="Search">
+  </div>
+  <button class="btn btn-clear btn-dark text-white"
+          (click)="search($event)">
+    <i class="fas fa-search"></i>
+  </button>
+</div>

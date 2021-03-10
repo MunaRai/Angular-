@@ -1,0 +1,23 @@
+.transparent{
+  background-color:transparent !important;
+  border-radius: 50px;
+}
+
+.search {
+  position: absolute;
+  bottom: 26%;
+  left: 80%;
+  color: blue;
+}
+
+.table-fixed tbody {
+  display: block;
+  max-height: 475px;
+  overflow-y: scroll;
+}
+  
+.table-fixed thead,tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}

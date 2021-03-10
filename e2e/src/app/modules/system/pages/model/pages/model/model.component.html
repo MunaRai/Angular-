@@ -1,0 +1,64 @@
+<div class="col p-0 y-auto">
+  <p2s-list-page-template
+      heading="Model"
+      [editDisabled]="!selectedModel"
+      [deleteDisabled]="!selectedModel"
+      addTooltip="Add model"
+      editTooltip="Edit Model"
+      deleteTooltip="Delete Model"
+    (search)="onSearch($event)"
+    (add)="showModelPopUpForm('add')"
+    (edit)="showModelPopUpForm('edit')"
+    (delete)="delete()"
+    (pageChange)="gotoPage($event)"
+    (next)="next()"
+    (prev)="previous()"
+    (limitChange)="changeLimit($event)"
+    [page]="pagingSorting.page"
+    [totalPages]="pagingSorting.totalPages" >
+
+    <!-- <div class="row">
+      <div class="col-2">
+        <div class="input-group input-group-md">
+          <input 
+              type="text" 
+              class="form-control" 
+              [(ngModel)]="keyword" 
+              placeholder="Search....."
+              (keyup)="onSearch(keyword)">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-search"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="table-responsive my-3">
+      <table class="table m-0 table-hover table-bordered table-fixed">
+        <thead>
+          <tr class="bg-gray-7 text-white">
+            <th class="text-center">S.No</th>
+            <th class="text-center">Name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr 
+              *ngFor="let model of models;index as i"
+              class="pointer"
+              [class.table-secondary]="model == selectedModel"
+              (click)="selectedModel = model">
+            <td class="text-center">{{i+1}}</td>
+            <td class="text-center">{{model.modelName}}</td>
+           
+          </tr>
+        </tbody>
+
+      </table>
+      <p2s-no-record *ngIf="!models.length"></p2s-no-record>
+    </div>
+
+  </p2s-list-page-template>  
+</div>

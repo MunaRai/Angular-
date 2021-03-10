@@ -1,0 +1,59 @@
+<div class="tempSensor">
+  <fieldset class="border p-2 ml-5 my-3 mr-5 temperature--sensor card">
+    <legend  class="w-auto font-weight-bold text-uppercase text-center"> Temperature  Details</legend>
+
+      <div class="row">
+        
+        <div class="col-12 text-right">
+          <button class="btn btn-primary"> <i class="fas fa-pencil-alt"></i></button>    
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <p2s-form-group 
+              label="Profile Name"
+              for="profileName">
+            <input 
+                type="text"
+                class="form-control"
+                value="Default"
+                id="profileName">
+          </p2s-form-group>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <p2s-form-group 
+              label="- range"
+              for="minusRange">
+            <input 
+                type="text"
+                class="form-control"
+                value="-80 °C"
+                id="minusRange">
+          </p2s-form-group>
+        </div>
+
+      </div>  
+
+      <div class="row">
+          <div class="col-6">
+            <p2s-form-group 
+                label="+ range"
+                for="plusRange">
+              <input 
+                  type="text"
+                  class="form-control"
+                  value="+30,000 °C"
+                  id="plusRange">
+            </p2s-form-group>
+          </div>
+
+      </div>  
+
+
+  </fieldset>
+</div>  

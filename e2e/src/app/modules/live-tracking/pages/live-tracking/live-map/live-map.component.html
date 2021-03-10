@@ -1,0 +1,49 @@
+<agm-map
+    [latitude]="lat"
+    [longitude]="lng"
+    [zoom]="18"
+    class="h-100 w-100">
+  <agm-marker
+      [latitude]="lat"
+      [longitude]="lng"
+      [iconUrl]="icon">
+      <agm-info-window>
+        <div class="mb-2 font-weight-bold">
+          <i class="fas fa-truck"></i> : {{selectedTracker?.trackerName}}
+        </div>
+        <div class="mb-2 font-weight-bold">
+          <i class="fas fa-map-marker-alt"></i> : {{selectedTracker?.gpsAttributeAddress}}
+        </div>
+        <div class="mb-2 font-weight-bold">
+          <i class="fas fa-shipping-fast"></i> : {{selectedTracker?.gpsAttributeSpeed}} km/h
+        </div>
+        <div class="mb-2 font-weight-bold">
+          <i class="fas fa-clock"></i> : {{selectedTracker?.gpsAttributeStatusUpdatedTime | date : 'MMM dd yyyy hh:mm a'}}
+        </div>
+        <div class="mb-2 font-weight-bold">
+          <i class="fas fa-calendar-check"></i> : {{selectedTracker?.gpsAttributeStatus }} ({{selectedTracker?.gpsAttributeStatusUpdatedTime | timeAgo}})
+        </div>
+        <div class="mb-2 font-weight-bold">
+        <i
+          class="fas fa-power-off"
+          [ngbTooltip]="selectedTracker?.gpsIgnition ? 'On' : 'Off'"
+          [class.text-success]="selectedTracker?.gpsIgnition"
+          [class.text-danger]="!selectedTracker?.gpsIgnition">
+          
+        </i>
+        : Ignition
+        </div>
+      </agm-info-window>
+
+      <agm-polyline
+          strokeColor="#63F55B"
+          [strokeOpacity]="0.7"
+          [strokeWeight]="7">
+        <agm-polyline-point
+          *ngFor="let path of paths"
+            [latitude]="path.lat"
+            [longitude]="path.lng">
+        </agm-polyline-point>
+      </agm-polyline>
+  </agm-marker>
+</agm-map>

@@ -1,0 +1,48 @@
+@mixin summary-coloring($color) {
+  .summary__card__number {
+    background: $color;
+    border-color: lighten($color, 20%);
+  }
+}
+
+.summary {
+  &__card {
+    &--total {
+      @include summary-coloring($blue);
+    }
+    &--moving {
+      @include summary-coloring($green);
+    }
+    &--stopped {
+      @include summary-coloring($red);
+    }
+    &--idle {
+      @include summary-coloring($yellow);
+    }
+    &--stalled {
+      @include summary-coloring($gray-800);
+    }
+    &__title {
+      font-size: 1.3em;
+    }
+    &__number {
+      border: 5px solid $gray-400;
+      $dimension: 90px;
+      height: $dimension;
+      width: $dimension;
+      border-radius: 50%;
+      font-size: 2em;
+      color: white;
+    }
+  }
+}
+
+.card-stretch {
+  .card {
+    width: 100% !important;
+  }
+}
+
+.row-expander {
+  width: 55px;
+}

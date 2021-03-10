@@ -1,0 +1,42 @@
+<p2s-user-form-popup 
+    [title]="'Add License' "
+    (save)="save()"
+    (cancel)="dismiss()">
+ 
+    <div>
+      <div class="row mt-3 d-flex justify-content-between">
+        <!-- License List -->
+        <div 
+            class="col-6 mb-3"
+            *ngFor="let license of licenses;index as i" >
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="custom-control custom-checkbox">
+              <input 
+                  type="checkbox" 
+                  class="custom-control-input"
+                  [id]="license.licenseId"
+                  (change)="licenseChecked(license,$event)">
+              <label
+                  class="custom-control-label"
+                  [for]="license.licenseId">
+                  {{license.licenseName}}
+              </label>                                  
+            </div>
+            <!-- LicenseCount -->
+            <div class="col-4" *ngIf="license.licenseIsChecked" >
+              <input 
+                  type="number"     
+                  class="form-control underlined" 
+                  [(ngModel)]="license.licenseCount"
+                  (focusout)="licenseChanged(license.licenseId, license.licenseCount)"
+                  placeholder="Number">
+            </div>
+            <!-- /LicenseCount -->
+          </div>
+        </div>
+        <!-- /License List -->
+          
+      </div>
+    </div>   
+ 
+</p2s-user-form-popup>

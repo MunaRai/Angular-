@@ -1,0 +1,181 @@
+<div class="bg-gray-3 w-100 py-2 px-3">
+    History
+  </div>
+<div class="py-3 col y-auto">
+
+  <form [formGroup]="historyForm">
+    <!-- time Period selection -->
+    <p2s-form-group
+        for="duration"
+        label="Select Duration">
+      <select
+          id="duration"
+          class="form-control form-control-sm"
+          formControlName="duration">
+        <option value="today">Today</option>
+        <option value="yesterday">Yesterday</option>
+        <option value="custom">Custom</option>
+      </select>
+    </p2s-form-group>
+    <!-- / time Period selection -->
+
+    <div *ngIf="showCustomFields">
+      <div class="row">
+        <div class="col">
+          <p2s-form-group
+              label="From"
+              for="from">
+            <input
+                type="text"
+                id="from"
+                class="form-control form-control-sm"
+                ngbDatepicker
+                #fromDp="ngbDatepicker"
+                formControlName="fromDate"
+                [maxDate]="now"
+                [minDate]="minDate"
+                [class.is-invalid]="fromDate.errors && (formSubmitted || fromDate.touched || fromDate.dirty)"
+                (click)="fromDp.toggle()">
+            <div
+                class="invalid-feedback"
+                *ngIf="fromDate.errors && (formSubmitted || fromDate.touched || fromDate.dirty)">
+              From Date is required
+            </div>
+          </p2s-form-group>
+        </div>
+
+        <div class="col-7">
+          <ngb-timepicker
+              meridian="true"
+              size="small"
+              formControlName="fromTime"></ngb-timepicker>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p2s-form-group
+              label="To"
+              for="to">
+            <input
+                type="text"
+                id="to"
+                class="form-control form-control-sm"
+                ngbDatepicker
+                formControlName="toDate"
+                [minDate]="now"
+                [class.is-invalid]="toDate.errors && (formSubmitted || toDate.touched || toDate.dirty)"
+                #toDp="ngbDatepicker"
+                readOnly
+                (click)="toDp.toggle()">
+            <div
+                class="invalid-feedback"
+                *ngIf="toDate.errors && (formSubmitted || toDate.touched || toDate.dirty)">
+              To Date is required
+            </div>
+          </p2s-form-group>
+        </div>
+        <div class="col-7">
+          <ngb-timepicker
+              meridian="true"
+              size="small"
+              formControlName="toTime"></ngb-timepicker>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <button
+      class="btn btn-primary btn-sm"
+      (click)="showHistory()">Show History</button>
+
+
+  <div
+      class="my-4 text-center"
+      *ngIf="loadingData">
+    <p2s-spinner></p2s-spinner>
+  </div>
+
+  <div *ngIf="history.length">
+
+    <hr>
+    <!-- started from -->
+    <h6><i class="icon-pointer font-size-3 mr-2 d-inline-block fa-flip-horizontal"></i> Started From ({{fromD  | date: 'MM-dd-yyyy hh:mm a'}})</h6>
+    <div>
+      <span>
+        {{history[0].gpsAttributeAddress}}
+      </span>
+    </div>
+    <!-- / started from -->
+
+    <hr>
+
+    <!-- current -->
+    <h6><i class="icon-pointer font-size-3 mr-2"></i> Ends At({{toD  | date: 'MM-dd-yyyy hh:mm a'}})</h6>
+    <div>
+      <span>
+          {{history[history.length - 1].gpsAttributeAddress}}
+      </span>
+    </div>
+    <!-- / current -->
+
+
+    <!-- controls -->
+    <div
+        class="my-3 d-flex flex-wrap">
+      <button
+          class="btn m-1"
+          [class.btn-success]="status !== 'play'"
+          [class.btn-primary]="status === 'play'"
+          [ngbTooltip]="status === 'play' ? 'Pause' : 'Play'"
+          (click)="togglePlay()">
+        <i
+          class="fas"
+          [class.fa-play]="status !== 'play'"
+          [class.fa-pause]="status === 'play'"></i>
+      </button>
+
+      <button
+          class="btn btn-danger m-1"
+          ngbTooltip="Stop"
+          (click)="onStop()">
+        <i class="fas fa-stop"></i>
+      </button>
+      
+    </div>
+    
+    <hr>
+     <!-- tracker name  -->
+     <h6><i class="fas fa-truck fa-1x"></i> Tracker Name :   {{trackerName}}</h6>
+     <!-- / tracker name -->
+    <!-- distance  -->
+    <h6><i class="fas fa-map-marker-alt fa-1x"></i> Distance : {{distance | number : '1.2-2'}} Km</h6>
+    <!-- / distance -->
+    <!-- total parking -->
+    <!-- <h6><i class="fab fa-product-hunt fa-1x"></i> Total Parking :  {{parkingSize | number : '1.2-2'}}</h6> -->
+
+    <!-- / total parking -->
+    <!-- odometer -->
+    <!-- <h6><i class="fas fa-tachometer-alt fa-1x"></i> Tracker odometer</h6>
+    <div>
+      <span>
+          {{history[0].trackerOdometer}}
+      </span>
+    </div> -->
+    <!-- / odometer -->
+    <!-- parking time -->
+    <h6><i class="fas fa-clock fa-1x"></i> Parking Time:  {{parkingTime}} </h6>
+    
+    <!-- / parking time -->
+    <!-- highest speed -->
+    <!-- <h6><i class="fas fa-shipping-fast fa-1x"></i> Highest Speed</h6>
+    <div>
+      <span>
+          {{history[history.length - 1].gpsAttributeSpeedInfoDto.avg}}
+      </span>
+    </div> -->
+    <!-- / highest speed -->
+    <!-- / controls -->
+  </div>
+</div>

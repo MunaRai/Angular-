@@ -1,0 +1,14 @@
+@import 'src/app/shared/styles/variables';
+
+.data {
+  &__item {
+    padding: .5em 1em;
+    background: $gray-200;
+    border: 1px solid $gray-400;
+    cursor: pointer;
+    &:hover, &--selected {
+      background: rgba($green, .4);
+      border-color: rgba($green, .6);
+    }
+  }
+}

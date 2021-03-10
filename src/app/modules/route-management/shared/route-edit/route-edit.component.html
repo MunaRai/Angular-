@@ -1,0 +1,73 @@
+<p2s-user-form-popup
+    [title]="'Edit  '+ route.routeName"
+    (save)="save()"
+    [disableSave]="saveDisabled"
+    (cancel)="dismiss()">
+
+    <table class="table table-borderless table-responsive">
+      <tr>
+        <th>Stop name</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+      </tr>
+      <tr *ngFor="let stop of route.stops; index as i">
+
+        <td>
+          <p2s-form-group
+              for="stopName">
+            <input
+                type="text"
+                class="form-control"
+                id="stopName"
+                [(ngModel)]="stop.stopName"
+                (keyup)="checkStopName(stop)">
+              <div class="error" *ngIf="stop.showError">
+                  {{checkPattern.errorPatternMsg}}
+              </div>
+          </p2s-form-group>
+          
+        </td>
+
+        <td>
+          <p2s-form-group
+              for="lat">
+            <input
+                type="number"
+                class="form-control"
+                id="lat"
+                [(ngModel)]="stop.lat">
+          </p2s-form-group>
+        </td>
+
+        <td>
+          <p2s-form-group
+              for="lng">
+            <input
+            type="number"
+            class="form-control"
+            id="lng"
+                [(ngModel)]="stop.lng">
+          </p2s-form-group>
+        </td>
+        <td>
+          <button
+              class="btn btn-danger mt-2"
+              (click)="removeStop(stop)">
+            <i class="fas fa-times"></i>
+          </button>
+          <button
+              class="btn btn-success mt-2 ml-2"
+              (click)="addNewStop(i)"
+              ngbTooltip='Add stop'>
+            <i class="fas fa-plus mr-1"></i>  
+          </button>
+        </td>
+
+
+      </tr>
+
+      
+
+    </table>
+ 
+</p2s-user-form-popup>

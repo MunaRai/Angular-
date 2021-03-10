@@ -1,0 +1,281 @@
+<ngb-accordion
+  activeIds="tracker-overview"
+  class="p2s-accordion card-stretch col-12 p-0 align-items-stretch tracker-overview"
+  (panelChange)="isPanelOpen = !isPanelOpen"
+  [class.d-flex]="isPanelOpen"
+>
+  <ngb-panel id="tracker-overview">
+    <!-- title -->
+    <ng-template ngbPanelTitle *ngIf="mode == 'dashboard'">
+      <div class="d-flex">
+        Tracker Overview : {{ selectedTracker?.trackerName }}
+        <div class="ml-auto">
+          <i class="fa fa-chevron-right"></i>
+        </div>
+      </div>
+    </ng-template>
+    <!-- / title -->
+
+    <!-- content -->
+    <ng-template ngbPanelContent>
+      <!-- map -->
+      <div class="map bg-gray-3">
+        <agm-map
+          [latitude]="lat"
+          [longitude]="lng"
+          [zoom]="17"
+          [gestureHandling]="'cooperative'"
+        >
+          <agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="markerIcon">
+            <agm-info-window>
+              <div class="mb-2 font-weight-bold">
+                <i class="fas fa-truck"></i> :
+                {{ selectedTracker?.trackerName }}
+              </div>
+              <div class="mb-2 font-weight-bold">
+                <i class="fas fa-map-marker-alt"></i> :
+                {{ selectedTracker?.gpsAttributeAddress }}
+              </div>
+              <div class="mb-2 font-weight-bold">
+                <i class="fas fa-shipping-fast"></i> :
+                {{ selectedTracker?.gpsAttributeSpeed }} km/h
+              </div>
+              <div class="mb-2 font-weight-bold">
+                <i class="fas fa-clock"></i> :
+                {{
+                  selectedTracker?.gpsAttributeStatusUpdatedTime
+                    | date: 'MMM dd yyyy hh:mm a'
+                }}
+              </div>
+              <div class="mb-2 font-weight-bold">
+                <i class="fas fa-calendar-check"></i> :
+                {{ selectedTracker?.gpsAttributeStatus }} ({{
+                  selectedTracker?.gpsAttributeStatusUpdatedTime | timeAgo
+                }})
+              </div>
+              <div class="mb-2 font-weight-bold">
+                <i
+                  class="fas fa-power-off"
+                  [ngbTooltip]="selectedTracker?.gpsIgnition ? 'On' : 'Off'"
+                  [class.text-success]="selectedTracker?.gpsIgnition"
+                  [class.text-danger]="!selectedTracker?.gpsIgnition"
+                >
+                </i>
+                : Ignition
+              </div>
+            </agm-info-window>
+
+            <!-- path -->
+            <agm-polyline
+              strokeColor="#63F55B"
+              [strokeOpacity]="0.7"
+              [strokeWeight]="7"
+            >
+              <agm-polyline-point
+                *ngFor="let path of paths"
+                [latitude]="path.lat"
+                [longitude]="path.lng"
+              >
+              </agm-polyline-point>
+            </agm-polyline>
+          </agm-marker>
+          <!-- / path -->
+        </agm-map>
+        <!-- address -->
+        <div class="px-3 py-2 address d-flex align-items-center">
+          <b>Address: </b>
+          <span class="col">
+            {{ selectedTracker?.gpsAttributeAddress }}
+          </span>
+        </div>
+        <!-- / address -->
+      </div>
+      <!-- / map -->
+
+      <!-- tracker details -->
+      <div class="d-flex bg-gray-2 py-3">
+        <div class="col">
+          <!-- time -->
+          <div class="row d-flex align-items-center mb-1">
+            <div class="col-2 pr-0">
+              <i class="fas fa-clock font-size-3"></i>
+            </div>
+            <div class="col">
+              {{
+                selectedTracker?.gpsAttributeDateCreated
+                  | date: 'MMM dd yyyy hh:mm a'
+              }}
+            </div>
+            <!-- <div>{{selectedTracker.gpsAttributeUpdatedDate}}</div> -->
+          </div>
+          <!-- time -->
+
+          <!-- driver -->
+          <!-- <div class="row d-flex align-items-center mb-1">
+            <div class="col-2 pr-0">
+              <i class="icon-taxi-driver font-size-4"></i>
+            </div>:
+            <div class="col">Prajwal Simkhada</div>
+          </div> -->
+          <!-- / driver -->
+        </div>
+
+        <div class="align-self-stretch border-left"></div>
+
+        <div class="col">
+          <!-- speed -->
+          <div class="row d-flex align-items-center mb-1">
+            <div class="col-2 pr-0">
+              <i class="fas fa-shipping-fast font-size-4"></i>
+            </div>
+            <div class="col">
+              {{ (selectedTracker?.gpsAttributeSpeed || 0) + ' km/hr' }}
+            </div>
+          </div>
+          <!-- speed -->
+
+          <!-- driver  -->
+          <!-- <div class="row d-flex align-items-center mb-1">
+            <div class="col-2 pr-0">
+              <i class="icon-taxi-driver font-size-4"></i>
+            </div>:
+            <div class="col"> Tracker not Installed.</div>
+          </div> -->
+          <!-- / driver -->
+
+          <!-- model no -->
+          <!-- <div class="row d-flex align-items-center mb-1">
+            <div class="col-2 pr-0"><i class="fas fa-cogs font-size-3"></i> </div>:
+            <div class="col">{{selectedTracker?.trackerModelName}}</div>
+          </div> -->
+          <!-- / model no -->
+
+          <!-- Temperature -->
+          <div class="row d-flex align-items-center mb-1">
+            <div class="col-2 pr-0">
+              <i class="fas fa-tachometer-alt font-size-3"></i>
+            </div>
+            :
+            <div class="col">
+              <ng2-odometer
+                [number]="selectedTracker?.trackerOdometer"
+                theme="car"
+              ></ng2-odometer>
+              <!-- <small><a class="ml-2 pointer" tabindex="1">Manual Update</a></small> -->
+              <small>
+                <button
+                  *ngIf="user.userRole === 'ROLE_USER'"
+                  class="btn btn-link ml-2 pointer"
+                  tabindex="1"
+                  (click)="setOdometerPopUp(selectedTracker)"
+                >
+                  Manual Update
+                </button>
+              </small>
+            </div>
+          </div>
+          <!-- / Temperature -->
+        </div>
+      </div>
+      <!-- / tracker details -->
+
+      <!-- <hr> -->
+
+      <!-- features -->
+      <div class="d-flex flex-wrap mt-3">
+        <!-- ignition -->
+        <div class="mx-3 text-center">
+          <div>
+            <i
+              class="fas fa-power-off"
+              [ngbTooltip]="selectedTracker?.gpsIgnition ? 'On' : 'Off'"
+              [class.text-success]="selectedTracker?.gpsIgnition"
+              [class.text-danger]="!selectedTracker?.gpsIgnition"
+            >
+            </i>
+          </div>
+          <small>Ignition</small>
+        </div>
+        <!-- / ignition -->
+
+        <!-- speed -->
+        <!-- <div class="mx-3 text-center">
+          <div class="d-flex align-items-end">
+            <i
+                class="fas fa-shipping-fast font-size-2 mt-1"
+                [ngbTooltip]="(selectedTracker.gpsAttributeSpeed ? selectedTracker.gpsAttributeSpeed : 0) +' km/hr'">
+            </i>
+          </div>
+          <small>Speed</small>
+        </div> -->
+        <!-- / speed -->
+
+        <!-- seat belt -->
+        <div class="mx-3 text-center">
+          <div>
+            <i
+              class="icon-car-seat-belt font-size-4 text-muted"
+              ngbTooltip="N/A"
+            >
+            </i>
+          </div>
+          <small>Seat Belt</small>
+        </div>
+        <!-- / seat belt -->
+
+        <!-- Satellite -->
+        <div class="mx-3 text-center">
+          <div>
+            <i
+              class="icon-satellite font-size-4"
+              [class.text-success]="selectedTracker?.gpsIgnition"
+              [ngbTooltip]="3 + ' Connected'"
+            >
+            </i>
+          </div>
+          <small>Satellites</small>
+        </div>
+        <!-- / Satellite -->
+
+        <!-- Satellite -->
+        <!-- <div class="mx-3 text-center">
+          <div>
+             <i
+                class="icon-satellite font-size-4"
+                [class.text-success]="selectedTracker?.gpsIgnition"
+                [ngbTooltip]="(selectedTracker.gpsAttributeSatelliteCount ? selectedTracker.gpsAttributeSatelliteCount : 0) + ' Connected'">
+            </i>
+          </div>
+          <small>Satellites</small>
+        </div> -->
+        <!-- / Satellite -->
+
+        <!-- door -->
+        <!-- <div class="mx-3 text-center">
+          <div>
+            <i
+                class="icon-car-door font-size-4 text-muted"
+                ngbTooltip="N/A">
+            </i>
+          </div>
+          <small>Doors</small>
+        </div> -->
+        <!-- / door -->
+
+        <!-- battery -->
+        <!-- <div class="mx-3 text-center">
+          <div>
+            <i
+                class="icon-car-battery font-size-4 text-muted"
+                ngbTooltip="N/A">
+            </i>
+          </div>
+          <small>Battery</small>
+        </div> -->
+        <!-- / battery -->
+      </div>
+      <!-- / features -->
+    </ng-template>
+    <!-- / content -->
+  </ngb-panel>
+</ngb-accordion>

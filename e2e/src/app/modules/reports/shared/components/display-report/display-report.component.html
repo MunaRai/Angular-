@@ -1,0 +1,97 @@
+<p2s-user-form-popup [title]="' Report '"
+    (cancel)="dismiss()">
+  <div class="p-3">
+    <div class="row">
+      <div p-3>
+        <div class="d-flex">
+          <div class="col-3">
+            <!-- company name -->
+            <p2s-form-group label="Company Name"
+                for="companyName">
+              <input type="text"
+                  class="form-control"
+                  id="companyName">
+            </p2s-form-group>
+            <!-- / company name -->
+          </div>
+          <div class="col-3">
+            <!-- user name -->
+            <p2s-form-group label="Username"
+                for="username">
+              <input type="text"
+                  class="form-control"
+                  id="username">
+            </p2s-form-group>
+            <!-- / user name -->
+          </div>
+          <div class="col-3">
+            <!-- start date -->
+            <p2s-form-group label="Start Date"
+              	for="startDate">
+              <input type="text"
+                  class="form-control"
+                  id="startDate">
+            </p2s-form-group>
+            <!-- / start date -->
+          </div>
+          <div class="col-3">
+            <!-- end date -->
+            <p2s-form-group label="End Date"
+                for="endDate">
+              <input type="text"
+                  class="form-control"
+                  id="endDate">
+        		</p2s-form-group>
+          	<!-- / end date -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+    	<div class="card">
+        <div class="card-body">
+					<div class="col-3">
+						<!-- Tracker Name -->
+						<p2s-form-group label="Tracker Name"
+								for="trackerName">
+							<input type="text"
+									class="form-control"
+									id="trackerName">
+						</p2s-form-group>
+						<!-- / Tracker Name -->
+					</div>
+					<div class="col-3">
+						<!-- Eco new stock test -->
+						<p2s-form-group label="Eco new stock test"
+								for="ecoTest">
+							<input type="text"
+									class="form-control"
+									id="ecoTest">
+						</p2s-form-group>
+						<!-- / Eco new stock test -->
+					</div>
+					<div class="col-3">
+						<!-- purpose -->
+						<p2s-form-group label="Purpose "
+								for="purpose">
+							<input type="text"
+									class="form-control"
+									id="purpose">
+						</p2s-form-group>
+						<!-- / Purpose -->
+					</div>
+					<div class="col-3">
+						<!-- Undefined -->
+						<p2s-form-group label=" Undefined"
+								for="undefined">
+							<input type="text"
+								class="form-control"
+								id="undefined">
+						</p2s-form-group>
+						<!-- / Undefined -->
+					</div>
+        </div>
+    	</div>
+  	</div>
+  </div>
+</p2s-user-form-popup>

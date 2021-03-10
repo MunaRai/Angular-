@@ -1,0 +1,263 @@
+<p2s-user-form-popup
+    [title]=" mode+' Route'"
+    (save)="save()"
+    (cancel)="dismiss()">
+  <form #form novalidate
+      role="form"
+      [formGroup]="routeForm">
+
+    <div class="row">
+      <div class="col-3">
+        <p2s-form-group label="Format">
+          <div class="mt-2 d-flex">
+            <div class="custom-control custom-radio mr-3">
+              <input type="radio"
+                      class="custom-control-input"
+                      placement="right"
+                      ngbPopover="Your csv should be of format route name ,route type stopname, lat,lng"
+                      id="csv"
+                      value="csv"
+                      formControlName="routeFileFormat">
+              <label class="custom-control-label"
+                      for="csv">CSV</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+              <input type="radio"
+                      class="custom-control-input"
+                      id="manual"
+                      value="manual"
+                      formControlName="routeFileFormat">
+              <label class="custom-control-label"
+                      for="manual">Manual</label>
+            </div>
+          </div>
+        </p2s-form-group>
+      </div>
+
+      <div 
+          *ngIf="routeForm.get('routeFileFormat').value === 'manual'"
+          class="col-3">
+        <p2s-form-group 
+            label=" Route Name"
+            for="routeName"
+            required="true">
+          <input 
+              type="text"
+              class="form-control"
+              id="routeName"
+              formControlName="routeName"
+              [class.is-invalid]="routeForm.controls['routeName'].errors && (formSubmitted ||
+                 routeForm.controls['routeName'].touched || routeForm.controls['routeName'].dirty)"
+                 id="routeName">
+          <div
+              class="invalid-feedback"
+              *ngIf="routeName.errors && (formSubmitted || routeName.touched || routeName.dirty)">
+            <div *ngIf="routeName.errors.required">
+              First name is required
+            </div>
+
+            <div *ngIf="routeName.errors.minlength">
+              Minimum length is 3
+            </div>
+
+            <div *ngIf="routeName.errors.maxlength">
+              Maximum length is 20
+            </div>
+
+            <div *ngIf="routeName.errors.pattern">
+              {{checkPattern.errorPatternMsg}}
+            </div>
+          </div>
+        </p2s-form-group>  
+      </div>
+
+      <div 
+          *ngIf="routeForm.get('routeFileFormat').value === 'manual'"
+          class="col-3">
+        <p2s-form-group 
+            label="Route Type"
+            for="routeType"
+            required="true">
+          <select
+              class="p-0 form-control"
+              id="routeType"
+              formControlName="routeType"
+              [class.is-invalid]="routeType.errors &&
+                   (formSubmitted || routeType.touched ||
+                   routeType.dirty)">
+            <option value="linear">Linear </option>  
+            <option value="circular"> Circular</option>
+          </select>  
+          <div 
+              class="invalid-feedback"
+              *ngIf="routeType.errors && (formSubmitted ||
+              routeType.touched || routeType.dirty)">
+            <div *ngIf="routeType.errors.required">
+                Route Type is required
+            </div>
+          </div>
+        </p2s-form-group>  
+    </div>
+
+    </div>
+    
+    <div *ngIf="routeForm.get('routeFileFormat').value === 'manual'">
+      <div
+          formArrayName="stops">
+        <div
+          *ngFor="let stop of stopList; index as i">
+          <div 
+              class="row"
+              [formGroupName]="i">
+            <!--stop name -->
+            <div class="col-3">
+              <p2s-form-group
+                  label="Stop Name"
+                  for="stopName"
+                  required="true">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="stopName"
+                    formControlName="stopName"
+                    [class.is-invalid]="
+                        stop.controls.stopName.errors &&
+                        (formSubmitted || stop.controls.stopName.touched ||
+                        stop.controls.stopName.dirty)
+                      ">
+                  <div 
+                      class="invalid-feedback"
+                      *ngIf="
+                      stop.controls.stopName.errors &&
+                      (formSubmitted || stop.controls.stopName.touched ||
+                      stop.controls.stopName.dirty)">
+                    <div *ngIf="stop.hasError('required', 'stopName')">
+                      Stop Type is required 
+                    </div>
+
+                    <div *ngIf="stop.controls.stopName.errors.minlength">
+                        Minimum length is 3
+                    </div> 
+
+                    <div *ngIf="stop.controls.stopName.errors.maxlength">
+                        Maximum length is 20
+                    </div> 
+
+                    <div *ngIf="stop.controls.stopName.errors.pattern">
+                      {{checkPattern.errorPatternMsg}}
+                    </div>
+                    
+                  </div>
+              </p2s-form-group>
+            </div>
+            <!--/ stop name  -->
+
+            <!-- lat -->
+            <div class="col-3">
+                <p2s-form-group
+                    label="Latitude"
+                    for="lat"
+                    required="true">
+                  <input
+                      type="number"
+                      class="form-control"
+                      id="lat"
+                      formControlName="lat"
+                      [class.is-invalid]="
+                          stop.controls.lat.errors &&
+                          (formSubmitted || stop.controls.lat.touched ||
+                          stop.controls.lat.dirty)
+                        ">
+                    <div 
+                        class="invalid-feedback"
+                        *ngIf="stop.controls.lat.errors &&
+                        (formSubmitted || stop.controls.lat.touched ||
+                        stop.controls.lat.dirty)">
+                      <div *ngIf="stop.hasError('required', 'lat')">
+                        Latitude is required 
+                      </div>
+                    </div>
+                </p2s-form-group>
+            </div>
+            <!--/lat  -->
+
+            <!-- lng -->
+            <div class="col-3">
+                <p2s-form-group
+                    label="Longitude"
+                    for="lng"
+                    required="true">
+                  <input
+                      type="number"
+                      class="form-control"
+                      id="lng"
+                      (focusout)="checkRoutePoints(lat,lng)"
+                      formControlName="lng"
+                      [class.is-invalid]="
+                          stop.controls.lng.errors &&
+                          (formSubmitted || stop.controls.lng.touched ||
+                          stop.controls.lng.dirty)
+                        ">
+                    <div 
+                        class="invalid-feedback"
+                        *ngIf="
+                        stop.controls.lng.errors &&
+                        (formSubmitted || stop.controls.lng.touched ||
+                        stop.controls.lng.dirty)">
+                      <div *ngIf="stop.hasError('required', 'lng')">
+                        Longitude is required 
+                      </div>
+                    </div>
+                </p2s-form-group>
+            </div>
+            <!--/lng  -->
+
+            <span
+              class="d-flex align-items-center pr-3 mt-1"
+              *ngIf="stopList.length > 1">
+              <button
+                class="btn btn-danger mt-2"
+                (click)="removeStop(i)">
+                <i class="fas fa-times"></i>
+              </button>
+            </span>
+
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+      <div class="mb-3">
+        <button
+            class="btn btn-success mt-2"
+            (click)="addStop()">
+            <i class="fas fa-plus mr-1"></i> Add Stop
+        </button>
+      </div> 
+    </div>
+ 
+    <div  *ngIf="routeForm.get('routeFileFormat').value === 'csv'">
+      <label>
+        <input type="file" (change)="selectFile($event)">
+      </label>
+    </div>
+
+    <!-- <agm-map 
+        *ngIf="mapList.length>0"
+        [latitude]="mapList[0].lat"
+        [longitude]="mapList[0].lng"
+        [zoom]="15"
+        class="">
+      <agm-direction
+          *ngFor="let path of mapList;index as i"
+          [origin]="mapList[i]"
+          [destination]="mapList[mapList.length-1]"
+          [renderOptions]="optionsRed">
+      </agm-direction>
+    </agm-map> -->
+
+      
+  </form>  
+
+
+</p2s-user-form-popup>

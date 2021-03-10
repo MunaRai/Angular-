@@ -1,0 +1,138 @@
+<p2s-user-form-popup
+    [title]="'Add' + ' Expense'"
+    (save)="save()"
+    (cancel)="cancel()">
+  <form novalidate
+      role="form"
+      [formGroup]="expenseForm">
+    <div
+        formArrayName="expenses"
+        *ngFor="let expense of expenseList; index as i">
+      <div
+          class="row"
+          [formGroupName]="i">
+        <div class="col">
+          <p2s-form-group
+              label="Expense Type *"
+              for="expenseType">
+            <input
+                type="text"
+                class="form-control"
+                id="expenseType"
+                formControlName="expenseType"
+                [class.is-invalid]="
+                    expense.controls.expenseType.errors &&
+                    (formSubmitted || expense.controls.expenseType.touched ||
+                    expense.controls.expenseType.dirty)
+                  ">
+              <div 
+                  class="invalid-feedback"
+                  *ngIf="
+                  expense.controls.expenseType.errors &&
+                  (formSubmitted || expense.controls.expenseType.touched ||
+                  expense.controls.expenseType.dirty)">
+                <div *ngIf="expense.hasError('required', 'expenseType')">
+                  Expense Type is required 
+                </div>
+                <div *ngIf="expense.controls.expenseType.errors.minlength">
+                     Minimum length is 3
+                </div> 
+                <div *ngIf="expense.controls.expenseType.errors.maxlength">
+                     Maximum length is 20
+                </div>
+              </div>
+          </p2s-form-group>
+        </div>
+          <div class="col">
+            <p2s-form-group
+                label="Amount *"
+                for="expenseAmount">
+              <input
+                type="number"
+                class="form-control"
+                id="expenseAmount"
+                formControlName="expenseAmount"
+                [class.is-invalid]="
+                    expense.controls.expenseAmount.errors &&
+                    (formSubmitted || expense.controls.expenseAmount.touched ||
+                    expense.controls.expenseAmount.dirty)">
+                <div 
+                   class="invalid-feedback"
+                    *ngIf="
+                    expense.controls.expenseAmount.errors &&
+                    (formSubmitted || expense.controls.expenseAmount.touched ||
+                    expense.controls.expenseAmount.dirty)">
+                  <div *ngIf="expense.hasError('required', 'expenseAmount')">
+                    Expense Amount is required 
+                  </div> 
+                  <div *ngIf="expense.controls.expenseAmount.errors.minlength">
+                     Minimum length is 3
+                  </div> 
+                  <div *ngIf="expense.controls.expenseAmount.errors.maxlength">
+                     Maximum length is 20
+                  </div>
+                </div>
+            </p2s-form-group>
+          </div>
+          <span
+            class="d-flex align-items-center pr-3 mt-1"
+            *ngIf="expenseList.length > 1">
+            <button
+              class="btn btn-danger mt-2"
+              (click)="removeExpense(i)">
+              <i class="fas fa-times"></i>
+            </button>
+          </span>
+      </div>
+    </div>
+    <div class="mb-3">
+      <button
+          class="btn btn-success mt-2"
+          (click)="addExpense()">
+          <i class="fas fa-plus mr-1"></i> Add Expense
+      </button>
+    </div>   
+    
+    
+    <div class="row">
+      <div class="col-6">
+        <p2s-form-group 
+            label="Date *"
+            for="expenseDate">
+          <input 
+            type="text"
+            class="form-control"
+            id="expenseDate"
+            formControlName="expenseDate"
+            ngbDatepicker
+            #dp="ngbDatepicker"
+            readOnly
+            (click)="dp.toggle()">
+        </p2s-form-group>
+       </div>
+      <!--<div class="col-6">
+        <p2s-form-group label="Time *"
+            for="time">
+          <input type="time"
+              class="form-control"
+              
+              id="time"
+              formControlName="time">
+        </p2s-form-group>
+    </div> -->
+    </div>
+    <div class="row" >
+      <div class="col-12">
+        <p2s-form-group label="Remarks"
+            for="remarks">
+          <textarea
+              id="remarks"
+              rows="5"
+              formControlName="remarks"
+              class="form-control">
+          </textarea>
+        </p2s-form-group>
+      </div>
+    </div>
+  </form>
+</p2s-user-form-popup>

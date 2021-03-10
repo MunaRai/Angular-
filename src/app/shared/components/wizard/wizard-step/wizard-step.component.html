@@ -1,0 +1,21 @@
+<div
+    class="wizard-step__container d-flex flex-column align-items-center"
+    [class.wizard-step__container--active]="active"
+    [class.wizard-step__container--success]="success">
+  <div
+      class="wizard-step__icon d-flex align-items-center justify-content-center mb-2"
+      [class.wizard-step__icon--first-item]="firstStep"
+      [class.wizard-step__icon--last-item]="lastStep">
+    <i class="fas" [ngClass]="icon"></i>
+  </div>
+  <div class="font-weight-bold wizard-step__heading d-flex align-items-center">
+    <i
+        class="fas mr-1 wizard-step__heading__icon"
+        [class.fa-circle]="active"
+        [class.fa-minus-circle]="!active && !success"
+        [class.fa-check-circle]="success">
+    </i>
+    {{heading}}
+  </div>
+  <small *ngIf="subheading">{{subheading}}</small>
+</div>

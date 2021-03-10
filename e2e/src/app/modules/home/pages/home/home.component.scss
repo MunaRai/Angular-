@@ -1,0 +1,24 @@
+.dashboard-switch {
+  &__container {
+    z-index: 200;
+    right: 0;
+    top: 7px;
+    width: 200px;
+    transform: translateX(165px);
+    transition: transform .3s ease-out;
+    background: transparent;
+    &--open {
+      transform:  none;
+      .shadow {
+        box-shadow: 0 0 10px 5px rgba(black, .3);
+      }
+    }
+
+    .btn {
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+}

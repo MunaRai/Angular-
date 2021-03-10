@@ -1,0 +1,19 @@
+<div
+    class="custom-control custom-checkbox"
+    [class.custom-control-inline]="inline">
+  <input
+      type="checkbox"
+      [id]="id"
+      [name]="name"
+      class="custom-control-input"
+      [disabled]="disabled"
+      [checked]="checked"
+      [value]="value"
+      (change)="onChange($event)">
+  <label
+      class="custom-control-label"
+      [for]="id">
+    {{label}}
+    <ng-content></ng-content>
+  </label>
+</div>

@@ -1,0 +1,10 @@
+.search {
+  &__container {
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .3s ease-out;
+    &--expanded {
+      transform: scaleX(1);
+    }
+  }
+}

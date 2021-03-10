@@ -1,0 +1,17 @@
+<p2s-user-form-popup
+  [title]="'Assign Trackers'"
+  (cancel)="dismiss()"
+  (save)="close()">
+  <div class="d-flex flex-column">
+    <div
+        *ngFor="let tracker of trackers; index as i"
+        class="d-flex">
+      <p2s-checkbox
+          [checked]="selectedTrackers && selectedTrackers.indexOf(tracker) >= 0"
+          (change)="toggleTrackerSelection(tracker, $event.target.checked)"
+          [id]="'tracker'+i">
+        <span>{{tracker.trackerName}} &nbsp;</span>
+      </p2s-checkbox>
+    </div>
+  </div>
+</p2s-user-form-popup>

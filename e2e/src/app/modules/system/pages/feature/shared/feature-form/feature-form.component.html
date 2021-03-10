@@ -1,0 +1,70 @@
+<p2s-user-form-popup 
+    [title]="mode+' feature'"
+    (save)="save()"
+    (cancel)="dismiss()"
+    [disableSave]="featureForm.invalid">
+  <form novalidate
+      role="form"
+      [formGroup]="featureForm">
+    <!-- feature Name -->
+    <div class="col-12">
+      <p2s-form-group 
+          label="Name"
+          for="featureName">
+        <input 
+            type="text"
+            class="form-control"
+            id="featureName"
+            formControlName="featureName"
+            [class.is-invalid]="featureName?.errors &&
+                   (formSubmitted || featureName?.touched ||
+                   featureName?.dirty)">
+        <div 
+            class="invalid-feedback"
+            *ngIf="featureName.errors && (formSubmitted ||
+            featureName.touched || featureName.dirty)">
+          <div *ngIf="featureName.errors.required">
+              Feature  name is required
+          </div>
+
+          <div *ngIf="featureName.errors.minlength">
+              Minimum length is 3
+          </div>
+
+          <div *ngIf="featureName.errors.maxlength">
+              Maximum length is 20
+          </div>
+        </div>   
+      </p2s-form-group>
+    </div>  
+    <!-- / feature Name -->
+
+    <!-- featureType -->
+    <div class="col-12">
+      <p2s-form-group 
+          label="Type"
+          for="featureType">
+        <select 
+            class="form-control"
+            id="featureType"
+            formControlName="featureType"
+            [class.is-invalid]="featureType?.errors &&
+            (formSubmitted || featureType?.touched ||
+            featureType?.dirty)">
+          <option value="USER_FEATURE">User Feature</option>
+          <option value="TRACKER_FEATURE">Tracker Feature</option>
+        </select>
+        <div 
+            class="invalid-feedback"
+            *ngIf="featureType.errors && (formSubmitted ||
+            featureType.touched || featureType.dirty)">
+          <div *ngIf="featureType.errors.required">
+              Feature type is required
+          </div>
+        </div>   
+      </p2s-form-group>
+    </div>  
+    <!-- / feature Type -->
+  </form>
+
+</p2s-user-form-popup>

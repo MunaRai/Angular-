@@ -1,0 +1,45 @@
+small {
+  font-size: .8em;
+}
+
+.truck {
+  animation:
+    move-forward 1s ease-in-out,
+    up-down 1s 1s ease-in-out infinite alternate;
+}
+
+@keyframes up-down {
+  0% {
+    transform: translate(5px, -1px);
+  }
+  25% {
+    transform: translate(5px, -2px);
+  }
+  50% {
+    transform: translate(5px, -1px);
+  }
+  75% {
+    transform: translate(5px, -4px);
+  }
+  100% {
+    transform: translate(5px, -3px);
+  }
+}
+
+@keyframes move-forward {
+  0% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(5px);
+  }
+
+  
+}
+
+
+
+
+.bg-color{
+  background:#476b8e;
+}

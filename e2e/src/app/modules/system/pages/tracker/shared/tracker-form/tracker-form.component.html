@@ -1,0 +1,129 @@
+<p2s-user-form-popup 
+    [title]=" mode+' Tracker'"
+    (save)="save()"
+    (cancel)="dismiss()"
+    [disableSave]="trackerForm.invalid">
+  <form novalidate
+      role="form"
+      [formGroup]="trackerForm">
+    <!--tracker model Name -->
+    <div class="col-12">
+      <p2s-form-group 
+          label="Select model"
+          for="trackerModelNumberId"
+          required="true">
+        <select
+            name="trackerModelNumberId"
+            id="trackerModelNumberId"
+            class="p-0 form-control"
+            formControlName="trackerModelNumberId"
+            [class.is-invalid]="trackerModelNumberId.errors &&
+                   (formSubmitted || trackerModelNumberId.touched ||
+                   trackerModelNumberId.dirty)">
+          <option
+              *ngFor="let model of models"
+              [value]="model.modelId">
+            {{model.modelName}}
+          </option>
+        </select>
+
+        <div 
+            class="invalid-feedback"
+            *ngIf="trackerModelNumberId.errors && (formSubmitted ||
+            trackerModelNumberId.touched || trackerModelNumberId.dirty)">
+          <div *ngIf="trackerModelNumberId.errors.required">
+              Tracker Model name is required
+          </div>
+
+          <!-- <div *ngIf="trackerModelNumberId.errors.minlength">
+              Minimum length is 3
+          </div>
+
+          <div *ngIf="trackerModelNumberId.errors.maxlength">
+              Maximum length is 20
+          </div> -->
+        </div>
+      </p2s-form-group>
+    </div>
+    <!-- /  tracker model Name -->
+
+  
+    <!--tracker name -->
+    <!-- <div class="col-12">
+      <p2s-form-group
+          label="Tracker name"
+          for="trackerName">
+        <input 
+            type="text"
+            class="form-control"
+            id="trackerName"
+            formControlName="trackerName">
+      </p2s-form-group>
+    </div> -->
+    <!-- /tracker name -->
+  
+    <!--tracker imei no -->
+    <div class="col-12">
+      <p2s-form-group 
+          label="Tracker Imei No"
+          for="trackerImeiNumber"
+          required="true">
+        <input 
+            type="text"
+            class="form-control"
+            id="trackerImeiNumber"
+            formControlName="trackerImeiNumber"
+            [class.is-invalid]="trackerImeiNumber?.errors &&
+                   (formSubmitted || trackerImeiNumber?.touched ||
+                   trackerImeiNumber?.dirty)">
+        <div 
+            class="invalid-feedback"
+            *ngIf="trackerImeiNumber.errors && (formSubmitted ||
+            trackerImeiNumber.touched || trackerImeiNumber.dirty)">
+          <div *ngIf="trackerImeiNumber.errors.required">
+              Tracker Imei No is required
+          </div>
+
+          <div *ngIf="trackerImeiNumber.errors.minlength">
+              Minimum length is 7
+          </div>
+
+          <div *ngIf="trackerImeiNumber.errors.maxlength">
+              Maximum length is 20
+          </div>
+
+          <div *ngIf="trackerImeiNumber.errors.pattern">
+            {{checkPattern.errorPatternMsg}}
+          </div>
+        </div>   
+      </p2s-form-group>
+    </div>
+    <!-- /  tracker imei no -->
+  
+    <!--tracker sim no -->
+    <div class="col-12">
+      <p2s-form-group
+          label="Tracker Sim No"
+          for="trackerSimNumber">
+        <input 
+            type="text"
+            class="form-control"
+            id="trackerSimNumber"
+            formControlName="trackerSimNumber"
+            [class.is-invalid]="trackerSimNumber?.errors &&
+                   (formSubmitted || trackerSimNumber?.dirty)">
+        <div 
+            class="invalid-feedback"
+            *ngIf="trackerSimNumber.errors && 
+            (formSubmitted ||trackerSimNumber.dirty)">
+          
+          <div *ngIf="trackerSimNumber.errors.pattern">
+            {{checkPattern.errorPatternMsg}}
+          </div>
+        </div>  
+      </p2s-form-group>
+    </div>
+    <!-- /tracker sim no -->
+  </form>
+
+</p2s-user-form-popup>

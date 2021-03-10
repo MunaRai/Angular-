@@ -1,0 +1,23 @@
+<header class="modal-header">
+    <h5 class="modal-title text-capitalize">Tracker : {{tracker.trackerName}}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </header>
+
+
+  <section>
+    <table class="table">
+      <tr>
+        <th>User</th>
+      </tr>
+
+      <tr
+          *ngFor="let userId of tracker.trackerUsers;index as i"
+          class="pointer">
+        <td>{{userId}}</td>
+      </tr>
+      <p2s-no-record *ngIf="!tracker.trackerUsers.length" class="mt-2">
+      </p2s-no-record>
+    </table>
+  </section>

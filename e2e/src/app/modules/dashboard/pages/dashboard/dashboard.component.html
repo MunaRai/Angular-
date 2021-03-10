@@ -1,0 +1,19 @@
+<!-- navbar -->
+<p2s-navbar [navLinks]="navigationLinks"></p2s-navbar>
+<!-- / navbar -->
+
+<div class="col p-0 d-flex align-items-stretch">
+
+  <!-- sidebar section -->
+  <div class="d-none d-md-flex flex-column">
+    <p2s-sidebar [sidebarLinks]="navigationLinks"></p2s-sidebar>
+  </div>
+  <!-- / sidebar section -->
+
+  <!-- content section -->
+  <div class="col-12 p-0 col-md d-flex flex-column y-auto">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- / content section -->
+</div>
+

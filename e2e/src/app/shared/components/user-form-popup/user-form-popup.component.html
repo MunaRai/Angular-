@@ -1,0 +1,29 @@
+<header class="modal-header">
+  <h4 class="modal-title text-capitalize">{{title}}</h4>
+
+  <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</header>
+
+<section class="modal-body">
+  <ng-content></ng-content>
+</section>
+
+
+<footer class="modal-footer" *ngIf="enableFooter">
+  <button type="button"
+          class="btn btn-success"
+          (click)="onSave()"
+          [disabled]="disableSave"
+          *ngIf="enableSave">
+    <i class="fas fa-save mr-1"></i> Save
+  </button>
+
+  <button type="button"
+          class="btn btn-danger"
+          (click)="onCancel()"
+          *ngIf="enableCancel">
+    <i class="fas fa-ban mr-1"></i> Cancel
+  </button>
+</footer>

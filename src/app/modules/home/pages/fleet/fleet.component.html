@@ -1,0 +1,55 @@
+<div class="d-flex align-items-md-stretch col p-0 y-auto flex-wrap">
+    <!-- trackers list -->
+    <div class="col-12 col-md-4 p-0 border-right d-md-flex flex-column">
+      <p2s-trackers-list class="col p-0 d-flex flex-column" (select)="onTrackerSelect($event)">
+      </p2s-trackers-list>
+    </div>
+    <!-- / trackers list -->
+  
+    <!-- dashboard section -->
+    <div class="col-12 col-md-8 y-auto p-0 ">
+      <div class="d-flex flex-wrap align-items-stertch">
+  
+        <!-- tracker overview -->
+        <div class="col-12 d-flex align-items-stertch mb-4">
+          <p2s-tracker-overview class="col-12 p-0 d-flex align-items-stretch">
+          </p2s-tracker-overview>
+        </div>
+          <!-- / tracker overview -->
+
+        <!-- reminder button -->
+        <div id="mySidenav" class="sidenav fixed-top ">
+          <button (click)="openReminder($event)" id="reminder">
+            <i class="fas fa-edit mr-2"></i>Reminder
+          </button>
+        </div>
+        <!-- / reminder button -->
+
+  
+  
+        <!-- expense chart -->
+        <div class="col-12 col-md-6 d-flex align-items-stertch mb-4 ">
+          <p2s-expense-chart class="col-12 p-0 d-flex align-items-stretch h-100" [selectedTracker]="selectedTracker">
+          </p2s-expense-chart>
+        </div>
+        <!-- / expense chart -->
+  
+        <!-- vehicle utilization -->
+        <div class="col-12 col-md-6 d-flex align-items-stertch mb-4">
+          <p2s-vehicle-utilization class="col-12 p-0 d-flex align-items-stretch" [selectedTracker]="selectedTracker">
+          </p2s-vehicle-utilization>
+        </div>
+  
+        <!-- / vehicle utilization -->
+  
+        <!-- Vehicle performance chart -->
+        <div class="col-12 d-flex align-items-stertch mb-4">
+          <p2s-vehicle-performance-chart class="col-12 p-0 d-flex align-items-stretch" [selectedTracker]="selectedTracker">
+          </p2s-vehicle-performance-chart>
+        </div>
+  
+        <!-- / Vehicle performance chart -->
+      </div>
+    </div>
+    <!-- / dashboard section -->
+  </div>

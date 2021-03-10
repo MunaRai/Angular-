@@ -1,0 +1,25 @@
+<div class="wizard-footer__container d-flex justify-content-end">
+  <button
+      [disabled]="prevDisabled"
+      class="btn btn-primary"
+      (click)="onPrev()"
+      *ngIf="!prevHidden">
+    <i class="fas fa-chevron-left mr-1"></i> Previous
+  </button>
+
+  <button
+      [disabled]="nextDisabled"
+      class="btn btn-primary ml-3"
+      (click)="onNext()"
+      *ngIf="!nextHidden">
+    Next <i class="fas fa-chevron-right ml-1"></i>
+  </button>
+
+  <button
+      [disabled]="finishDisabled"
+      class="btn btn-success ml-3"
+      (click)="onFinish()"
+      *ngIf="!finishHidden">
+    <i class="fas fa-check mr-1"></i> Finish
+  </button>
+</div>

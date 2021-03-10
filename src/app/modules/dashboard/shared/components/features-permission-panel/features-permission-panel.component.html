@@ -1,0 +1,61 @@
+<div *ngIf="userRole == 'ROLE_SYSTEM'">
+  <div class="card">
+    <div class="card-header d-flex">
+      <h4 class="m-0 text-capitalize">
+        <i
+            class="fas mr-2"
+            [class.fa-briefcase]="mode === 'features'"
+            [class.fa-lock]="mode !== 'features'"></i>
+            {{mode}}
+      </h4>
+
+      <div class="ml-auto">
+        <button
+            class="btn btn-outline btn-sm btn-success"
+            (click)="onAdd()">
+          <i class="fas fa-plus"></i>
+        </button>
+        <button
+            class="btn btn-outline btn-sm btn-primary"
+            (click)="onEdit()"
+            [disabled]="!selectedItem">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+        <button
+            class="btn btn-outline btn-sm btn-danger"
+            (click)="onDelete()"
+            [disabled]="!selectedItem">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div
+          class="my-5 text-center"
+          *ngIf="fetchingFeatures && !fetchingError">
+        <p2s-spinner></p2s-spinner>
+      </div>
+
+      <div
+          class="alert alert-danger"
+          *ngIf="fetchingError">
+        Error Fetching Data
+      </div>
+      <div>
+        <span
+            class="data__item d-inline-block m-2"
+            *ngFor="let item of data"
+            [class.data__item--selected]="item == selectedItem"
+            (click)="selectedItem = item">
+          {{getItemName(item)}}
+        </span>
+
+      <div
+          class="text-muted"
+          *ngIf="!data.length">
+        No {{mode === 'features' ? 'feature' : 'permission'}} available.
+      </div>
+    </div>
+  </div>
+</div>
+</div>

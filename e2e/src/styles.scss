@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'app/shared/styles/variables';
+
+@import '~bootstrap/scss/bootstrap';
+@import 'app/shared/styles/theme';
+@import 'app/shared/styles/fonts';
+@import 'app/shared/styles/common';
+@import 'app/shared/styles/helpers';
+
+// to solve google maps autocomplete hidden by modal
+.pac-container {
+  z-index: 1051 !important;
+}
+
+
+
+
+

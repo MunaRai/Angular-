@@ -1,0 +1,317 @@
+<div class="col p-4 d-flex flex-column">
+  <div class="row">
+    <!-- user profile -->
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header d-flex">
+          <h4 class="m-0">
+            <i class="fas fa-user mr-1"></i> User Profile
+          </h4>
+          <div class="ml-auto">
+            <button
+                class="btn btn-outline btn-sm btn-primary"
+                (click)="profileEditMode = true">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="card-body"
+          [formGroup]="profileForm">
+          <!-- name -->
+          <div class="row mb-2">
+            <div class="col-3 font-weight-bold">Name:</div>
+            <div class="col">
+              <span *ngIf="!profileEditMode">
+                {{user?.userFirstName}} {{user?.userMiddleName}} {{user?.userLastName}}
+              </span>
+
+              <div class="row" *ngIf="profileEditMode">
+                <div class="col-4">
+                  <input
+                      type="text"
+                      class="form-control"
+                      placeholder="First Name"
+                      formControlName="userFirstName">
+                </div>
+
+                <div class="col-4">
+                  <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Middle Name"
+                      formControlName="userMiddleName">
+                </div>
+
+                <div class="col-4">
+                  <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Last Name"
+                      formControlName="userLastName">
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+          <!-- / name -->
+
+          <!-- username -->
+          <!-- <div class="row mb-2">
+            <div class="col-3 font-weight-bold">Username:</div>
+            <div class="col">{{user?.username}}</div>
+          </div> -->
+          <!-- / username -->
+          <!-- username -->
+          <div class="row mb-2">
+            <div class="col-3 font-weight-bold">Username:</div>
+            <div
+                class="col"
+                *ngIf="!profileEditMode">{{user?.username}}</div>
+            <div
+                class="col-5"
+                *ngIf="profileEditMode">
+              <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Username"
+                  formControlName="username"
+                  readonly>
+            </div>
+          </div>
+          <!-- / username -->
+
+          <!-- email -->
+          <div class="row mb-2">
+            <div class="col-3 font-weight-bold">Email:</div>
+            <div
+                class="col"
+                *ngIf="!profileEditMode">{{user?.userEmail}}</div>
+            <div
+                class="col-5"
+                *ngIf="profileEditMode">
+              <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Email"
+                  formControlName="userEmail"
+                  readonly>
+            </div>
+          </div>
+          <!-- / email -->
+
+          <!-- phone -->
+          <div class="row mb-2">
+            <div class="col-3 font-weight-bold">Phone:</div>
+            <div
+                class="col"
+                *ngIf="!profileEditMode">{{user?.userPhone}}</div>
+            <div
+                class="col-5"
+                *ngIf="profileEditMode">
+              <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Phone"
+                  formControlName="userPhone">
+            </div>
+          </div>
+          <!-- / phone -->
+
+          <!-- change password -->
+          <div class="row">
+            <div class="col-3">
+            </div>
+            <div class="col">
+              <a tabindex="1" (click)="showChangePasswordForm()">Change Password</a>
+            </div>
+          </div>
+          <!-- / change password -->
+
+          <!-- save - cancel -->
+          <div class="row"
+               *ngIf="profileEditMode">
+            <div class="col-12 mt-3">
+              <p2s-save-cancel-btn
+                  class="mt-3"
+                  (cancel)="cancelProfileEdit()"
+                  (save)="save('userProfile')"></p2s-save-cancel-btn>
+            </div>
+          </div>
+          <!-- / save cancel -->
+
+        </div>
+      </div>
+    </div>
+    <!-- / user profile -->
+
+    <!-- user interface -->
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="m-0">
+            <i class="fas fa-desktop mr-1"></i> User Interface Settings
+          </h4>
+        </div>
+
+        <div class="card-body">
+          <!-- date format -->
+          <div class="row mb-2">
+            <div class="col-4 font-weight-bold">Date Format:</div>
+            <div class="col">MM/DD/YYYY</div>
+          </div>
+          <!-- / date format -->
+
+          <!-- time -->
+          <div class="row mb-2">
+            <div class="col-4 font-weight-bold">Time:</div>
+            <div class="col">12 Hours</div>
+          </div>
+          <!-- / time -->
+
+          <!-- Metric System -->
+          <div class="row mb-2">
+            <div class="col-4 font-weight-bold">Metric System:</div>
+            <div class="col">Kilometers</div>
+          </div>
+          <!-- / Metric System -->
+
+          <!-- Alerts language -->
+          <div class="row mb-2">
+            <div class="col-4 font-weight-bold">Alerts Language:</div>
+            <div class="col">English</div>
+          </div>
+          <!-- / Alerts language -->
+
+          <!-- alerts timezone -->
+          <!-- <div class="row mb-2">
+            <div class="col-4 font-weight-bold">Time:</div>
+            <div class="col">12 Hours</div>
+          </div> -->
+          <!-- / alerts timezone -->
+
+          <!-- currency -->
+          <div class="row">
+            <div class="col-4 font-weight-bold">Currency:</div>
+            <div class="col">NPR</div>
+          </div>
+          <!-- / currency -->
+        </div>
+      </div>
+    </div>
+    <!-- / user interface -->
+
+    <!-- map settings -->
+    <div class="col-6 mt-4">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="m-0">
+            <i class="fas fa-map mr-1"></i> Map Settings
+          </h4>
+        </div>
+
+        <div class="card-body">
+          <!-- default location -->
+          <div class="row mb-2">
+            <div class="col-3 font-weight-bold">Default Location:</div>
+            <div class="col">Kathmandu</div>
+          </div>
+          <!-- / default location -->
+
+          <!-- zoom level -->
+          <div class="row mb-2">
+            <div class="col-3 font-weight-bold">Zoom Level:</div>
+            <div class="col">9</div>
+          </div>
+          <!-- / zoom level -->
+
+          <!-- Green zone -->
+          <div class="row mb-2">
+            <div class="col-3 font-weight-bold">
+              Green Zone:
+
+            </div>
+            <div class="col">
+              <span class="zone-box bg-green d-inline-block mr-2"></span> 40 km/hr
+            </div>
+          </div>
+          <!-- / Green zone -->
+
+          <!-- Amber zone -->
+          <div class="row mb-2">
+            <div class="col-3 font-weight-bold">
+              Amber Zone:
+
+            </div>
+            <div class="col">
+              <span class="zone-box bg-yellow d-inline-block mr-2"></span> 80 km/hr
+            </div>
+          </div>
+          <!-- / Amber zone -->
+
+          <!-- Red zone -->
+          <div class="row mb-2">
+            <div class="col-3 font-weight-bold">
+              Red Zone:
+
+            </div>
+            <div class="col">
+              <span class="zone-box bg-red d-inline-block mr-2"></span> above 80 km/hr
+            </div>
+          </div>
+          <!-- / Red zone -->
+
+
+          <!-- default map -->
+          <div class="row mb-2">
+            <div class="col-3 font-weight-bold">Default Map:</div>
+            <div class="col">Google Maps</div>
+          </div>
+          <!-- / default map -->
+
+        </div>
+      </div>
+    </div>
+    <!-- / map settings -->
+
+    <!-- feature interface -->
+    <div class="col-6 my-4">
+      <p2s-features-permission-panel></p2s-features-permission-panel>
+    </div>
+    <!-- / feature interface -->
+
+
+    <!-- permissions  -->
+    <div class="col-6 my-4">
+      <p2s-features-permission-panel
+          mode="permissions"></p2s-features-permission-panel>
+    </div>
+    <!-- / permissions -->
+    <!-- wizard-->
+    <!-- <div class="col">
+      <p2s-wizard
+          heading="Test"
+          [stepHeaders]="wizardHeadings"
+          (prev)="onPrev($event)"
+          (next)="onNext($event)"
+          (finish)="onComplete($event)"
+          [activeStep]="1">
+        <p2s-wizard-step-content step="1">
+          <h1>Step 1</h1>
+        </p2s-wizard-step-content>
+
+        <p2s-wizard-step-content step="2">
+          <h1>Step 2</h1>
+        </p2s-wizard-step-content>
+
+        <p2s-wizard-step-content step="3">
+          <h1>Step 3</h1>
+        </p2s-wizard-step-content>
+      </p2s-wizard>
+    </div> -->
+    <!-- /wizard-->
+  </div>
+</div>

@@ -1,0 +1,580 @@
+<p2s-user-form-popup [title]="mode + ' User'"
+                     (save)="save()"
+                     (cancel)="cancel()">
+  <form
+      role="form"
+      [formGroup]="userForm">
+
+    <div class="row">
+      <div class="col-6">
+        <!-- account type -->
+        <p2s-form-group label="Account Type"
+                        for="role"
+                        required="true">
+          <select
+              id="role"
+              class="form-control"
+              formControlName="userAccountType">
+            <option value="ROLE_USER">Normal</option>
+            <option value="ROLE_CUSTOMER_CARE">Customer Care</option>
+          </select>
+        </p2s-form-group>
+        <!-- / account type -->
+      </div>
+
+      <div class="col-6">
+        <!-- Expiry date -->
+        <p2s-form-group
+            label="Expiry Date"
+            for="dateExpires">
+          <input
+              type="text"
+              class="form-control"
+              id="dateExpires"
+              ngbDatepicker
+              #expiresDatePicker="ngbDatepicker"
+              readOnly
+              [minDate]="today"
+              (click)="expiresDatePicker.toggle()"
+              formControlName="userDateExpires">
+        </p2s-form-group>
+        <!-- / Expiry date -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <!-- Username -->
+        <p2s-form-group label="Username"
+                        for="username"
+                        required="true">
+          <input
+              type="text"
+              class="form-control"
+              formControlName="username"
+              [class.is-invalid]="
+                username.errors && (formSubmitted || username.touched || username.dirty)
+              "
+              id="username">
+          <div
+              class="invalid-feedback"
+              *ngIf="username.errors && (formSubmitted || username.touched || username.dirty)">
+            <div *ngIf="username.errors.required">
+              Username is required
+            </div>
+
+            <div *ngIf="username.errors.minlength">
+              Minimum length is 3
+            </div>
+
+            <div *ngIf="username.errors.maxlength">
+              Maximum length is 20
+            </div>
+
+            <div *ngIf="username.errors.pattern">
+              {{checkPattern.errorPatternMsg}}
+            </div>
+          </div>
+        </p2s-form-group>
+        <!-- / Username -->
+      </div>
+
+      <div class="col-6">
+        <!-- Creation date -->
+        <p2s-form-group
+            label="Creation Date"
+            for="dateCreated">
+          <input type="text"
+              class="form-control"
+              id="dateCreated"
+              ngbDatepicker
+              #createdDatePicker="ngbDatepicker"
+              readOnly
+              [minDate]="today"
+              (click)="createdDatePicker.toggle()"
+              formControlName="userDateCreated">
+        </p2s-form-group>
+        <!-- / Creation date -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div
+        class="col-6"
+        *ngIf="mode == 'add'">
+        <!-- Password -->
+        <p2s-form-group
+            label="Password"
+            for="password"
+            required="true">
+          <input [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              formControlName="userPassword"
+              [class.is-invalid]="userForm.controls['userPassword'].errors && (formSubmitted || userForm.controls['userPassword'].touched || userForm.controls['userPassword'].dirty)"
+              id="password">
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input"
+                type="checkbox"
+                (change)="showPassword = !showPassword"
+                id="showPassword">
+            <label class="custom-control-label text-muted"
+                  for="showPassword">
+              Show Password
+            </label>
+          </div>
+          <div class="invalid-feedback"
+               *ngIf="userForm.controls['userPassword'].errors && (formSubmitted || userForm.controls['userPassword'].touched || userForm.controls['userPassword'].dirty)">
+               <div *ngIf="userPassword.errors.required">
+                Password is required
+              </div>
+
+              <div *ngIf="userPassword.errors.maxlength">
+                Maximum length is 20
+              </div>
+
+              <div *ngIf="userPassword.errors.pattern">
+                {{checkPattern.errorPatternMsg}}
+              </div>
+
+          </div>
+        </p2s-form-group>
+        <!-- / Password -->
+      </div>
+
+
+      <div class="col-6">
+        <!-- email -->
+        <p2s-form-group label="Email"
+                        for="email"
+                        required="true">
+          <input type="email"
+                 class="form-control"
+                 id="userEmail"
+                 [class.is-invalid]="userForm.controls['userEmail'].errors && (formSubmitted ||
+                 userForm.controls['userEmail'].touched || userForm.controls['userEmail'].dirty)"
+                 formControlName="userEmail">
+          <div
+              class="invalid-feedback"
+              *ngIf="userEmail.errors && (formSubmitted || userEmail.touched || userEmail.dirty)">
+            <div *ngIf="userEmail.errors.required">
+              User Email is required
+            </div>
+
+            <div *ngIf="userEmail.errors.minlength">
+              Minimum length is 10
+            </div>
+
+            <div *ngIf="userEmail.errors.maxlength">
+              Maximum length is 40
+            </div>
+
+            <div *ngIf="userEmail.errors.pattern">
+              {{checkPattern.emailPatternErrorMsg}}
+            </div>
+          </div>
+        </p2s-form-group>
+        <!-- / email -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <!-- First Name -->
+        <p2s-form-group label="First Name"
+                        for="userFirstName"
+                        required="true">
+          <input type="text"
+                 class="form-control"
+                 formControlName="userFirstName"
+                 [class.is-invalid]="userForm.controls['userFirstName'].errors && (formSubmitted ||
+                 userForm.controls['userFirstName'].touched || userForm.controls['userFirstName'].dirty)"
+                 id="userFirstName">
+          <div
+              class="invalid-feedback"
+              *ngIf="userFirstName.errors && (formSubmitted || userFirstName.touched || userFirstName.dirty)">
+            <div *ngIf="userFirstName.errors.required">
+              First name is required
+            </div>
+
+            <div *ngIf="userFirstName.errors.minlength">
+              Minimum length is 3
+            </div>
+
+            <div *ngIf="userFirstName.errors.maxlength">
+              Maximum length is 20
+            </div>
+
+            <div *ngIf="userFirstName.errors.pattern">
+              {{checkPattern.errorPatternMsg}}
+            </div>
+          </div>
+        </p2s-form-group>
+        <!-- / First Name -->
+      </div>
+
+      <div class="col-6">
+        <!-- Middle Name -->
+        <p2s-form-group label="Middle Name"
+                        for="middleName">
+          <input type="text"
+                 class="form-control"
+                 formControlName="userMiddleName"
+                 id="middleName"
+                 [class.is-invalid]="userForm.controls['userMiddleName'].errors && 
+                 (formSubmitted || userForm.controls['userMiddleName'].dirty)">
+            <div
+                class="invalid-feedback"
+                *ngIf="userMiddleName.errors && (formSubmitted || userMiddleName.dirty)">
+              <div *ngIf="userMiddleName.errors.pattern">
+                {{checkPattern.errorPatternMsg}}
+              </div>
+            </div>
+        </p2s-form-group>
+        <!-- / Middle Name -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <!-- last name -->
+        <p2s-form-group label="Last Name"
+                        for="userLastName"
+                        required="true">
+          <input type="text"
+                 class="form-control"
+                 formControlName="userLastName"
+                 [class.is-invalid]="userForm.controls['userLastName'].errors && (formSubmitted ||
+                 userForm.controls['userLastName'].touched || userForm.controls['userLastName'].dirty)"
+                 id="userLastName">
+          <div
+              class="invalid-feedback"
+              *ngIf="userLastName.errors && (formSubmitted || userLastName.touched || userLastName.dirty)">
+            <div *ngIf="userLastName.errors.required">
+              Last name is required
+            </div>
+
+            <div *ngIf="userLastName.errors.minlength">
+              Minimum length is 3
+            </div>
+
+            <div *ngIf="userLastName.errors.maxlength">
+              Maximum length is 20
+            </div>
+
+            <div *ngIf="userLastName.errors.pattern">
+              {{checkPattern.errorPatternMsg}}
+            </div>
+          </div>
+        </p2s-form-group>
+        <!-- / last name -->
+      </div>
+
+      <div class="col-6">
+        <!-- organization name -->
+        <p2s-form-group label="Organization Name"
+                        for="orgName"
+                        required="true">
+          <input type="text"
+                 class="form-control"
+                 formControlName="userOrganizationName"
+                 [class.is-invalid]="userForm.controls['userOrganizationName'].errors &&
+                 (formSubmitted || userForm.controls['userOrganizationName'].touched ||
+                 userForm.controls['userOrganizationName'].dirty)"
+                 id="userOrganizationName">
+          <div
+              class="invalid-feedback"
+              *ngIf="userOrganizationName.errors && (formSubmitted || userOrganizationName.touched ||
+              userOrganizationName.dirty)">
+            <div *ngIf="userOrganizationName.errors.required">
+               Organization name is required
+            </div>
+
+            <div *ngIf="userOrganizationName.errors.minlength">
+              Minimum length is 3
+            </div>
+
+            <div *ngIf="userOrganizationName.errors.maxlength">
+              Maximum length is 40
+            </div>
+
+            <div *ngIf="userOrganizationName.errors.pattern">
+              {{checkPattern.errorPatternMsg}}
+            </div>
+          </div>
+        </p2s-form-group>
+        <!-- / organization name -->
+      </div>
+    </div>
+
+    <!-- address section -->
+    <div [formGroup]="addressForm">
+      <div class="row">
+        <div class="col-6">
+          <!-- address line 1 -->
+          <p2s-form-group label="Address Line 1"
+                          for="addressLine1">
+            <input type="text"
+                   id="addressLine1"
+                   class="form-control"
+                   formControlName="street1"
+                   [class.is-invalid]="addressForm.controls['street1'].errors && 
+                    (formSubmitted || addressForm.controls['street1'].dirty)">
+
+              <div
+                  class="invalid-feedback"
+                  *ngIf="addressForm.controls['street1'].errors && (formSubmitted ||
+                  addressForm.controls['street1'].dirty)">
+                <div *ngIf="addressForm.controls['street1'].errors.pattern">
+                  {{checkPattern.errorPatternMsg}}
+                </div>
+              </div>
+          </p2s-form-group>
+          <!-- / address line 1 -->
+        </div>
+
+        <div class="col-6">
+          <!-- address line 2 -->
+          <p2s-form-group label="Address Line 2"
+                          for="addressLine2">
+            <input type="text"
+                   id="addressLine2"
+                   class="form-control"
+                   formControlName="street2"
+                   [class.is-invalid]="addressForm.controls['street2'].errors && 
+                    (formSubmitted || addressForm.controls['street2'].dirty)">
+              <div
+                  class="invalid-feedback"
+                  *ngIf="addressForm.controls['street2'].errors && (formSubmitted ||
+                  addressForm.controls['street2'].dirty)">
+                <div *ngIf="addressForm.controls['street2'].errors.pattern">
+                  {{checkPattern.errorPatternMsg}}
+                </div>
+            </div>
+          </p2s-form-group>
+          <!-- / address line 2 -->
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <!-- City -->
+          <p2s-form-group label="City"
+                          for="city"
+                          required="true">
+            <input type="text"
+                   id="city"
+                   class="form-control"
+                   [class.is-invalid]="addressForm.controls['city'].errors && (formSubmitted || addressForm.controls['city'].touched || addressForm.controls['city'].dirty)"
+                   formControlName="city">
+            <div
+                class="invalid-feedback"
+                *ngIf="addressForm.controls['city'].errors && (formSubmitted ||
+                addressForm.controls['city'].touched || addressForm.controls['city'].dirty)">
+              <div *ngIf="addressForm.controls['city'].errors.required">
+               City is required
+              </div>
+
+              <div *ngIf="addressForm.controls['city'].errors.minlength">
+               Minimum length is 3
+              </div>
+
+              <div *ngIf="addressForm.controls['city'].errors.maxlength">
+                 Maximum length is 20
+              </div>
+
+              <div *ngIf="addressForm.controls['city'].errors.pattern">
+                  {{checkPattern.errorPatternMsg}}
+                </div>
+            </div>
+          </p2s-form-group>
+          <!-- / City -->
+        </div>
+
+        <div class="col-6">
+           <!-- State -->
+          <p2s-form-group label="State"
+                          for="state">
+            <input type="text"
+                   id="state"
+                   class="form-control"
+                   formControlName="state"
+                   [class.is-invalid]="addressForm.controls['state'].errors && 
+                    (formSubmitted || addressForm.controls['state'].dirty)">
+              <div
+                  class="invalid-feedback"
+                  *ngIf="addressForm.controls['state'].errors && (formSubmitted ||
+                  addressForm.controls['state'].dirty)">
+                <div *ngIf="addressForm.controls['state'].errors.pattern">
+                  {{checkPattern.errorPatternMsg}}
+                </div>
+            </div>
+          </p2s-form-group>
+          <!-- / State -->
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <!-- Country -->
+          <p2s-form-group label="Country"
+                          for="country"
+                          required="true">
+            <select id="country"
+                    class="form-control"
+                    [class.is-invalid]="addressForm.controls['country'].errors && (formSubmitted || addressForm.controls['country'].touched || addressForm.controls['country'].dirty)"
+                    formControlName="country">
+              <option value="USA">USA</option>
+              <option value="Canada">Canada</option>
+              <option value="China">China</option>
+              <option value="India">India</option>
+              <option value="Nepal">Nepal</option>
+            </select>
+            <div class="invalid-feedback"
+               *ngIf="addressForm.controls['country'].errors && (formSubmitted || addressForm.controls['country'].touched || addressForm.controls['country'].dirty)">
+            Country is required
+          </div>
+          </p2s-form-group>
+          <!-- / Country -->
+        </div>
+
+        <div class="col-6">
+           <!-- Zip -->
+          <p2s-form-group label="Zip"
+                          for="zip">
+            <input type="number"
+                   id="zip"
+                   class="form-control"
+                   formControlName="zipCode">
+          </p2s-form-group>
+          <!-- / Zip -->
+        </div>
+      </div>
+    </div>
+    <!-- / address section -->
+
+    <div class="row">
+      <!-- phone -->
+      <!-- TODO: add multiple phone fields -->
+      <div class="col-6">
+        <p2s-form-group label="Phone"
+                        for="userPhone"
+                        required="true">
+          <input type="text"
+                 class="form-control"
+                 formControlName="userPhone"
+                 [class.is-invalid]="
+                 userPhone.errors && (formSubmitted || userPhone.touched || userPhone.dirty)"
+              id="userPhone">
+          <div
+              class="invalid-feedback"
+              *ngIf="userPhone.errors && (formSubmitted || userPhone.touched || userPhone.dirty)">
+            <div *ngIf="userPhone.errors.required">
+              Phone is required
+            </div>
+
+            <div *ngIf="userPhone.errors.minlength">
+              Minimum length is 9
+            </div>
+
+            <div *ngIf="userPhone.errors.maxlength">
+              Maximum length is 20
+            </div>
+
+            <div *ngIf="userPhone.errors.pattern">
+              {{checkPattern.errorPatternMsg}}
+            </div>
+
+          </div>
+        </p2s-form-group>
+      </div>
+      <!-- / phone -->
+
+      <div class="col-6">
+        <!-- gender -->
+        <p2s-form-group 
+              label="Gender" 
+              required="true">
+          <div class="mt-2 d-flex">
+            <div class="custom-control custom-radio mr-3">
+              <input type="radio"
+                      class="custom-control-input"
+                      id="male"
+                      value="MALE"
+                      formControlName="userGender">
+              <label class="custom-control-label"
+                     for="male">Male</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+              <input type="radio"
+                     class="custom-control-input"
+                     id="female"
+                     value="FEMALE"
+                     formControlName="userGender">
+              <label class="custom-control-label"
+                     for="female">Female</label>
+            </div>
+          </div>
+        </p2s-form-group>
+        <!-- / gender -->
+      </div>
+
+    </div>
+
+    <!-- role -->
+    <!-- <p2s-form-group label="Role"
+                    for="role">
+      <select class="form-control"
+              id="role"
+              formControlName="role">
+        <option value="admin">Admin</option>
+        <option value="manager">Manager</option>
+      </select>
+    </p2s-form-group> -->
+    <!-- / role -->
+
+    <!-- <div
+        class="my-3 text-center"
+        *ngIf="!trackers">
+      <p2s-spinner></p2s-spinner>
+    </div>
+    
+    <p2s-list-selector
+        *ngIf="trackers"
+        [collection]="trackers"
+        [selection]="user.userTrackers"
+        (change)="user.userTrackers = $event"
+        label="Select Trackers *">
+    </p2s-list-selector>
+
+    <hr>
+
+    <h5 class="font-weight-bold mb-4">Features *</h5>
+
+    <div
+        class="my-3 text-center"
+        *ngIf="!features">
+      <p2s-spinner></p2s-spinner>
+    </div>
+
+    <div class="row my-2">
+      <div class="col-4"
+           *ngFor="let feature of features; index as i">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox"
+                 class="custom-control-input"
+                 [id]="'featCheck'+i"
+                 [checked]="hasFeature(feature.featureId)"
+                 (change)="featureChange(feature.featureId)">
+          <label class="custom-control-label"
+                 [for]="'featCheck'+i">
+            {{feature.featureName}}
+          </label>
+        </div>
+      </div>
+    </div> -->
+
+
+
+  </form>
+</p2s-user-form-popup>

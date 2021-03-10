@@ -1,0 +1,56 @@
+<p2s-user-form-popup
+    [title]="saveType + ' ' + mode"
+    (save)="save()"
+    (cancel)="cancel()">
+  <form
+      novalidate
+      role="form"
+      [formGroup]="dataForm">
+
+      <!-- feature name -->
+      <p2s-form-group
+          [label]="mode +' Name *'"
+          for="featureName">
+        <input
+            type="text"
+            class="form-control"
+            id="featureName"
+            formControlName="name"
+            [class.is-invalid]="name.errors && (formSubmitted ||
+                 name.touched || 
+                 name.dirty)">
+        <div 
+            class="invalid-feedback"
+            *ngIf="name.errors && (formSubmitted ||
+               name.touched || name.dirty)">
+          <div *ngIf="name.errors.required">
+                {{mode}} Name is required
+          </div>
+
+          <div *ngIf="name.errors.minlength">
+              Minimum length is 3
+          </div>
+
+          <div *ngIf="name.errors.maxlength">
+              Maximum length is 20
+          </div>
+        </div>
+      </p2s-form-group>
+      <!-- / feature name -->
+
+      <!-- type -->
+      <p2s-form-group
+          [label]="mode +' Type *'"
+          for="featureType">
+        <select
+            id="featureType"
+            class="form-control text-capitalize"
+             formControlName="type">
+          <option
+              *ngFor="let type of types"
+              [value]="type">{{type}}</option>
+        </select>
+      </p2s-form-group>
+      <!-- / type -->
+  </form>
+</p2s-user-form-popup>

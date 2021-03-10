@@ -1,0 +1,50 @@
+<!-- reminder -->
+<div class="reminder__container ml-3">
+
+  <div ngbDropdown placement="bottom-right">
+    <button class="btn btn-dark btn-clear" id="dropdownBasic1" ngbDropdownToggle>
+      <i class="fas fa-clock fa-lg"></i>
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+      <div class="px-3 py-1 bg-gray-2" (click)="$event.stopPropagation()" *ngIf="reminder.length">
+        <small class="d-flex align-items-center">
+          <!-- <strong class="col p-0">Recent</strong> -->
+          <div class="col"></div>
+          <a class="ml-3 pointer" tabindex="1" (click)="mark()">Mark All as Seen</a>
+        </small>
+      </div>
+      <button class="dropdown-item border-bottom py-2 pointer border-bottom" *ngFor="let rem of reminder">
+        <div class="d-flex align-items-center">
+          <i class="fas fa-check-circle text-success"></i>
+          <span class="font-weight-bold mx-2">Email Sent:</span>
+          <span class="">email@email.com</span>
+        </div>
+        <div class="ml-4">
+            <strong>Subject: </strong> <span>{{rem.reminderSubject}}</span>
+        </div>
+        <div class="ml-4">
+          <strong>Body:</strong> <span>{{rem.reminderBody}}</span>
+        </div>
+        <div class="ml-4">
+          <strong>End Date:</strong> <span>{{rem.reminderEndDate | date: 'MM-dd-yyyy hh:mm a'}}</span>
+        </div>
+      </button> 
+      
+    </div>
+
+    <!-- no reminder -->
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" *ngIf="!reminder?.length">
+      <!-- reminder button -->
+      <button class="dropdown-item border-bottom py-2 pointer border-bottom">
+        <div class="d-flex align-items-center">
+          <span class="">No recent reminder.</span>
+        </div>
+      </button> 
+      <!-- / reminder button -->
+    </div>
+     <!-- /no reminder -->
+
+  </div>
+  <span class="badge badge-danger"  *ngIf="(count | async) > 0">{{count}}</span>
+</div>
+<!-- / reminder -->

@@ -1,0 +1,30 @@
+:host {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 12px;
+    background: gray;
+    overflow: auto;
+}
+
+.width{
+    // width: 1100px;
+    margin-left:75px;
+    margin-right:75px;
+    
+}
+
+@media print
+{  .no-print
+    {
+     display: none !important;
+    }
+}
+canvas{
+  width:900px !important;
+  height:400px !important;
+  margin-left:10px;
+
+}

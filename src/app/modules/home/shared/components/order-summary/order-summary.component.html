@@ -1,0 +1,83 @@
+<div class="row mb-2  ">
+  <div class="col-lg-6">
+    <h3> Order Summary </h3>
+  </div>
+  <div class="col-lg-6 text-right mt-2">
+    <!-- <div [(ngModel)]="period" (click)="$event.preventDefault(); $event.stopPropagation();" class="w-100"
+      (ngModelChange)="fetchOrderSummary()">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" value="today">
+        <label class="form-check-label" for="inlineRadio1">Today</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio2" value="thisWeek">
+        <label class="form-check-label" for="inlineRadio2">Last 7 Days</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio3" value="thisMonth">
+        <label class="form-check-label" for="inlineRadio3">Last 30 Days</label>
+      </div>
+    </div> -->
+  </div>
+</div>
+<div class="row">
+  <!-- available orders -->
+  <div class="col-lg-3 col-md-6 mb-3">
+    <div class="card text-white bg-primary mb-2 rounded">
+      <div class="card-body">
+        <h4 class="card-title text-center">Available Orders</h4>
+        <!-- <div class="d-flex justify-content-center my-3">
+          <ng2-odometer [number]="available.length"></ng2-odometer>
+        </div> -->
+        <button class="btn btn-clear btn-clear-primary text-white btn-block" (click)="openOrderPopup('available')">See
+          Details</button>
+      </div>
+    </div>
+  </div>
+  <!-- / available orders -->
+
+  <!-- in transit -->
+  <div class="col-lg-3 col-md-6 mb-3">
+    <div class="card text-white bg-warning mb-2 rounded">
+      <div class="card-body">
+        <h4 class="card-title text-center">In Transit Orders</h4>
+        <!-- <div class="d-flex justify-content-center my-3">
+          <ng2-odometer [number]="inTransit.length"></ng2-odometer>
+        </div> -->
+        <button class="btn btn-clear btn-clear-warning text-white btn-block" (click)="openOrderPopup('in transit')">See
+          Details</button>
+      </div>
+    </div>
+  </div>
+  <!-- / in transit -->
+
+  <!-- delivered -->
+  <div class="col-lg-3 col-md-6 mb-3 ">
+    <div class="card text-white bg-success rounded">
+      <div class="card-body">
+        <h4 class="card-title text-center">Delivered Orders</h4>
+        <!-- <div class="d-flex justify-content-center my-3">
+          <ng2-odometer [number]="delivered.length"></ng2-odometer>
+        </div> -->
+        <button class="btn btn-clear btn-clear-success text-white btn-block" (click)="openOrderPopup('delivered')">See
+          Details</button>
+      </div>
+    </div>
+  </div>
+  <!-- / delivered -->
+
+  <!-- cancelled -->
+  <div class="col-lg-3 col-md-6 mb-3">
+    <div class="card text-white bg-danger rounded">
+      <div class="card-body">
+        <h4 class="card-title text-center">Cancelled Orders</h4>
+        <!-- <div class="d-flex justify-content-center my-3">
+          <ng2-odometer [number]="cancelled.length"></ng2-odometer>
+        </div> -->
+        <button class="btn btn-clear btn-clear-danger text-white btn-block" (click)="openOrderPopup('cancelled')">See
+          Details</button>
+      </div>
+    </div>
+  </div>
+  <!-- / cancelled -->
+</div>
